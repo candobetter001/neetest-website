@@ -2,13 +2,18 @@
 // Cloudflare Worker that generates and verifies email OTPs for sign-in.
 //
 // Endpoints:
-//   POST /otp/send     { email }                  -> { ok: true, expiresAt }
-//   POST /otp/verify   { email, otp }             -> { ok: true } | { ok: false, reason }
+//   POST /otp/send        { email }                             -> { ok, expiresAt }
+//   POST /otp/verify      { email, otp }                       -> { ok } | { ok: false, reason }
+//   POST /student/register { email, name, source }             -> { ok }
+//   POST /student/payment  { email, name, razorpay_payment_id,
+//                            amount_paise, plan, early_bird }  -> { ok, invoice_number }
 //
 // Requires:
 //   - KV namespace bound as OTP_STORE
-//   - Secret RESEND_API_KEY (from https://resend.com)
-//   - Secret FROM_EMAIL (e.g. "NEETest <candobetter001@gmail.com>")
+//   - Secret RESEND_API_KEY
+//   - Secret FROM_EMAIL
+//   - Secret SUPABASE_URL
+//   - Secret SUPABASE_SERVICE_KEY
 //   - Optional secret ALLOWED_ORIGIN (default: https://neetest.online)
 //
 // Rate-limited: max 5 send-OTP per email per hour.
@@ -46,8 +51,10 @@ export default {
     }
 
     try {
-      if (url.pathname === '/otp/send') return await handleSend(body, env, cors);
-      if (url.pathname === '/otp/verify') return await handleVerify(body, env, cors);
+      if (url.pathname === '/otp/send')        return await handleSend(body, env, cors);
+      if (url.pathname === '/otp/verify')      return await handleVerify(body, env, cors);
+      if (url.pathname === '/student/register') return await handleRegister(body, env, cors);
+      if (url.pathname === '/student/payment')  return await handlePayment(body, env, cors);
       return json({ ok: false, error: 'not found' }, 404, cors);
     } catch (e) {
       return json({ ok: false, error: 'server error', detail: String(e).slice(0, 200) }, 500, cors);
@@ -99,13 +106,6 @@ async function handleSend(body, env, cors) {
 
   if (!resendResp.ok) {
     const detail = await resendResp.text();
-    // Beta fallback: while neetest.online is not yet verified as a sending domain in Resend,
-    // the onboarding@resend.dev sender only accepts the account owner's address. For every
-    // other tester we return the OTP in the response so the frontend can display it on-screen.
-    // Remove this branch once the domain is verified.
-    if (resendResp.status === 403 && /testing emails to your own email address|verify a domain/i.test(detail)) {
-      return json({ ok: true, expiresAt, beta_otp: otp, beta_reason: 'domain_not_verified' }, 200, cors);
-    }
     return json({ ok: false, error: 'Could not send email. Please try again.', detail: detail.slice(0, 200) }, 502, cors);
   }
 
@@ -139,6 +139,75 @@ async function handleVerify(body, env, cors) {
   // Match — consume the OTP
   await env.OTP_STORE.delete(`otp:${email}`);
   return json({ ok: true }, 200, cors);
+}
+
+// ── Supabase helper ──────────────────────────────────────────────────────────
+async function supabase(env, table, method, data) {
+  const url = `${env.SUPABASE_URL}/rest/v1/${table}`;
+  const res = await fetch(url, {
+    method,
+    headers: {
+      'apikey': env.SUPABASE_SERVICE_KEY,
+      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+    },
+    body: JSON.stringify(data),
+  });
+  const text = await res.text();
+  try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
+  catch { return { ok: res.ok, status: res.status, data: text }; }
+}
+
+// POST /student/register — called after OTP verify succeeds
+async function handleRegister(body, env, cors) {
+  const email = (body.email || '').trim().toLowerCase();
+  const name  = (body.name  || '').trim();
+  if (!email) return json({ ok: false, error: 'email required' }, 400, cors);
+
+  // Upsert so re-logins don't fail
+  const result = await supabase(env, 'neetest_students', 'POST', {
+    email, name: name || null, source: body.source || 'web',
+  });
+
+  // 409 conflict = already registered, that's fine
+  if (!result.ok && result.status !== 409) {
+    console.error('register error:', result.data);
+  }
+  return json({ ok: true }, 200, cors);
+}
+
+// POST /student/payment — called from pricing.html Razorpay handler
+async function handlePayment(body, env, cors) {
+  const email = (body.email || '').trim().toLowerCase();
+  const { name, razorpay_payment_id, amount_paise, plan, early_bird } = body;
+
+  if (!email || !razorpay_payment_id || !amount_paise) {
+    return json({ ok: false, error: 'missing fields' }, 400, cors);
+  }
+
+  // Ensure student exists first
+  await supabase(env, 'neetest_students', 'POST', {
+    email, name: name || null, source: 'web',
+  });
+
+  const result = await supabase(env, 'neetest_payments', 'POST', {
+    email,
+    name: name || null,
+    razorpay_payment_id,
+    amount_paise: Number(amount_paise),
+    plan: plan || 'lifetime',
+    early_bird: early_bird === true || early_bird === 'true',
+    notes: { user_agent: body.user_agent || null },
+  });
+
+  if (!result.ok) {
+    console.error('payment log error:', result.data);
+    return json({ ok: false, error: 'could not log payment' }, 502, cors);
+  }
+
+  const invoice = result.data?.[0]?.invoice_number || null;
+  return json({ ok: true, invoice_number: invoice }, 200, cors);
 }
 
 function json(payload, status, cors) {

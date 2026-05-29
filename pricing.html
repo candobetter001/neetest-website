@@ -159,7 +159,7 @@
           }
         },
         handler: function (response) {
-          // Mark paid in both keys that the app checks
+          // Mark paid locally
           const updated = {
             ...user,
             plan: 'lifetime',
@@ -169,6 +169,23 @@
           };
           localStorage.setItem('neetest_user', JSON.stringify(updated));
           localStorage.setItem('neetest_paid', 'true');
+
+          // Log payment to backend for GST records (fire-and-forget)
+          if (window.NEETEST_OTP_ENDPOINT) {
+            fetch(window.NEETEST_OTP_ENDPOINT + '/student/payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: user.email,
+                name: user.name || '',
+                razorpay_payment_id: response.razorpay_payment_id,
+                amount_paise: amount * 100,
+                plan: 'lifetime',
+                early_bird: NEETEST_PRICING.isEarlyBird(),
+              }),
+            }).catch(() => {});
+          }
+
           window.location.href = 'profile.html?payment=success&id=' + response.razorpay_payment_id;
         },
       };

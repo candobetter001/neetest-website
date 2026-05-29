@@ -188,6 +188,16 @@
         return;
       }
       NEETEST_AUTH.login(pendingEmail, pendingName);
+
+      // Log registration to backend (fire-and-forget, for GST records)
+      if (window.NEETEST_OTP_ENDPOINT) {
+        fetch(window.NEETEST_OTP_ENDPOINT + '/student/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: pendingEmail, name: pendingName, source: 'web' }),
+        }).catch(() => {});
+      }
+
       document.getElementById('step-otp').classList.add('hidden');
       document.getElementById('step-done').classList.remove('hidden');
       refreshIcons();
