@@ -1,6 +1,8 @@
 /* NEETest — light theme, shared styles + animations */
 
+/* Force light mode regardless of OS dark-mode preference */
 :root {
+  color-scheme: light only;
   --bg: #fafbff;
   --surface: #ffffff;
   --surface-2: #f1f5f9;
@@ -18,12 +20,22 @@
   --violet: #8b5cf6;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  color-scheme: light only;
+  background: #fafbff;
+}
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg) !important;
+  color: var(--text) !important;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Override any dark-mode media queries from CDN libs */
+@media (prefers-color-scheme: dark) {
+  :root { color-scheme: light only !important; }
+  html, body { background: #fafbff !important; color: #0f172a !important; }
 }
 
 .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; letter-spacing: -0.02em; }
