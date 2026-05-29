@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download NEETest &mdash; Android App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <section class="relative overflow-hidden py-16 md:py-24">
+      <div class="mesh-bg"></div>
+      <div class="relative max-w-5xl mx-auto px-4 md:px-6 text-center">
+        <span class="section-eyebrow">Download</span>
+        <h1 class="font-display text-4xl md:text-6xl font-bold">Get NEETest on your phone.</h1>
+        <p class="text-[var(--text-muted)] mt-4 max-w-2xl mx-auto">All 508 PYQs + the full feature set. Works offline. Less than 20 MB.</p>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
+          <div class="p-8 rounded-3xl border-2 border-indigo-500 bg-white shadow-xl">
+            <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">
+              <i data-lucide="smartphone" class="w-7 h-7 text-white"></i>
+            </div>
+            <h2 class="font-display text-2xl font-bold mb-2">Android APK</h2>
+            <p class="text-sm text-[var(--text-muted)] mb-4">Direct download. v0.1.0 &middot; 17 MB</p>
+            <a href="#" class="btn-primary w-full justify-center magnetic" onclick="alert('APK download will be live after we publish v0.1. Drop your email below to be notified.'); return false;">
+              <i data-lucide="download" class="w-4 h-4"></i>Download APK
+            </a>
+            <p class="text-xs text-[var(--text-muted)] mt-3">Requires Android 7.0+ &middot; You may need to allow "install from unknown sources"</p>
+          </div>
+          <div class="p-8 rounded-3xl border border-[var(--border)] bg-white opacity-60">
+            <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center bg-slate-200">
+              <i data-lucide="play" class="w-7 h-7 text-slate-500"></i>
+            </div>
+            <h2 class="font-display text-2xl font-bold mb-2">Play Store</h2>
+            <p class="text-sm text-[var(--text-muted)] mb-4">Coming soon</p>
+            <button class="btn-secondary w-full justify-center" disabled><i data-lucide="hourglass" class="w-4 h-4"></i>Notify me</button>
+          </div>
+        </div>
+
+        <div class="mt-12 p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] max-w-xl mx-auto">
+          <h3 class="font-display text-xl font-bold mb-3">Get notified when APK is live</h3>
+          <form onsubmit="event.preventDefault(); document.getElementById('thanks').classList.remove('hidden'); this.style.display='none';" class="flex flex-col sm:flex-row gap-2">
+            <input type="email" required placeholder="you@example.com" class="flex-1 px-4 py-3 rounded-lg border border-[var(--border)] bg-white outline-none focus:border-indigo-500" />
+            <button class="btn-primary magnetic">Notify me</button>
+          </form>
+          <p id="thanks" class="hidden text-sm text-emerald-600 mt-3">&check; You're in. We'll email you the moment v0.1 ships.</p>
+          <p class="text-xs text-[var(--text-muted)] mt-3">We won't spam. One email when ready.</p>
+        </div>
+
+        <!-- iOS section -->
+        <div class="mt-12 p-6 rounded-2xl bg-amber-50 border border-amber-200 max-w-xl mx-auto">
+          <h3 class="font-bold mb-2 flex items-center gap-2 justify-center"><i data-lucide="apple" class="w-5 h-5"></i> iOS users?</h3>
+          <p class="text-sm text-amber-800">iOS app is on the roadmap (Q4 2026). For now, you can use neetest.online in Safari &mdash; works fully on the web.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    renderNav('download.html');
+    renderFooter();
+    initMagnetic();
+  </script>
+</body>
+</html>

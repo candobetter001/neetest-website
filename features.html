@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features &mdash; NEETest</title>
+  <meta name="description" content="All 50 features of NEETest: PYQ bank, mock tests, analytics, study tools, planner, community, exam info, and smart tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative overflow-hidden py-16 md:py-20">
+      <div class="mesh-bg"></div>
+      <div class="relative max-w-6xl mx-auto px-4 md:px-6 text-center">
+        <span class="section-eyebrow">50 features</span>
+        <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight">
+          One app. <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">Every feature you need.</span>
+        </h1>
+        <p class="text-lg text-[var(--text-muted)] mt-6 max-w-2xl mx-auto">
+          Practice, analytics, study tools, planner, community, exam info, and smart tools &mdash; grouped by what you actually do every day.
+        </p>
+
+        <!-- Filter pills -->
+        <div class="mt-8 flex flex-wrap justify-center gap-2" id="filter-pills">
+          <button data-filter="all" class="px-4 py-2 rounded-full text-sm font-semibold bg-[var(--primary)] text-white">All 50</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE GRID BY CATEGORY -->
+    <section class="pb-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div id="features-by-cat"></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 md:py-24 bg-[var(--surface)]">
+      <div class="max-w-4xl mx-auto px-4 md:px-6 text-center">
+        <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Ready to ace NEET PG?</h2>
+        <p class="text-lg text-[var(--text-muted)] mb-8">Start with 508 free PYQs &mdash; no signup needed.</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="questions.html" class="btn-primary magnetic"><i data-lucide="play" class="w-5 h-5"></i>Practice now</a>
+          <a href="download.html" class="btn-secondary magnetic"><i data-lucide="smartphone" class="w-5 h-5"></i>Get the app</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    renderNav('features.html');
+    renderFooter();
+
+    // Render filter pills
+    const pillsEl = document.getElementById('filter-pills');
+    Object.entries(NEETEST_CATEGORIES).forEach(([key, cat]) => {
+      pillsEl.insertAdjacentHTML('beforeend', `
+        <button data-filter="${key}" class="px-4 py-2 rounded-full text-sm font-semibold bg-[var(--surface-2)] text-[var(--text)] hover:bg-[var(--surface)] hover:shadow-md transition">${cat.label}</button>
+      `);
+    });
+
+    // Render features grouped by category
+    function renderFeatures(filter) {
+      const container = document.getElementById('features-by-cat');
+      container.innerHTML = '';
+      Object.entries(NEETEST_CATEGORIES).forEach(([key, cat]) => {
+        if (filter !== 'all' && filter !== key) return;
+        const features = NEETEST_FEATURES.filter(f => f.cat === key);
+        const html = `
+          <div class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h2 class="font-display text-2xl md:text-3xl font-bold" style="color:${cat.color}">${cat.label}</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-1">${cat.sub}</p>
+              </div>
+              <span class="text-sm text-[var(--text-muted)]">${features.length} features</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              ${features.map((f, idx) => {
+                const badge = f.status === 'live' ? '<span class="badge-live">LIVE</span>' :
+                              f.status === 'pro' ? '<span class="badge-pro">PRO</span>' :
+                              '<span class="badge-soon">Soon</span>';
+                const href = f.href || '#';
+                const clickable = f.href ? '' : 'pointer-events-none opacity-95';
+                return `
+                  <a href="${href}" class="reveal feature-card cat-${f.cat} ${clickable}" style="transition-delay:${idx * 0.03}s">
+                    ${badge}
+                    <div class="icon-wrap"><i data-lucide="${f.icon}" class="w-5 h-5"></i></div>
+                    <h3 class="font-semibold text-sm">${f.title}</h3>
+                    <p class="text-xs text-[var(--text-muted)] mt-1">${f.tagline}</p>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      });
+      refreshIcons();
+      initReveal();
+    }
+    renderFeatures('all');
+
+    // Pill click handlers
+    pillsEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      pillsEl.querySelectorAll('button').forEach(b => {
+        b.classList.remove('bg-[var(--primary)]', 'text-white');
+        b.classList.add('bg-[var(--surface-2)]', 'text-[var(--text)]');
+      });
+      btn.classList.remove('bg-[var(--surface-2)]', 'text-[var(--text)]');
+      btn.classList.add('bg-[var(--primary)]', 'text-white');
+      renderFeatures(btn.dataset.filter);
+    });
+
+    initMagnetic();
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Tests &mdash; NEETest</title>
+  <meta name="description" content="NEET PG and INI-CET mock tests with timer and analytics. Take a free 10-Q quick test or set up a full mock." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <section class="relative overflow-hidden py-12 md:py-16">
+      <div class="mesh-bg"></div>
+      <div class="relative max-w-6xl mx-auto px-4 md:px-6 text-center">
+        <span class="section-eyebrow">Mock Tests</span>
+        <h1 class="font-display text-3xl md:text-5xl font-bold">Practice like exam day.</h1>
+        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">Timed mocks with the exact format of NEET PG and INI-CET. Scoring with negative marking. No surprises on D-Day.</p>
+      </div>
+    </section>
+
+    <!-- Pick your test type -->
+    <section class="py-8">
+      <div class="max-w-5xl mx-auto px-4 md:px-6">
+        <h2 class="font-display text-2xl font-bold mb-6">Choose your mock</h2>
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="reveal feature-card cat-practice cursor-pointer" id="quick10">
+            <span class="badge-live">LIVE</span>
+            <div class="icon-wrap"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            <h3 class="font-display font-bold">Quick 10</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">10 random questions, 10-minute timer. No commitment.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">10 Qs &middot; 10 min &middot; +4/&minus;1</div>
+          </div>
+          <div class="reveal feature-card cat-exam" style="transition-delay:0.1s">
+            <span class="badge-soon">Soon</span>
+            <div class="icon-wrap"><i data-lucide="trophy" class="w-5 h-5"></i></div>
+            <h3 class="font-display font-bold">NEET PG Full Mock</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">200 questions, 3h 30m, 5 sections of 40. Real format.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">200 Qs &middot; 3h 30m &middot; +4/&minus;1</div>
+          </div>
+          <div class="reveal feature-card cat-analytics" style="transition-delay:0.2s">
+            <span class="badge-soon">Soon</span>
+            <div class="icon-wrap"><i data-lucide="layout-grid" class="w-5 h-5"></i></div>
+            <h3 class="font-display font-bold">INI-CET Full Mock</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">200 questions, 3h, 4 parts of 50. AIIMS format.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">200 Qs &middot; 3h &middot; +1/&minus;1/3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mock test runner (Quick 10) -->
+    <section id="test-runner" class="py-12 hidden">
+      <div class="max-w-3xl mx-auto px-4 md:px-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="font-semibold"><span id="cur-num">1</span> / <span id="tot-num">10</span></div>
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--surface-2)] text-sm">
+            <i data-lucide="timer" class="w-4 h-4"></i>
+            <span id="timer">10:00</span>
+          </div>
+        </div>
+        <div id="test-card" class="q-card"></div>
+        <div class="flex items-center justify-between mt-6">
+          <button id="t-prev" class="btn-secondary">Previous</button>
+          <button id="t-next" class="btn-primary">Next<i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" class="py-12 hidden">
+      <div class="max-w-3xl mx-auto px-4 md:px-6">
+        <div class="p-8 md:p-10 rounded-3xl border border-[var(--border)] text-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.06),rgba(6,182,212,0.06))">
+          <i data-lucide="trophy" class="w-12 h-12 mx-auto mb-4 text-indigo-600"></i>
+          <h2 class="font-display text-3xl font-bold">Test complete!</h2>
+          <div class="grid grid-cols-3 gap-4 mt-8">
+            <div>
+              <div class="font-display text-4xl font-bold text-indigo-600" id="r-score">--</div>
+              <div class="text-xs text-[var(--text-muted)] mt-1">SCORE / 40</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-bold text-emerald-600" id="r-correct">--</div>
+              <div class="text-xs text-[var(--text-muted)] mt-1">CORRECT</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-bold text-rose-600" id="r-wrong">--</div>
+              <div class="text-xs text-[var(--text-muted)] mt-1">WRONG</div>
+            </div>
+          </div>
+          <p class="text-[var(--text-muted)] text-sm mt-6" id="r-msg">Great session!</p>
+          <div class="mt-6 flex gap-3 justify-center">
+            <button id="r-again" class="btn-primary magnetic"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Take another</button>
+            <a href="questions.html" class="btn-secondary magnetic"><i data-lucide="book-open" class="w-4 h-4"></i>Browse PYQs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info -->
+    <section class="py-16 bg-[var(--surface)]" id="info">
+      <div class="max-w-5xl mx-auto px-4 md:px-6">
+        <h2 class="font-display text-2xl md:text-3xl font-bold mb-6">How NEETest mocks work</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="reveal">
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3"><i data-lucide="zap"></i></div>
+            <h3 class="font-display font-bold mb-1">Real exam format</h3>
+            <p class="text-sm text-[var(--text-muted)]">Section-locked navigation, auto-submit on timeout, scientific calculator-free &mdash; mirrors NBE/AIIMS.</p>
+          </div>
+          <div class="reveal" style="transition-delay:0.1s">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3"><i data-lucide="bar-chart-3"></i></div>
+            <h3 class="font-display font-bold mb-1">Honest analytics</h3>
+            <p class="text-sm text-[var(--text-muted)]">Subject-wise breakdown, time-per-question, accuracy vs speed graphs. No vanity metrics.</p>
+          </div>
+          <div class="reveal" style="transition-delay:0.2s">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-3"><i data-lucide="bookmark"></i></div>
+            <h3 class="font-display font-bold mb-1">Save and revisit</h3>
+            <p class="text-sm text-[var(--text-muted)]">Bookmark questions to drill later. All wrong answers auto-saved to your review queue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    renderNav('mock-tests.html');
+    renderFooter();
+
+    // Quick 10 mock test
+    let QS = [], picked = [], idx = 0, answers = {}, timerInterval, secondsLeft = 600;
+    fetch('assets/data/questions.json').then(r => r.json()).then(data => { QS = data; });
+
+    function startQuick10() {
+      picked = QS.slice().sort(() => Math.random() - 0.5).slice(0, 10);
+      idx = 0; answers = {}; secondsLeft = 600;
+      document.querySelector('section:first-of-type').classList.add('hidden');
+      document.querySelector('#test-runner').classList.remove('hidden');
+      document.querySelector('#results').classList.add('hidden');
+      document.getElementById('tot-num').textContent = picked.length;
+      renderQ();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60), s = secondsLeft % 60;
+        document.getElementById('timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        if (secondsLeft <= 0) { clearInterval(timerInterval); showResults(); }
+      }, 1000);
+    }
+
+    function renderQ() {
+      const q = picked[idx];
+      document.getElementById('cur-num').textContent = idx + 1;
+      const card = document.getElementById('test-card');
+      const userAns = answers[q.id];
+      card.innerHTML = `
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">${q.exam} ${q.year}</span>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">${q.subject}</span>
+        </div>
+        <h2 class="text-lg md:text-xl font-medium leading-relaxed mb-6">${q.stem}</h2>
+        ${q.options.map((opt, i) => `
+          <div class="q-option ${userAns === i ? 'selected' : ''}" data-idx="${i}">
+            <span class="font-bold mr-2">${String.fromCharCode(97 + i)})</span>${opt}
+          </div>
+        `).join('')}
+      `;
+      card.querySelectorAll('.q-option').forEach(o => {
+        o.addEventListener('click', () => {
+          const sel = parseInt(o.dataset.idx, 10);
+          answers[q.id] = sel;
+          card.querySelectorAll('.q-option').forEach(x => x.classList.remove('selected'));
+          o.classList.add('selected');
+        });
+      });
+      refreshIcons();
+    }
+
+    function showResults() {
+      clearInterval(timerInterval);
+      let correct = 0, wrong = 0, score = 0;
+      picked.forEach(q => {
+        const a = answers[q.id];
+        if (a === undefined) return;
+        if (a === q.correctIndex) { correct++; score += 4; } else { wrong++; score -= 1; }
+      });
+      document.getElementById('r-score').textContent = score;
+      document.getElementById('r-correct').textContent = correct;
+      document.getElementById('r-wrong').textContent = wrong;
+      const pct = picked.length ? (correct / picked.length * 100) : 0;
+      const msg = pct >= 80 ? 'Outstanding. AIR-1 vibes.' :
+                  pct >= 60 ? 'Solid. Keep building.' :
+                  pct >= 40 ? 'Decent start. Review wrong answers.' :
+                  "Let's dig into the basics. The wrong-answer queue will save you.";
+      document.getElementById('r-msg').textContent = msg;
+      document.querySelector('#test-runner').classList.add('hidden');
+      document.querySelector('#results').classList.remove('hidden');
+    }
+
+    document.getElementById('quick10').addEventListener('click', () => { if (QS.length) startQuick10(); });
+    document.getElementById('t-prev').addEventListener('click', () => { if (idx > 0) { idx--; renderQ(); } });
+    document.getElementById('t-next').addEventListener('click', () => {
+      if (idx < picked.length - 1) { idx++; renderQ(); } else { showResults(); }
+    });
+    document.getElementById('r-again').addEventListener('click', startQuick10);
+
+    initMagnetic();
+  </script>
+</body>
+</html>

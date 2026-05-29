@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question Bank &mdash; NEETest</title>
+  <meta name="description" content="508 free verified NEET PG, INI-CET, and AIIMS PG previous year questions. Filter by subject, exam, year. No signup needed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <section class="relative overflow-hidden py-10 md:py-14">
+      <div class="mesh-bg"></div>
+      <div class="relative max-w-6xl mx-auto px-4 md:px-6">
+        <div class="text-center mb-8">
+          <span class="section-eyebrow">PYQ Bank &middot; Free Forever</span>
+          <h1 class="font-display text-3xl md:text-5xl font-bold leading-tight">
+            <span id="q-count">508</span> verified PYQs.<br />
+            <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">Practice. Reveal. Repeat.</span>
+          </h1>
+          <p class="text-[var(--text-muted)] mt-3">From NEET PG, INI-CET, and AIIMS PG &mdash; tagged by year &amp; subject.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-6">
+      <div class="max-w-6xl mx-auto px-4 md:px-6">
+        <!-- Filter bar -->
+        <div class="flex flex-wrap gap-3 items-center mb-6 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+          <div class="flex items-center gap-2 flex-1 min-w-[200px]">
+            <i data-lucide="search" class="w-4 h-4 text-[var(--text-muted)]"></i>
+            <input id="search" type="text" placeholder="Search question text..." class="w-full bg-transparent outline-none text-sm py-2" />
+          </div>
+          <select id="filter-subject" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+            <option value="">All subjects</option>
+          </select>
+          <select id="filter-exam" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+            <option value="">All exams</option>
+          </select>
+          <select id="filter-year" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+            <option value="">All years</option>
+          </select>
+          <button id="shuffle-btn" class="btn-secondary text-sm py-2 px-3">
+            <i data-lucide="shuffle" class="w-4 h-4"></i>Shuffle
+          </button>
+        </div>
+
+        <!-- Counters -->
+        <div class="flex items-center gap-4 text-sm text-[var(--text-muted)] mb-4">
+          <span><strong id="filtered-count" class="text-[var(--text)]">--</strong> questions matching</span>
+          <span>&middot;</span>
+          <span><strong id="answered-count" class="text-[var(--text)]">0</strong> attempted</span>
+          <span>&middot;</span>
+          <span><strong id="correct-count" class="text-emerald-600">0</strong> correct</span>
+        </div>
+
+        <!-- Question card -->
+        <div id="q-card" class="q-card"></div>
+
+        <!-- Nav buttons -->
+        <div class="flex items-center justify-between mt-6">
+          <button id="prev-btn" class="btn-secondary"><i data-lucide="chevron-left" class="w-4 h-4"></i>Previous</button>
+          <span class="text-sm text-[var(--text-muted)]"><span id="current-idx">1</span> of <span id="total-idx">--</span></span>
+          <button id="next-btn" class="btn-primary">Next<i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 text-center" id="subject-stats"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    renderNav('questions.html');
+    renderFooter();
+
+    let QS = [];
+    let filtered = [];
+    let currentIdx = 0;
+    let stats = { attempted: 0, correct: 0 };
+    let answered = new Set();
+
+    async function loadQuestions() {
+      const res = await fetch('assets/data/questions.json');
+      QS = await res.json();
+      document.getElementById('q-count').textContent = QS.length.toLocaleString('en-IN');
+
+      // Populate filters
+      const subjects = [...new Set(QS.map(q => q.subject))].sort();
+      const exams = [...new Set(QS.map(q => q.exam))].sort();
+      const years = [...new Set(QS.map(q => q.year))].sort((a,b) => b - a);
+      const fs = document.getElementById('filter-subject');
+      const fe = document.getElementById('filter-exam');
+      const fy = document.getElementById('filter-year');
+      subjects.forEach(s => fs.insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
+      exams.forEach(e => fe.insertAdjacentHTML('beforeend', `<option value="${e}">${e}</option>`));
+      years.forEach(y => fy.insertAdjacentHTML('beforeend', `<option value="${y}">${y}</option>`));
+
+      // Subject stats
+      const statsEl = document.getElementById('subject-stats');
+      subjects.slice(0, 4).forEach(s => {
+        const count = QS.filter(q => q.subject === s).length;
+        statsEl.insertAdjacentHTML('beforeend', `
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--surface)]">
+            <div class="font-display text-2xl font-bold">${count}</div>
+            <div class="text-xs text-[var(--text-muted)] mt-1">${s}</div>
+          </div>
+        `);
+      });
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const subj = document.getElementById('filter-subject').value;
+      const exam = document.getElementById('filter-exam').value;
+      const year = document.getElementById('filter-year').value;
+      const search = document.getElementById('search').value.toLowerCase();
+
+      filtered = QS.filter(q => {
+        if (subj && q.subject !== subj) return false;
+        if (exam && q.exam !== exam) return false;
+        if (year && q.year.toString() !== year) return false;
+        if (search && !q.stem.toLowerCase().includes(search)) return false;
+        return true;
+      });
+
+      document.getElementById('filtered-count').textContent = filtered.length.toLocaleString('en-IN');
+      document.getElementById('total-idx').textContent = filtered.length;
+      currentIdx = 0;
+      renderCurrent();
+    }
+
+    function renderCurrent() {
+      const card = document.getElementById('q-card');
+      if (filtered.length === 0) {
+        card.innerHTML = `<div class="text-center py-12 text-[var(--text-muted)]">No questions match your filters.</div>`;
+        document.getElementById('current-idx').textContent = 0;
+        return;
+      }
+      const q = filtered[currentIdx];
+      document.getElementById('current-idx').textContent = currentIdx + 1;
+      const wasAnswered = answered.has(q.id);
+      card.innerHTML = `
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">${q.exam} ${q.year}</span>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">${q.subject}</span>
+          ${q.topic ? `<span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">${q.topic}</span>` : ''}
+        </div>
+        <h2 class="text-lg md:text-xl font-medium leading-relaxed mb-6">${q.stem}</h2>
+        <div id="options">
+          ${q.options.map((opt, i) => `
+            <div class="q-option" data-idx="${i}" data-correct="${q.correctIndex}">
+              <span class="font-bold mr-2">${String.fromCharCode(97 + i)})</span>${opt}
+            </div>
+          `).join('')}
+        </div>
+        <div id="reveal-area" class="mt-6"></div>
+      `;
+      const options = card.querySelectorAll('.q-option');
+      options.forEach(o => {
+        o.addEventListener('click', () => {
+          const idx = parseInt(o.dataset.idx, 10);
+          const correct = parseInt(o.dataset.correct, 10);
+          if (answered.has(q.id)) return;
+          answered.add(q.id);
+          stats.attempted++;
+          if (idx === correct) stats.correct++;
+          updateStats();
+          options.forEach((opt, i) => {
+            if (i === correct) opt.classList.add('correct');
+            else if (i === idx) opt.classList.add('wrong');
+          });
+          document.getElementById('reveal-area').innerHTML = `
+            <div class="p-4 rounded-xl border-2 ${idx === correct ? 'border-emerald-500 bg-emerald-50' : 'border-rose-500 bg-rose-50'}">
+              <div class="font-semibold text-sm">
+                ${idx === correct ? '&check; Correct!' : `&times; Wrong &mdash; the answer is ${String.fromCharCode(97 + correct)}.`}
+              </div>
+            </div>
+          `;
+        });
+      });
+      refreshIcons();
+    }
+
+    function updateStats() {
+      document.getElementById('answered-count').textContent = stats.attempted;
+      document.getElementById('correct-count').textContent = stats.correct;
+    }
+
+    document.getElementById('search').addEventListener('input', applyFilters);
+    document.getElementById('filter-subject').addEventListener('change', applyFilters);
+    document.getElementById('filter-exam').addEventListener('change', applyFilters);
+    document.getElementById('filter-year').addEventListener('change', applyFilters);
+    document.getElementById('shuffle-btn').addEventListener('click', () => {
+      filtered = filtered.slice().sort(() => Math.random() - 0.5);
+      currentIdx = 0;
+      renderCurrent();
+    });
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      if (currentIdx > 0) { currentIdx--; renderCurrent(); window.scrollTo({top:0,behavior:'smooth'}); }
+    });
+    document.getElementById('next-btn').addEventListener('click', () => {
+      if (currentIdx < filtered.length - 1) { currentIdx++; renderCurrent(); window.scrollTo({top:0,behavior:'smooth'}); }
+    });
+
+    loadQuestions();
+    initMagnetic();
+  </script>
+</body>
+</html>
