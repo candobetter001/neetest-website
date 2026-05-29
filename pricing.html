@@ -58,7 +58,10 @@
               <div id="original-price" class="text-xl line-through opacity-60">&#8377;4,999</div>
             </div>
             <div class="text-sm opacity-90 mb-6" id="price-sub">Save &#8377;3,000 &middot; offer ends 15 June 2026 &middot; one-time, no renewal</div>
-            <a href="login.html?upgrade=1" class="btn-primary w-full justify-center mb-6 magnetic" style="background:white;color:#4f46e5">Get lifetime access</a>
+            <button id="rzp-pay-btn" onclick="startPayment()" class="btn-primary w-full justify-center mb-6 magnetic" style="background:white;color:#4f46e5">
+              Get lifetime access
+            </button>
+            <div id="rzp-error" class="hidden text-xs text-red-200 text-center -mt-4 mb-4"></div>
             <p class="text-sm font-semibold mb-3">Includes everything in Free trial, plus:</p>
             <ul class="space-y-3 text-sm">
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Full MCQ practice bank across all subjects</li>
@@ -106,12 +109,86 @@
   </main>
 
   <div id="footer-slot"></div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script src="assets/js/data.js?v=3"></script>
   <script src="assets/js/main.js?v=3"></script>
   <script>
     renderNav('pricing.html');
     renderFooter();
     initMagnetic();
+
+    async function startPayment() {
+      const btn = document.getElementById('rzp-pay-btn');
+      const errEl = document.getElementById('rzp-error');
+      errEl.classList.add('hidden');
+
+      // If not logged in, bounce to login first — we need email for receipt
+      const user = JSON.parse(localStorage.getItem('neetest_user') || 'null');
+      if (!user || !user.email) {
+        window.location.href = 'login.html?upgrade=1';
+        return;
+      }
+
+      const isEB = NEETEST_PRICING.isEarlyBird();
+      const amount = isEB ? NEETEST_PRICING.earlyBird : NEETEST_PRICING.regular;
+
+      btn.disabled = true;
+      btn.textContent = 'Opening payment…';
+
+      const options = {
+        key: 'rzp_live_SdqtGJrzurV1aN',
+        amount: amount * 100,           // paise
+        currency: 'INR',
+        name: 'NEETest',
+        description: 'Lifetime Access' + (isEB ? ' — Early Bird' : ''),
+        image: 'https://neetest.online/assets/img/logo.png',
+        prefill: {
+          email: user.email,
+          name: user.name || '',
+        },
+        notes: {
+          product: 'NEETest Lifetime',
+          plan: isEB ? 'early_bird' : 'regular',
+          email: user.email,
+        },
+        theme: { color: '#4f46e5' },
+        modal: {
+          ondismiss: function () {
+            btn.disabled = false;
+            btn.textContent = 'Get lifetime access';
+          }
+        },
+        handler: function (response) {
+          // Mark paid in both keys that the app checks
+          const updated = {
+            ...user,
+            plan: 'lifetime',
+            paymentId: response.razorpay_payment_id,
+            paidAt: new Date().toISOString(),
+            paidAmount: amount,
+          };
+          localStorage.setItem('neetest_user', JSON.stringify(updated));
+          localStorage.setItem('neetest_paid', 'true');
+          window.location.href = 'profile.html?payment=success&id=' + response.razorpay_payment_id;
+        },
+      };
+
+      try {
+        const rzp = new window.Razorpay(options);
+        rzp.on('payment.failed', function (resp) {
+          errEl.textContent = 'Payment failed: ' + (resp.error.description || 'Please try again.');
+          errEl.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Get lifetime access';
+        });
+        rzp.open();
+      } catch (e) {
+        errEl.textContent = 'Could not open payment. Please try again or contact candobetter001@gmail.com';
+        errEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Get lifetime access';
+      }
+    }
 
     function updatePricing() {
       const isEB = NEETEST_PRICING.isEarlyBird();

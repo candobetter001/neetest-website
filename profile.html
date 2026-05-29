@@ -17,6 +17,15 @@
   <main>
     <section class="py-10 md:py-14">
       <div class="max-w-5xl mx-auto px-4 md:px-6">
+        <!-- Payment success banner (shown after Razorpay redirect) -->
+        <div id="payment-success" class="hidden mb-6 p-5 rounded-2xl flex items-start gap-4" style="background:#ecfdf5;border:1.5px solid #6ee7b7">
+          <i data-lucide="check-circle-2" class="w-7 h-7 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+          <div>
+            <p class="font-semibold text-emerald-800">Payment successful — welcome to Lifetime!</p>
+            <p id="payment-id-line" class="text-xs text-emerald-700 mt-0.5"></p>
+          </div>
+        </div>
+
         <div id="not-logged" class="hidden p-8 rounded-3xl border-2 border-dashed border-[var(--border)] text-center">
           <i data-lucide="lock" class="w-10 h-10 mx-auto mb-3 text-[var(--text-muted)]"></i>
           <h1 class="font-display text-2xl font-bold">Please sign in</h1>
@@ -57,17 +66,18 @@
             </div>
           </div>
 
-          <!-- Free trial limit notice -->
+          <!-- Upgrade card (hidden once paid) -->
           <div id="upgrade-card" class="mb-8 p-6 md:p-8 rounded-3xl text-white" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">
             <div class="flex items-start justify-between gap-4">
               <div>
-                <div class="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">Free trial</div>
-                <h2 class="font-display text-xl md:text-2xl font-bold">Get lifetime access for &#8377;4,999</h2>
+                <div id="uc-eyebrow" class="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">Free trial</div>
+                <h2 class="font-display text-xl md:text-2xl font-bold">Get lifetime access for <span id="uc-price">&#8377;1,999</span></h2>
+                <p id="uc-sub" class="opacity-90 mt-1 text-xs"></p>
                 <p class="opacity-90 mt-2 text-sm">Unlock the full question bank, unlimited mock tests, and the complete dashboard. One-time payment, no renewals.</p>
               </div>
               <i data-lucide="zap" class="w-8 h-8 flex-shrink-0 opacity-80"></i>
             </div>
-            <a href="pricing.html" class="btn-primary mt-4 inline-flex" style="background:white;color:#4f46e5">Upgrade now</a>
+            <a href="pricing.html" class="btn-primary mt-4 inline-flex" style="background:white;color:#4f46e5">Upgrade now →</a>
           </div>
 
           <!-- Actions -->
@@ -105,6 +115,17 @@
     renderNav('profile.html');
     renderFooter();
 
+    // Show payment success banner if redirected from Razorpay
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      const banner = document.getElementById('payment-success');
+      banner.classList.remove('hidden');
+      const pid = params.get('id');
+      if (pid) document.getElementById('payment-id-line').textContent = 'Payment ID: ' + pid;
+      // Clean URL without reloading
+      history.replaceState({}, '', 'profile.html');
+    }
+
     const user = NEETEST_AUTH.user();
     if (!user) {
       document.getElementById('not-logged').classList.remove('hidden');
@@ -123,6 +144,15 @@
       } else {
         tier.style.background = '#f1f5f9';
         tier.style.color = '#475569';
+        // Show live early-bird price
+        const isEB = NEETEST_PRICING.isEarlyBird();
+        const price = isEB ? NEETEST_PRICING.earlyBird : NEETEST_PRICING.regular;
+        document.getElementById('uc-price').textContent = '₹' + price.toLocaleString('en-IN');
+        if (isEB) {
+          const days = Math.max(0, Math.ceil((new Date('2026-06-15T23:59:59') - new Date()) / 86400000));
+          document.getElementById('uc-eyebrow').textContent = '🔥 Early-bird offer';
+          document.getElementById('uc-sub').textContent = 'Save ₹3,000 · offer ends in ' + days + ' day' + (days===1?'':'s');
+        }
       }
       const taken = NEETEST_AUTH.mocksTaken();
       document.getElementById('stat-mocks').textContent = taken;
