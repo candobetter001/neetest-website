@@ -1,0 +1,23 @@
+# Wrangler config for the NEETest OTP Worker.
+# Deploy with:  npx wrangler deploy
+# Set secrets with:
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put FROM_EMAIL
+# Create the KV namespace once with:
+#   npx wrangler kv:namespace create OTP_STORE
+# Then paste the returned id below in [[kv_namespaces]].
+
+name = "neetest-otp"
+main = "worker.js"
+compatibility_date = "2026-05-01"
+
+# Bind a KV namespace called OTP_STORE.
+# Run `npx wrangler kv:namespace create OTP_STORE` once and paste the id here.
+[[kv_namespaces]]
+binding = "OTP_STORE"
+id = "REPLACE_WITH_NAMESPACE_ID"
+
+# Optional: route the worker at otp.neetest.online (after adding a DNS CNAME on Cloudflare)
+# [[routes]]
+# pattern = "otp.neetest.online/*"
+# zone_name = "neetest.online"

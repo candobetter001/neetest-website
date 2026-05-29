@@ -41,11 +41,14 @@
               </a>
               <a href="pricing.html" class="btn-secondary magnetic">
                 <i data-lucide="zap" class="w-5 h-5"></i>
-                See full access &mdash; &#8377;4,999 one-time
+                Lifetime access &mdash; <span id="hero-price">&#8377;1,999</span>
               </a>
             </div>
             <p class="mt-4 text-sm text-[var(--text-muted)]">
-              Free account: 5 mock tests + basic dashboard. One-time &#8377;4,999 unlocks the full question bank and unlimited mocks.
+              Free account: 5 mock tests + basic dashboard. <span id="hero-eb-note"><strong>Early-bird offer:</strong> &#8377;1,999 lifetime (save &#8377;3,000) &mdash; ends 15 June 2026.</span>
+            </p>
+            <p class="mt-2 text-sm">
+              <a href="guest-mock.html" class="text-[var(--primary)] underline font-semibold">Or try a free 30-question mock as a guest &mdash; no signup</a>.
             </p>
           </div>
           <!-- Hero preview card -->
@@ -161,10 +164,13 @@
             <a href="login.html" class="btn-secondary w-full justify-center mt-6">Start free trial</a>
           </div>
           <div class="relative p-8 rounded-3xl text-white" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);box-shadow:0 30px 60px -20px rgba(79,70,229,0.5)">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider bg-amber-400 text-black">LIFETIME</div>
-            <div class="text-sm font-bold uppercase tracking-wider mb-2 opacity-80">Full access</div>
-            <div class="font-display text-5xl font-bold mb-1">&#8377;4,999</div>
-            <div class="text-sm opacity-80 mb-6">one-time &middot; lifetime</div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider bg-amber-400 text-black" id="tease-badge">EARLY BIRD &middot; 15 JUN</div>
+            <div class="text-sm font-bold uppercase tracking-wider mb-2 opacity-80">Lifetime access</div>
+            <div class="flex items-baseline gap-2 mb-1">
+              <div class="font-display text-5xl font-bold" id="tease-price">&#8377;1,999</div>
+              <div class="text-lg line-through opacity-60" id="tease-strike">&#8377;4,999</div>
+            </div>
+            <div class="text-sm opacity-80 mb-6" id="tease-sub">save &#8377;3,000 &middot; one-time, no renewal</div>
             <ul class="space-y-2 text-sm">
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5"></i>Full question bank (all PYQs, all subjects)</li>
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5"></i>Unlimited mock tests</li>
@@ -258,6 +264,33 @@
     document.getElementById('hero-countdown').textContent = daysUntil('2026-08-30');
     document.getElementById('neet-pg-days').textContent = daysUntil('2026-08-30');
     document.getElementById('ini-cet-days').textContent = daysUntil('2026-11-01');
+
+    // Apply early-bird pricing to hero + teaser
+    (function applyHeroPricing() {
+      const isEB = NEETEST_PRICING.isEarlyBird();
+      const heroPrice = document.getElementById('hero-price');
+      const heroNote = document.getElementById('hero-eb-note');
+      const teaseBadge = document.getElementById('tease-badge');
+      const teasePrice = document.getElementById('tease-price');
+      const teaseStrike = document.getElementById('tease-strike');
+      const teaseSub = document.getElementById('tease-sub');
+      if (isEB) {
+        const days = Math.max(0, Math.ceil((new Date('2026-06-15T23:59:59') - new Date()) / 86400000));
+        heroPrice.innerHTML = '&#8377;' + NEETEST_PRICING.earlyBird.toLocaleString('en-IN');
+        heroNote.innerHTML = '<strong>Early-bird offer:</strong> &#8377;' + NEETEST_PRICING.earlyBird.toLocaleString('en-IN') + ' lifetime (save &#8377;' + NEETEST_PRICING.savings().toLocaleString('en-IN') + ') &mdash; ends in ' + days + ' day' + (days===1?'':'s') + '.';
+        teaseBadge.textContent = 'EARLY BIRD · ' + days + ' DAY' + (days===1?'':'S') + ' LEFT';
+        teasePrice.innerHTML = '&#8377;' + NEETEST_PRICING.earlyBird.toLocaleString('en-IN');
+        teaseStrike.classList.remove('hidden');
+        teaseSub.innerHTML = 'save &#8377;' + NEETEST_PRICING.savings().toLocaleString('en-IN') + ' &middot; one-time, no renewal';
+      } else {
+        heroPrice.innerHTML = '&#8377;' + NEETEST_PRICING.regular.toLocaleString('en-IN');
+        heroNote.innerHTML = 'One-time &#8377;' + NEETEST_PRICING.regular.toLocaleString('en-IN') + ' unlocks the full question bank and unlimited mocks.';
+        teaseBadge.textContent = 'LIFETIME';
+        teasePrice.innerHTML = '&#8377;' + NEETEST_PRICING.regular.toLocaleString('en-IN');
+        teaseStrike.classList.add('hidden');
+        teaseSub.textContent = 'one-time · lifetime';
+      }
+    })();
     refreshIcons();
     initReveal();
     initMagnetic();

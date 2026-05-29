@@ -109,7 +109,8 @@
     renderNav('login.html');
     renderFooter();
 
-    let pendingEmail = '', pendingName = '', generatedOtp = '';
+    let pendingEmail = '', pendingName = '', localOtp = '';
+    const USING_BACKEND = !!window.NEETEST_OTP_ENDPOINT;
 
     function generateOtp() {
       let s = '';
@@ -117,19 +118,69 @@
       return s;
     }
 
-    document.getElementById('email-form').addEventListener('submit', e => {
+    async function sendOtp(email) {
+      if (!USING_BACKEND) {
+        // Dev fallback: generate locally + display on screen
+        localOtp = generateOtp();
+        document.getElementById('demo-otp').textContent = localOtp;
+        return { ok: true, mode: 'local' };
+      }
+      try {
+        const resp = await fetch(window.NEETEST_OTP_ENDPOINT + '/otp/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await resp.json();
+        return { ok: resp.ok && data.ok, mode: 'backend', error: data.error };
+      } catch (e) {
+        return { ok: false, mode: 'backend', error: 'Network error: ' + e.message };
+      }
+    }
+
+    async function verifyOtp(email, otp) {
+      if (!USING_BACKEND) {
+        return { ok: otp === localOtp, reason: otp === localOtp ? null : 'mismatch' };
+      }
+      try {
+        const resp = await fetch(window.NEETEST_OTP_ENDPOINT + '/otp/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp }),
+        });
+        return await resp.json();
+      } catch (e) {
+        return { ok: false, reason: 'network: ' + e.message };
+      }
+    }
+
+    document.getElementById('email-form').addEventListener('submit', async e => {
       e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type=submit]');
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
       const email = document.getElementById('email-input').value.trim().toLowerCase();
       const name = document.getElementById('name-input').value.trim();
       if (!email.endsWith('@gmail.com') && !email.endsWith('@googlemail.com')) {
         alert('Please use a Gmail address.');
+        submitBtn.disabled = false; submitBtn.innerHTML = '<i data-lucide="mail" class="w-5 h-5"></i>Send OTP'; refreshIcons();
         return;
       }
       pendingEmail = email;
       pendingName = name;
-      generatedOtp = generateOtp();
+      const result = await sendOtp(email);
+      submitBtn.disabled = false; submitBtn.innerHTML = '<i data-lucide="mail" class="w-5 h-5"></i>Send OTP'; refreshIcons();
+      if (!result.ok) {
+        alert(result.error || 'Could not send code. Please try again.');
+        return;
+      }
       document.getElementById('display-email').textContent = email;
-      document.getElementById('demo-otp').textContent = generatedOtp;
+      // Toggle the dev/beta panel depending on mode
+      const betaPanel = document.querySelector('#step-otp .border-amber-300');
+      if (result.mode === 'backend') {
+        betaPanel.style.display = 'none';
+      } else {
+        betaPanel.style.display = '';
+      }
       document.getElementById('step-email').classList.add('hidden');
       document.getElementById('step-otp').classList.remove('hidden');
       refreshIcons();
@@ -139,18 +190,23 @@
       document.getElementById('step-email').classList.remove('hidden');
     });
     document.getElementById('copy-otp-btn').addEventListener('click', () => {
-      navigator.clipboard.writeText(generatedOtp).then(() => {
+      if (!localOtp) return;
+      navigator.clipboard.writeText(localOtp).then(() => {
         const btn = document.getElementById('copy-otp-btn');
         btn.textContent = '✓ Copied — paste it below';
         setTimeout(() => { btn.textContent = 'Copy code'; }, 2000);
       });
     });
-    document.getElementById('otp-form').addEventListener('submit', e => {
+    document.getElementById('otp-form').addEventListener('submit', async e => {
       e.preventDefault();
       const otp = document.getElementById('otp-input').value.trim();
       if (!/^\d{6}$/.test(otp)) { alert('Enter exactly 6 digits.'); return; }
-      if (otp !== generatedOtp) {
-        alert('Code does not match. Please copy the one shown above.');
+      const submitBtn = e.target.querySelector('button[type=submit]');
+      submitBtn.disabled = true; submitBtn.textContent = 'Verifying...';
+      const result = await verifyOtp(pendingEmail, otp);
+      submitBtn.disabled = false; submitBtn.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>Verify &amp; sign in'; refreshIcons();
+      if (!result.ok) {
+        alert('Code does not match. ' + (result.remaining != null ? result.remaining + ' attempts remaining.' : ''));
         return;
       }
       NEETEST_AUTH.login(pendingEmail, pendingName);

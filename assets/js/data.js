@@ -72,6 +72,32 @@ window.NEETEST_EXAMS = {
 // Free trial limit: 5 mock tests
 window.NEETEST_FREE_MOCK_LIMIT = 5;
 
+// Pricing
+window.NEETEST_PRICING = {
+  earlyBird: 1999,
+  regular: 4999,
+  earlyBirdDeadline: '2026-06-15',  // before this date → early bird applies
+  isEarlyBird() { return new Date() < new Date(this.earlyBirdDeadline + 'T23:59:59'); },
+  currentPrice() { return this.isEarlyBird() ? this.earlyBird : this.regular; },
+  savings() { return this.regular - this.earlyBird; },
+};
+
+// Practice modes (for paid users on questions.html)
+window.NEETEST_PRACTICE_MODES = [
+  { id: 'short', label: 'Short', count: 25, sub: 'A quick session' },
+  { id: 'medium', label: 'Medium', count: 50, sub: 'A solid set' },
+  { id: 'full', label: 'Full-length', count: 200, sub: 'Like the real paper' },
+];
+
+// Guest mock — non-logged-in users get 1 free 30-Q mock with explanations
+window.NEETEST_GUEST_MOCK_COUNT = 30;
+
+// OTP backend endpoint. Set this to your deployed Cloudflare Worker URL
+// (e.g. 'https://otp.neetest.online' or 'https://neetest-otp.YOUR.workers.dev').
+// When null/empty, login.html falls back to showing the OTP on screen (dev mode).
+// See website/backend/README.md for deployment.
+window.NEETEST_OTP_ENDPOINT = '';
+
 // Simple localStorage-based session (demo; real auth needs backend)
 window.NEETEST_AUTH = {
   isLoggedIn: () => !!localStorage.getItem('neetest_user'),

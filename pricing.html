@@ -5,7 +5,7 @@
   <meta name="color-scheme" content="light only" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing — NEETest</title>
-  <meta name="description" content="One-time ₹4,999 for lifetime access. Free trial: 5 mock tests + basic dashboard." />
+  <meta name="description" content="Early bird: ₹1,999 lifetime (offer ends 15 June 2026). Regular: ₹4,999 one-time." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,8 +20,11 @@
       <div class="mesh-bg"></div>
       <div class="relative max-w-5xl mx-auto px-4 md:px-6 text-center">
         <span class="section-eyebrow">Pricing</span>
-        <h1 class="font-display text-3xl md:text-5xl font-bold">One honest price. <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">No subscriptions.</span></h1>
-        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">A free trial to evaluate the product, then one lifetime payment for full access. That's the whole pricing model.</p>
+        <h1 class="font-display text-3xl md:text-5xl font-bold">One honest price. <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">Pay once.</span></h1>
+        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">Free trial to evaluate the tool, then one lifetime payment for full access. No subscriptions.</p>
+        <div id="early-bird-banner" class="hidden mt-6 inline-block px-5 py-3 rounded-full font-semibold text-sm shadow-lg" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:white">
+          &#128293; Early-bird offer: &#8377;1,999 (60% off) &middot; ends in <span id="eb-countdown">--</span>
+        </div>
       </div>
     </section>
 
@@ -39,65 +42,62 @@
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>5 mock tests (10 questions each)</li>
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>Basic progress dashboard</li>
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>Weak area identification</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>Exam date dashboards (NEET PG, INI-CET)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>Exam date dashboards</li>
             </ul>
-            <p class="text-sm font-semibold mt-6 mb-3 text-[var(--text-muted)]">Not included:</p>
-            <ul class="space-y-2 text-sm text-[var(--text-muted)]">
-              <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5"></i>Question bank (previous-year MCQs)</li>
-              <li class="flex gap-2"><i data-lucide="x" class="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5"></i>Mock tests beyond the first 5</li>
-            </ul>
+            <p class="text-xs text-[var(--text-muted)] mt-4">
+              No signup needed? <a href="guest-mock.html" class="underline text-[var(--primary)]">Take one free 30-question mock as a guest</a>.
+            </p>
           </div>
 
-          <!-- Lifetime -->
+          <!-- Lifetime (Early bird) -->
           <div class="relative p-8 rounded-3xl text-white" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);box-shadow:0 30px 60px -20px rgba(79,70,229,0.5)">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider bg-amber-400 text-black">LIFETIME ACCESS</div>
-            <div class="text-sm font-bold uppercase tracking-wider mb-2 opacity-80">Full access</div>
-            <div class="font-display text-5xl font-bold mb-1">&#8377;4,999</div>
-            <div class="text-sm opacity-80 mb-6">one-time payment &middot; no renewal</div>
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold tracking-wider bg-amber-400 text-black" id="tier-badge">EARLY BIRD</div>
+            <div class="text-sm font-bold uppercase tracking-wider mb-2 opacity-80">Lifetime access</div>
+            <div class="flex items-baseline gap-3 mb-1">
+              <div class="font-display text-5xl font-bold" id="display-price">&#8377;1,999</div>
+              <div id="original-price" class="text-xl line-through opacity-60">&#8377;4,999</div>
+            </div>
+            <div class="text-sm opacity-90 mb-6" id="price-sub">Save &#8377;3,000 &middot; offer ends 15 June 2026 &middot; one-time, no renewal</div>
             <a href="login.html?upgrade=1" class="btn-primary w-full justify-center mb-6 magnetic" style="background:white;color:#4f46e5">Get lifetime access</a>
             <p class="text-sm font-semibold mb-3">Includes everything in Free trial, plus:</p>
             <ul class="space-y-3 text-sm">
-              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Full question bank (every available previous-year MCQ)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Full MCQ practice bank across all subjects</li>
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Unlimited mock tests</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Full progress dashboard (subject heatmap, topic mastery, time analysis)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Practice in <strong>Short (25)</strong>, <strong>Medium (50)</strong>, or <strong>Full-length (200)</strong> mode</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Full progress dashboard with subject heatmap</li>
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Bookmarks &amp; wrong-answer drill mode</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>All future feature additions included</li>
-              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Android app access (when published)</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>Smart Notes &amp; Smart Tools when released &mdash; included free</li>
+              <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>All future updates included</li>
             </ul>
           </div>
         </div>
 
         <p class="text-center text-sm text-[var(--text-muted)] mt-8 max-w-2xl mx-auto">
-          We do not sell videos, live classes, mentor sessions, rank guarantees, or any other product. NEETest is strictly an MCQ practice and progress-tracking tool.
+          NEETest is strictly an MCQ practice and progress-tracking tool. We do not offer videos, live classes, mentor sessions, rank guarantees, or college counselling.
         </p>
 
-        <!-- FAQ -->
         <div class="mt-16">
           <h2 class="font-display text-2xl md:text-3xl font-bold mb-6 text-center">Pricing FAQ</h2>
           <div class="space-y-3 max-w-3xl mx-auto">
             <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
-              <summary class="font-semibold">Is &#8377;4,999 a yearly fee?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">No. It is a one-time payment. There is no annual or monthly renewal.</p>
+              <summary class="font-semibold">Is the price a recurring subscription?</summary>
+              <p class="text-sm text-[var(--text-muted)] mt-2">No. One-time payment. No annual or monthly renewal.</p>
             </details>
             <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
-              <summary class="font-semibold">What does "lifetime" mean?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">Lifetime access means as long as NEETest continues to operate. Please read our Terms &amp; Conditions for the full definition and limitations.</p>
+              <summary class="font-semibold">What happens after 15 June 2026?</summary>
+              <p class="text-sm text-[var(--text-muted)] mt-2">The early-bird offer ends. The price returns to the regular &#8377;4,999. Existing lifetime users keep their access at no extra cost.</p>
+            </details>
+            <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
+              <summary class="font-semibold">What does &quot;lifetime&quot; mean?</summary>
+              <p class="text-sm text-[var(--text-muted)] mt-2">Lifetime access means as long as NEETest continues to operate. See our <a href="terms.html" class="underline">Terms &amp; Conditions</a>.</p>
             </details>
             <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
               <summary class="font-semibold">Refund policy?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">7-day refund window after payment, provided you have used fewer than 20 questions. Full policy on our <a href="terms.html#refund" class="underline">Refund Policy page</a>.</p>
-            </details>
-            <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
-              <summary class="font-semibold">What's actually in the question bank today?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">A growing collection of NEET PG, INI-CET, and AIIMS PG previous-year MCQs across the listed subjects. The bank is expanding regularly &mdash; new questions are added at no additional cost to lifetime users.</p>
+              <p class="text-sm text-[var(--text-muted)] mt-2">7-day window after payment, provided you have used fewer than 20 questions. Full policy on our <a href="terms.html#refund" class="underline">Refund Policy page</a>.</p>
             </details>
             <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
               <summary class="font-semibold">Do you guarantee a rank or selection?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">No. NEETest is a practice tool. We make no claims, guarantees, or promises regarding your exam result, rank, or selection. Please read our Terms &amp; Conditions before purchasing.</p>
-            </details>
-            <details class="p-4 rounded-xl border border-[var(--border)] cursor-pointer">
-              <summary class="font-semibold">Do you offer videos or notes?</summary>
-              <p class="text-sm text-[var(--text-muted)] mt-2">No. NEETest is strictly MCQ practice plus a progress dashboard. Nothing else.</p>
+              <p class="text-sm text-[var(--text-muted)] mt-2">No. NEETest is a practice tool. We make no claims, guarantees, or promises regarding your exam result, rank, or selection.</p>
             </details>
           </div>
         </div>
@@ -112,6 +112,32 @@
     renderNav('pricing.html');
     renderFooter();
     initMagnetic();
+
+    function updatePricing() {
+      const isEB = NEETEST_PRICING.isEarlyBird();
+      const banner = document.getElementById('early-bird-banner');
+      const tierBadge = document.getElementById('tier-badge');
+      const displayPrice = document.getElementById('display-price');
+      const originalPrice = document.getElementById('original-price');
+      const priceSub = document.getElementById('price-sub');
+      if (isEB) {
+        banner.classList.remove('hidden');
+        tierBadge.textContent = 'EARLY BIRD · ENDS 15 JUN';
+        displayPrice.innerHTML = '&#8377;' + NEETEST_PRICING.earlyBird.toLocaleString('en-IN');
+        originalPrice.classList.remove('hidden');
+        const dl = new Date('2026-06-15T23:59:59');
+        const days = Math.max(0, Math.ceil((dl - new Date()) / 86400000));
+        priceSub.innerHTML = 'Save &#8377;' + NEETEST_PRICING.savings().toLocaleString('en-IN') + ' &middot; offer ends in ' + days + ' day' + (days===1?'':'s') + ' &middot; one-time, no renewal';
+        document.getElementById('eb-countdown').textContent = days + ' day' + (days===1?'':'s');
+      } else {
+        banner.classList.add('hidden');
+        tierBadge.textContent = 'LIFETIME';
+        displayPrice.innerHTML = '&#8377;' + NEETEST_PRICING.regular.toLocaleString('en-IN');
+        originalPrice.classList.add('hidden');
+        priceSub.textContent = 'one-time, no renewal';
+      }
+    }
+    updatePricing();
   </script>
 </body>
 </html>

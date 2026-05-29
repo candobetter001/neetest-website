@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="light only" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Guest Mock Test — NEETest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css?v=3" />
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <!-- Intro -->
+    <section id="intro" class="py-12 md:py-16">
+      <div class="max-w-3xl mx-auto px-4 md:px-6 text-center">
+        <span class="section-eyebrow">Free guest mock</span>
+        <h1 class="font-display text-3xl md:text-5xl font-bold">Try one full mock test.</h1>
+        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">
+          30 mixed questions covering NEET PG / INI-CET pattern. No signup required. 30 minutes on the clock. +4 for correct, &minus;1 for wrong. After each question you submit, you see the correct answer with a short explanation note.
+        </p>
+        <button id="start-guest" class="btn-primary mt-8 magnetic">
+          <i data-lucide="play" class="w-5 h-5"></i>Start guest mock
+        </button>
+        <p class="text-xs text-[var(--text-muted)] mt-4">
+          This is a one-off guest session. <a href="login.html" class="underline text-[var(--primary)]">Create a free account</a> to track progress across 5 mocks.
+        </p>
+      </div>
+    </section>
+
+    <!-- Test runner -->
+    <section id="runner" class="py-8 hidden" style="background:linear-gradient(180deg,#f8fafc 0%,#ffffff 100%);min-height:100vh">
+      <div class="max-w-5xl mx-auto px-4 md:px-6">
+        <div class="flex items-center justify-between mb-6 p-4 rounded-xl bg-white border border-[var(--border)] shadow-sm">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">
+              <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <div class="font-display font-bold text-sm">Guest Mock</div>
+              <div class="text-xs text-[var(--text-muted)]">30 Qs &middot; +4 / &minus;1 &middot; explanations after submit</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 font-mono font-bold">
+              <i data-lucide="timer" class="w-4 h-4"></i>
+              <span id="timer">30:00</span>
+            </div>
+            <button id="submit-early" class="btn-secondary text-sm py-2 px-3">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>Submit
+            </button>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-[1fr_240px] gap-6">
+          <div class="exam-paper">
+            <div class="exam-paper-header">
+              <div class="exam-paper-qnum">
+                <i data-lucide="hash" class="w-4 h-4"></i>
+                <span>Question <span id="cur-num">1</span> of <span id="tot-num">30</span></span>
+              </div>
+              <div id="q-tags" class="flex items-center gap-2"></div>
+            </div>
+            <div class="exam-paper-q" id="exam-stem"></div>
+            <div id="exam-options"></div>
+            <div class="mt-6 pt-5 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-3">
+              <div class="flex gap-2">
+                <button id="mark-btn" class="btn-secondary text-sm py-2 px-3"><i data-lucide="flag" class="w-4 h-4"></i>Mark for review</button>
+                <button id="clear-btn" class="btn-secondary text-sm py-2 px-3"><i data-lucide="rotate-ccw" class="w-4 h-4"></i>Clear</button>
+              </div>
+              <div class="flex gap-2">
+                <button id="t-prev" class="btn-secondary text-sm py-2 px-3"><i data-lucide="chevron-left" class="w-4 h-4"></i>Previous</button>
+                <button id="t-next" class="btn-primary text-sm py-2 px-3">Save &amp; Next<i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="space-y-4">
+            <div class="p-4 rounded-xl bg-white border border-[var(--border)] shadow-sm">
+              <h3 class="font-display font-bold text-sm mb-3">Question Palette</h3>
+              <div class="q-palette" id="q-palette"></div>
+              <div class="mt-4 pt-3 border-t border-[var(--border)] space-y-1.5 text-xs">
+                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-white border border-slate-300"></span>Not answered</div>
+                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#d1fae5] border border-[#10b981]"></span>Answered</div>
+                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#fef3c7] border border-[#f59e0b]"></span>Marked</div>
+                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#4f46e5] border border-[#4f46e5]"></span>Current</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results with per-Q explanations -->
+    <section id="results" class="py-12 hidden">
+      <div class="max-w-3xl mx-auto px-4 md:px-6">
+        <div class="p-8 md:p-10 rounded-3xl border border-[var(--border)] text-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.06),rgba(6,182,212,0.06))">
+          <i data-lucide="trophy" class="w-12 h-12 mx-auto mb-4 text-indigo-600"></i>
+          <h2 class="font-display text-3xl font-bold">Guest mock complete</h2>
+          <div class="grid grid-cols-3 gap-4 mt-8">
+            <div><div class="font-display text-4xl font-bold text-indigo-600" id="r-score">--</div><div class="text-xs text-[var(--text-muted)] mt-1">SCORE / 120</div></div>
+            <div><div class="font-display text-4xl font-bold text-emerald-600" id="r-correct">--</div><div class="text-xs text-[var(--text-muted)] mt-1">CORRECT</div></div>
+            <div><div class="font-display text-4xl font-bold text-rose-600" id="r-wrong">--</div><div class="text-xs text-[var(--text-muted)] mt-1">WRONG</div></div>
+          </div>
+        </div>
+
+        <details class="mt-6 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]" open>
+          <summary class="cursor-pointer font-semibold">Review every question with explanations</summary>
+          <div id="r-review" class="mt-4 space-y-4"></div>
+        </details>
+
+        <div class="mt-6 p-6 md:p-8 rounded-3xl text-white" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">Loved the format?</div>
+              <h3 class="font-display text-xl md:text-2xl font-bold">Get lifetime access at <span id="upsell-price">&#8377;1,999</span></h3>
+              <p class="opacity-90 mt-2 text-sm" id="upsell-msg">Unlimited mocks + full MCQ practice bank + Short/Medium/Full-length practice modes. <span id="eb-note">Early bird ends 15 Jun.</span></p>
+            </div>
+            <i data-lucide="zap" class="w-8 h-8 flex-shrink-0 opacity-80"></i>
+          </div>
+          <div class="mt-4 flex gap-3 flex-wrap">
+            <a href="pricing.html" class="btn-primary magnetic" style="background:white;color:#4f46e5">See pricing</a>
+            <a href="login.html" class="btn-secondary magnetic" style="background:transparent;color:white;border-color:rgba(255,255,255,0.4)">Create free account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <script src="assets/js/data.js?v=3"></script>
+  <script src="assets/js/main.js?v=3"></script>
+  <script>
+    renderNav('guest-mock.html');
+    renderFooter();
+
+    let QS = [], picked = [], idx = 0, answers = {}, marked = new Set(), timerInterval, secondsLeft = 30 * 60;
+    fetch('assets/data/questions.json').then(r => r.json()).then(d => { QS = d; });
+
+    function start() {
+      if (!QS.length) { alert('Loading questions, please try again in a moment.'); return; }
+      picked = QS.slice().sort(() => Math.random() - 0.5).slice(0, NEETEST_GUEST_MOCK_COUNT);
+      idx = 0; answers = {}; marked = new Set(); secondsLeft = 30 * 60;
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('runner').classList.remove('hidden');
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('tot-num').textContent = picked.length;
+      buildPalette();
+      renderQ();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60), s = secondsLeft % 60;
+        document.getElementById('timer').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+        if (secondsLeft <= 0) { clearInterval(timerInterval); finish(); }
+      }, 1000);
+    }
+
+    function buildPalette() {
+      const el = document.getElementById('q-palette');
+      el.innerHTML = picked.map((_, i) => '<button data-idx="' + i + '">' + (i + 1) + '</button>').join('');
+      el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { idx = parseInt(b.dataset.idx, 10); renderQ(); }));
+    }
+
+    function refreshPalette() {
+      document.querySelectorAll('#q-palette button').forEach((b, i) => {
+        b.classList.remove('current', 'answered', 'marked');
+        if (answers[picked[i].id] !== undefined) b.classList.add('answered');
+        if (marked.has(picked[i].id)) b.classList.add('marked');
+        if (i === idx) b.classList.add('current');
+      });
+    }
+
+    function renderQ() {
+      const q = picked[idx];
+      document.getElementById('cur-num').textContent = idx + 1;
+      document.getElementById('q-tags').innerHTML =
+        '<span class="text-xs px-2 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">' + q.exam + ' ' + q.year + '</span>' +
+        '<span class="text-xs px-2 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">' + q.subject + '</span>';
+      document.getElementById('exam-stem').textContent = q.stem;
+      const userAns = answers[q.id];
+      document.getElementById('exam-options').innerHTML = q.options.map((opt, i) =>
+        '<div class="exam-option ' + (userAns === i ? 'selected' : '') + '" data-idx="' + i + '">' +
+          '<span class="opt-label">' + String.fromCharCode(65 + i) + '</span>' +
+          '<span>' + opt + '</span>' +
+        '</div>'
+      ).join('');
+      document.querySelectorAll('#exam-options .exam-option').forEach(o => {
+        o.addEventListener('click', () => {
+          const sel = parseInt(o.dataset.idx, 10);
+          answers[q.id] = sel;
+          document.querySelectorAll('#exam-options .exam-option').forEach(x => x.classList.remove('selected'));
+          o.classList.add('selected');
+          refreshPalette();
+        });
+      });
+      refreshPalette();
+      refreshIcons();
+    }
+
+    function finish() {
+      clearInterval(timerInterval);
+      let correct = 0, wrong = 0, score = 0;
+      picked.forEach(q => {
+        const a = answers[q.id];
+        if (a === undefined) return;
+        if (a === q.correctIndex) { correct++; score += 4; } else { wrong++; score -= 1; }
+      });
+      document.getElementById('r-score').textContent = score;
+      document.getElementById('r-correct').textContent = correct;
+      document.getElementById('r-wrong').textContent = wrong;
+      // Per-question explanations
+      document.getElementById('r-review').innerHTML = picked.map((q, i) => {
+        const a = answers[q.id];
+        const got = a === q.correctIndex;
+        const userText = a === undefined ? '— (not answered)' : String.fromCharCode(65 + a) + ') ' + q.options[a];
+        const correctText = String.fromCharCode(65 + q.correctIndex) + ') ' + q.options[q.correctIndex];
+        const verdict = got
+          ? '<span class="text-emerald-700 font-semibold">✓ Correct</span>'
+          : (a === undefined ? '<span class="text-slate-600 font-semibold">⚠ Not answered</span>' : '<span class="text-rose-700 font-semibold">✗ Wrong</span>');
+        const border = got ? 'border-emerald-200 bg-emerald-50' : (a === undefined ? 'border-slate-200 bg-slate-50' : 'border-rose-200 bg-rose-50');
+        return '<div class="p-4 rounded-xl border ' + border + '">' +
+          '<div class="flex items-center justify-between mb-2 text-xs">' +
+            '<span class="font-semibold">Q' + (i + 1) + ' &middot; ' + q.exam + ' ' + q.year + ' &middot; ' + q.subject + '</span>' +
+            verdict +
+          '</div>' +
+          '<div class="text-sm mb-3 font-medium">' + q.stem + '</div>' +
+          '<div class="text-xs mb-1"><strong>Your answer:</strong> ' + userText + '</div>' +
+          (got ? '' : '<div class="text-xs mb-2"><strong>Correct answer:</strong> ' + correctText + '</div>') +
+          '<div class="mt-2 p-2 rounded bg-white text-xs text-[var(--text-muted)] italic">' +
+            'Explanation note: The correct option is ' + String.fromCharCode(65 + q.correctIndex) + '. A detailed written explanation for every question is part of the lifetime-access bundle.' +
+          '</div>' +
+        '</div>';
+      }).join('');
+      // Upsell price reflects early bird
+      const eb = NEETEST_PRICING.isEarlyBird();
+      document.getElementById('upsell-price').innerHTML = '&#8377;' + NEETEST_PRICING.currentPrice().toLocaleString('en-IN');
+      document.getElementById('eb-note').textContent = eb ? 'Early-bird price ends 15 Jun.' : '';
+      document.getElementById('runner').classList.add('hidden');
+      document.getElementById('results').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      refreshIcons();
+    }
+
+    document.getElementById('start-guest').addEventListener('click', start);
+    document.getElementById('t-prev').addEventListener('click', () => { if (idx > 0) { idx--; renderQ(); } });
+    document.getElementById('t-next').addEventListener('click', () => {
+      if (idx < picked.length - 1) { idx++; renderQ(); }
+      else if (confirm('Submit your answers?')) { finish(); }
+    });
+    document.getElementById('mark-btn').addEventListener('click', () => {
+      const q = picked[idx];
+      if (marked.has(q.id)) marked.delete(q.id); else marked.add(q.id);
+      refreshPalette();
+    });
+    document.getElementById('clear-btn').addEventListener('click', () => { delete answers[picked[idx].id]; renderQ(); });
+    document.getElementById('submit-early').addEventListener('click', () => { if (confirm('Submit your answers now?')) finish(); });
+
+    initMagnetic();
+  </script>
+</body>
+</html>
