@@ -96,7 +96,7 @@ window.NEETEST_GUEST_MOCK_COUNT = 30;
 // (e.g. 'https://otp.neetest.online' or 'https://neetest-otp.YOUR.workers.dev').
 // When null/empty, login.html falls back to showing the OTP on screen (dev mode).
 // See website/backend/README.md for deployment.
-window.NEETEST_OTP_ENDPOINT = '';
+window.NEETEST_OTP_ENDPOINT = 'https://neetest-otp.neetest-app.workers.dev';
 
 // Simple localStorage-based session (demo; real auth needs backend)
 window.NEETEST_AUTH = {

@@ -60,6 +60,8 @@ wrangler deploy
 
 You'll get a URL like `https://neetest-otp.YOUR-NAME.workers.dev` — copy it.
 
+**Currently deployed at:** `https://neetest-otp.neetest-app.workers.dev`
+
 ## Step 5 — Optional: custom subdomain
 
 To use `otp.neetest.online` instead of the workers.dev URL:
