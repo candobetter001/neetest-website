@@ -99,6 +99,13 @@ async function handleSend(body, env, cors) {
 
   if (!resendResp.ok) {
     const detail = await resendResp.text();
+    // Beta fallback: while neetest.online is not yet verified as a sending domain in Resend,
+    // the onboarding@resend.dev sender only accepts the account owner's address. For every
+    // other tester we return the OTP in the response so the frontend can display it on-screen.
+    // Remove this branch once the domain is verified.
+    if (resendResp.status === 403 && /testing emails to your own email address|verify a domain/i.test(detail)) {
+      return json({ ok: true, expiresAt, beta_otp: otp, beta_reason: 'domain_not_verified' }, 200, cors);
+    }
     return json({ ok: false, error: 'Could not send email. Please try again.', detail: detail.slice(0, 200) }, 502, cors);
   }
 

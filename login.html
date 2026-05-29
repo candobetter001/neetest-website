@@ -132,6 +132,11 @@
           body: JSON.stringify({ email }),
         });
         const data = await resp.json();
+        if (data.beta_otp) {
+          localOtp = data.beta_otp;
+          document.getElementById('demo-otp').textContent = localOtp;
+          return { ok: true, mode: 'local', beta: true };
+        }
         return { ok: resp.ok && data.ok, mode: 'backend', error: data.error };
       } catch (e) {
         return { ok: false, mode: 'backend', error: 'Network error: ' + e.message };
