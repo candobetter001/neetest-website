@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mock Tests &mdash; NEETest</title>
-  <meta name="description" content="NEET PG and INI-CET mock tests with timer and analytics. Take a free 10-Q quick test or set up a full mock." />
+  <title>Mock Tests — NEETest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,42 +18,44 @@
       <div class="mesh-bg"></div>
       <div class="relative max-w-6xl mx-auto px-4 md:px-6 text-center">
         <span class="section-eyebrow">Mock Tests</span>
-        <h1 class="font-display text-3xl md:text-5xl font-bold">Practice like exam day.</h1>
-        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">Timed mocks with the exact format of NEET PG and INI-CET. Scoring with negative marking. No surprises on D-Day.</p>
+        <h1 class="font-display text-3xl md:text-5xl font-bold">Practice with a timer.</h1>
+        <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">10 questions, 10 minutes, +4 for correct, −1 for wrong. Free trial includes 5 mocks. Lifetime access removes the limit.</p>
       </div>
     </section>
 
-    <!-- Pick your test type -->
-    <section class="py-8">
-      <div class="max-w-5xl mx-auto px-4 md:px-6">
-        <h2 class="font-display text-2xl font-bold mb-6">Choose your mock</h2>
+    <!-- Test list -->
+    <section id="test-pick" class="py-8">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
+        <div id="trial-status"></div>
+
+        <h2 class="font-display text-2xl font-bold mt-6 mb-4">Available mock tests</h2>
         <div class="grid md:grid-cols-3 gap-5">
-          <div class="reveal feature-card cat-practice cursor-pointer" id="quick10">
-            <span class="badge-live">LIVE</span>
+          <div class="reveal feature-card cat-practice cursor-pointer hover:scale-[1.02] transition" id="start-mock">
+            <span class="badge-live">START</span>
             <div class="icon-wrap"><i data-lucide="zap" class="w-5 h-5"></i></div>
-            <h3 class="font-display font-bold">Quick 10</h3>
-            <p class="text-sm text-[var(--text-muted)] mt-1">10 random questions, 10-minute timer. No commitment.</p>
-            <div class="mt-3 text-xs text-[var(--text-muted)]">10 Qs &middot; 10 min &middot; +4/&minus;1</div>
+            <h3 class="font-display font-bold">Mock Test #<span id="mock-num">1</span></h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">10 random questions, 10-minute timer, +4 / −1 marking.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">10 Qs · 10 min · +4/−1</div>
           </div>
-          <div class="reveal feature-card cat-exam" style="transition-delay:0.1s">
+          <div class="reveal feature-card cat-analytics" style="transition-delay:0.1s">
             <span class="badge-soon">Soon</span>
             <div class="icon-wrap"><i data-lucide="trophy" class="w-5 h-5"></i></div>
-            <h3 class="font-display font-bold">NEET PG Full Mock</h3>
-            <p class="text-sm text-[var(--text-muted)] mt-1">200 questions, 3h 30m, 5 sections of 40. Real format.</p>
-            <div class="mt-3 text-xs text-[var(--text-muted)]">200 Qs &middot; 3h 30m &middot; +4/&minus;1</div>
+            <h3 class="font-display font-bold">Full-length mock</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">200-question, 3h 30m mock test. Section-locked navigation.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">200 Qs · 3h 30m · +4/−1</div>
           </div>
-          <div class="reveal feature-card cat-analytics" style="transition-delay:0.2s">
+          <div class="reveal feature-card cat-exam" style="transition-delay:0.2s">
             <span class="badge-soon">Soon</span>
             <div class="icon-wrap"><i data-lucide="layout-grid" class="w-5 h-5"></i></div>
-            <h3 class="font-display font-bold">INI-CET Full Mock</h3>
-            <p class="text-sm text-[var(--text-muted)] mt-1">200 questions, 3h, 4 parts of 50. AIIMS format.</p>
-            <div class="mt-3 text-xs text-[var(--text-muted)]">200 Qs &middot; 3h &middot; +1/&minus;1/3</div>
+            <h3 class="font-display font-bold">Subject mini-mock</h3>
+            <p class="text-sm text-[var(--text-muted)] mt-1">40-question subject-only mini-mock. Pick your subject.</p>
+            <div class="mt-3 text-xs text-[var(--text-muted)]">40 Qs · 50 min · +4/−1</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Mock test runner (Quick 10) -->
+    <!-- Test runner -->
     <section id="test-runner" class="py-12 hidden">
       <div class="max-w-3xl mx-auto px-4 md:px-6">
         <div class="flex items-center justify-between mb-4">
@@ -65,8 +66,9 @@
           </div>
         </div>
         <div id="test-card" class="q-card"></div>
+        <div id="reveal-after-answer" class="mt-4"></div>
         <div class="flex items-center justify-between mt-6">
-          <button id="t-prev" class="btn-secondary">Previous</button>
+          <button id="t-prev" class="btn-secondary"><i data-lucide="chevron-left" class="w-4 h-4"></i>Previous</button>
           <button id="t-next" class="btn-primary">Next<i data-lucide="chevron-right" class="w-4 h-4"></i></button>
         </div>
       </div>
@@ -77,7 +79,7 @@
       <div class="max-w-3xl mx-auto px-4 md:px-6">
         <div class="p-8 md:p-10 rounded-3xl border border-[var(--border)] text-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.06),rgba(6,182,212,0.06))">
           <i data-lucide="trophy" class="w-12 h-12 mx-auto mb-4 text-indigo-600"></i>
-          <h2 class="font-display text-3xl font-bold">Test complete!</h2>
+          <h2 class="font-display text-3xl font-bold">Mock test complete</h2>
           <div class="grid grid-cols-3 gap-4 mt-8">
             <div>
               <div class="font-display text-4xl font-bold text-indigo-600" id="r-score">--</div>
@@ -92,34 +94,48 @@
               <div class="text-xs text-[var(--text-muted)] mt-1">WRONG</div>
             </div>
           </div>
-          <p class="text-[var(--text-muted)] text-sm mt-6" id="r-msg">Great session!</p>
-          <div class="mt-6 flex gap-3 justify-center">
-            <button id="r-again" class="btn-primary magnetic"><i data-lucide="rotate-cw" class="w-4 h-4"></i>Take another</button>
-            <a href="questions.html" class="btn-secondary magnetic"><i data-lucide="book-open" class="w-4 h-4"></i>Browse PYQs</a>
+          <div class="mt-6 p-4 rounded-xl bg-white border border-[var(--border)] text-left text-sm">
+            <div class="font-semibold mb-2">Subject breakdown</div>
+            <div id="r-subject" class="text-[var(--text-muted)]"></div>
+          </div>
+        </div>
+
+        <!-- Upsell card -->
+        <div id="upsell" class="mt-6 p-6 md:p-8 rounded-3xl text-white" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">You're on the free trial</div>
+              <h3 class="font-display text-xl md:text-2xl font-bold">Unlimited mocks + full question bank for &#8377;4,999 (one-time)</h3>
+              <p class="opacity-90 mt-2 text-sm" id="upsell-msg">--</p>
+            </div>
+            <i data-lucide="zap" class="w-8 h-8 flex-shrink-0 opacity-80"></i>
+          </div>
+          <div class="mt-4 flex gap-3 flex-wrap">
+            <a href="pricing.html" class="btn-primary magnetic" style="background:white;color:#4f46e5">Get lifetime access</a>
+            <button id="r-again" class="btn-secondary magnetic" style="background:transparent;color:white;border-color:rgba(255,255,255,0.4)">Take another mock</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Info -->
     <section class="py-16 bg-[var(--surface)]" id="info">
       <div class="max-w-5xl mx-auto px-4 md:px-6">
-        <h2 class="font-display text-2xl md:text-3xl font-bold mb-6">How NEETest mocks work</h2>
+        <h2 class="font-display text-2xl md:text-3xl font-bold mb-6">How mocks work</h2>
         <div class="grid md:grid-cols-3 gap-6">
           <div class="reveal">
             <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3"><i data-lucide="zap"></i></div>
-            <h3 class="font-display font-bold mb-1">Real exam format</h3>
-            <p class="text-sm text-[var(--text-muted)]">Section-locked navigation, auto-submit on timeout, scientific calculator-free &mdash; mirrors NBE/AIIMS.</p>
+            <h3 class="font-display font-bold mb-1">Timed format</h3>
+            <p class="text-sm text-[var(--text-muted)]">10 minutes for 10 questions. Auto-submits when time runs out.</p>
           </div>
           <div class="reveal" style="transition-delay:0.1s">
             <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3"><i data-lucide="bar-chart-3"></i></div>
-            <h3 class="font-display font-bold mb-1">Honest analytics</h3>
-            <p class="text-sm text-[var(--text-muted)]">Subject-wise breakdown, time-per-question, accuracy vs speed graphs. No vanity metrics.</p>
+            <h3 class="font-display font-bold mb-1">Honest scoring</h3>
+            <p class="text-sm text-[var(--text-muted)]">+4 correct / −1 wrong, just like the real exam. Subject breakdown after.</p>
           </div>
           <div class="reveal" style="transition-delay:0.2s">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-3"><i data-lucide="bookmark"></i></div>
-            <h3 class="font-display font-bold mb-1">Save and revisit</h3>
-            <p class="text-sm text-[var(--text-muted)]">Bookmark questions to drill later. All wrong answers auto-saved to your review queue.</p>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-3"><i data-lucide="lock"></i></div>
+            <h3 class="font-display font-bold mb-1">Free trial: 5 mocks</h3>
+            <p class="text-sm text-[var(--text-muted)]">Free accounts get 5 mocks to evaluate. Lifetime access removes the limit.</p>
           </div>
         </div>
       </div>
@@ -127,21 +143,61 @@
   </main>
 
   <div id="footer-slot"></div>
-
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
   <script>
     renderNav('mock-tests.html');
     renderFooter();
 
-    // Quick 10 mock test
     let QS = [], picked = [], idx = 0, answers = {}, timerInterval, secondsLeft = 600;
+    const PAID = NEETEST_AUTH.isPaid();
+    const LOGGED_IN = NEETEST_AUTH.isLoggedIn();
+
     fetch('assets/data/questions.json').then(r => r.json()).then(data => { QS = data; });
 
-    function startQuick10() {
+    function refreshTrialStatus() {
+      const el = document.getElementById('trial-status');
+      const taken = NEETEST_AUTH.mocksTaken();
+      document.getElementById('mock-num').textContent = taken + 1;
+      if (PAID) {
+        el.innerHTML = `<div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50 text-sm flex items-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+          <span><strong>Lifetime access active.</strong> Unlimited mocks.</span>
+        </div>`;
+      } else if (!LOGGED_IN) {
+        el.innerHTML = `<div class="p-3 rounded-xl border border-indigo-200 bg-indigo-50 text-sm flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-indigo-600"></i>
+            <span>Sign in to save your scores and track progress.</span></div>
+          <a href="login.html?redirect=mock-tests.html" class="text-indigo-700 underline text-xs font-semibold whitespace-nowrap">Sign in</a>
+        </div>`;
+      } else {
+        const remaining = Math.max(0, NEETEST_FREE_MOCK_LIMIT - taken);
+        if (remaining === 0) {
+          el.innerHTML = `<div class="p-3 rounded-xl border border-rose-200 bg-rose-50 text-sm flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2"><i data-lucide="lock" class="w-4 h-4 text-rose-600"></i>
+              <span><strong>Free trial used:</strong> 5/5 mocks complete. Upgrade for unlimited.</span></div>
+            <a href="pricing.html" class="text-rose-700 underline text-xs font-semibold whitespace-nowrap">See pricing</a>
+          </div>`;
+          document.getElementById('start-mock').classList.add('opacity-50', 'pointer-events-none');
+        } else {
+          el.innerHTML = `<div class="p-3 rounded-xl border border-amber-200 bg-amber-50 text-sm flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+              <span><strong>Free trial:</strong> ${remaining} of 5 mocks remaining.</span></div>
+            <a href="pricing.html" class="text-amber-700 underline text-xs font-semibold whitespace-nowrap">Upgrade</a>
+          </div>`;
+        }
+      }
+      refreshIcons();
+    }
+
+    function startMock() {
+      if (!LOGGED_IN) { location.href = 'login.html?redirect=mock-tests.html'; return; }
+      const taken = NEETEST_AUTH.mocksTaken();
+      if (!PAID && taken >= NEETEST_FREE_MOCK_LIMIT) { location.href = 'pricing.html'; return; }
+      if (!QS.length) { alert('Loading questions, please try again in a moment.'); return; }
       picked = QS.slice().sort(() => Math.random() - 0.5).slice(0, 10);
       idx = 0; answers = {}; secondsLeft = 600;
-      document.querySelector('section:first-of-type').classList.add('hidden');
+      document.querySelector('#test-pick').classList.add('hidden');
       document.querySelector('#test-runner').classList.remove('hidden');
       document.querySelector('#results').classList.add('hidden');
       document.getElementById('tot-num').textContent = picked.length;
@@ -172,6 +228,7 @@
           </div>
         `).join('')}
       `;
+      document.getElementById('reveal-after-answer').innerHTML = '';
       card.querySelectorAll('.q-option').forEach(o => {
         o.addEventListener('click', () => {
           const sel = parseInt(o.dataset.idx, 10);
@@ -185,32 +242,48 @@
 
     function showResults() {
       clearInterval(timerInterval);
+      const newTotal = NEETEST_AUTH.incrementMocks();
       let correct = 0, wrong = 0, score = 0;
+      const subjBreakdown = {};
       picked.forEach(q => {
         const a = answers[q.id];
+        subjBreakdown[q.subject] = subjBreakdown[q.subject] || { correct: 0, wrong: 0, total: 0 };
+        subjBreakdown[q.subject].total++;
         if (a === undefined) return;
-        if (a === q.correctIndex) { correct++; score += 4; } else { wrong++; score -= 1; }
+        if (a === q.correctIndex) { correct++; score += 4; subjBreakdown[q.subject].correct++; }
+        else { wrong++; score -= 1; subjBreakdown[q.subject].wrong++; }
       });
       document.getElementById('r-score').textContent = score;
       document.getElementById('r-correct').textContent = correct;
       document.getElementById('r-wrong').textContent = wrong;
-      const pct = picked.length ? (correct / picked.length * 100) : 0;
-      const msg = pct >= 80 ? 'Outstanding. AIR-1 vibes.' :
-                  pct >= 60 ? 'Solid. Keep building.' :
-                  pct >= 40 ? 'Decent start. Review wrong answers.' :
-                  "Let's dig into the basics. The wrong-answer queue will save you.";
-      document.getElementById('r-msg').textContent = msg;
+      document.getElementById('r-subject').innerHTML = Object.entries(subjBreakdown).map(([s,v]) =>
+        `<div class="flex justify-between py-1"><span>${s}</span><span><strong class="text-emerald-600">${v.correct}</strong> / ${v.total}</span></div>`
+      ).join('');
+      const remaining = Math.max(0, NEETEST_FREE_MOCK_LIMIT - newTotal);
+      const upMsg = PAID
+        ? "You're on lifetime access — take as many as you want."
+        : remaining === 0
+          ? "You've used all 5 free mocks. Upgrade for unlimited access."
+          : `${remaining} free mocks remaining. Upgrade to remove the limit and unlock the full question bank.`;
+      document.getElementById('upsell-msg').textContent = upMsg;
       document.querySelector('#test-runner').classList.add('hidden');
       document.querySelector('#results').classList.remove('hidden');
+      if (PAID) document.querySelector('#upsell').classList.add('hidden');
+      refreshIcons();
     }
 
-    document.getElementById('quick10').addEventListener('click', () => { if (QS.length) startQuick10(); });
+    document.getElementById('start-mock').addEventListener('click', startMock);
     document.getElementById('t-prev').addEventListener('click', () => { if (idx > 0) { idx--; renderQ(); } });
     document.getElementById('t-next').addEventListener('click', () => {
       if (idx < picked.length - 1) { idx++; renderQ(); } else { showResults(); }
     });
-    document.getElementById('r-again').addEventListener('click', startQuick10);
+    document.getElementById('r-again').addEventListener('click', () => {
+      refreshTrialStatus();
+      document.querySelector('#results').classList.add('hidden');
+      document.querySelector('#test-pick').classList.remove('hidden');
+    });
 
+    refreshTrialStatus();
     initMagnetic();
   </script>
 </body>

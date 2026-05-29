@@ -3,12 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About &mdash; NEETest</title>
+  <title>About — NEETest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    .prose { font-size: 1rem; line-height: 1.75; }
+    .prose h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose p { margin-bottom: 1rem; }
+    .prose ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+    .prose li { margin-bottom: 0.5rem; }
+  </style>
 </head>
 <body>
   <div id="nav-slot"></div>
@@ -18,48 +25,43 @@
       <div class="mesh-bg"></div>
       <div class="relative max-w-3xl mx-auto px-4 md:px-6 text-center">
         <span class="section-eyebrow">About</span>
-        <h1 class="font-display text-4xl md:text-6xl font-bold">Built by doctors. <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">For doctors.</span></h1>
-        <p class="text-[var(--text-muted)] mt-4 text-lg">NEETest exists because no good free option does.</p>
+        <h1 class="font-display text-4xl md:text-6xl font-bold">A focused practice tool.</h1>
+        <p class="text-[var(--text-muted)] mt-4 text-lg">Nothing more. Nothing less.</p>
       </div>
     </section>
 
     <section class="py-12 pb-24">
-      <div class="max-w-3xl mx-auto px-4 md:px-6 prose prose-slate max-w-none text-[var(--text)]">
-        <h2 class="font-display">Why we built this</h2>
-        <p>I'm Abhishek, a doctor preparing for NEET PG. After spending months looking at the prep landscape, the verdict was clear: <strong>everything good costs &#8377;25,000&ndash;&#8377;50,000 per year</strong>. Free options were either ad-ridden, broken, or didn't cover PYQs properly.</p>
-        <p>That's wrong. <strong>Previous year questions are public exam material.</strong> They belong to every aspirant. Gating them behind paywalls is gatekeeping medicine itself &mdash; especially for students from Tier-2/3 cities who can't afford &#8377;50K courses.</p>
-        <p>So I built NEETest with one rule: <strong>PYQs are free, forever</strong>. Always. The premium tier funds the platform and unlocks analytics, smart tools, and full-length mocks &mdash; not the PYQs themselves.</p>
-
-        <h2 class="font-display">What we promise</h2>
+      <div class="max-w-3xl mx-auto px-4 md:px-6 prose">
+        <h2>What NEETest is</h2>
+        <p>NEETest is a self-paced MCQ practice tool and progress dashboard for aspirants preparing for NEET PG, INI-CET, and similar postgraduate medical entrance examinations.</p>
+        <p>It gives you two things:</p>
         <ul>
-          <li><strong>Free PYQs forever.</strong> No paywall, no signup wall, no "first 5 questions" trick.</li>
-          <li><strong>Original content only.</strong> Every note, every explanation written from scratch citing standard textbooks. Zero copy-paste from any commercial PYQ provider.</li>
-          <li><strong>Honest analytics.</strong> No inflated "strike rate" claims. Real numbers, your numbers.</li>
-          <li><strong>Offline-first.</strong> Works in hostels with bad WiFi, on trains, in waiting rooms.</li>
-          <li><strong>No dark patterns.</strong> No fake urgency, no exit-intent popups guilt-tripping you. We hate them too.</li>
+          <li>A growing bank of previous-year MCQs you can practice, tagged by subject, year, and exam.</li>
+          <li>A dashboard that shows your accuracy, time taken, and weak subject areas.</li>
         </ul>
 
-        <h2 class="font-display">Coverage today</h2>
+        <h2>What NEETest is not</h2>
+        <p>We do not offer video lectures, live classes, one-on-one mentoring, textbook chapters, doubt solving, college counselling, rank guarantees, or any service other than the two above. If you want any of those, NEETest is not the right tool for you.</p>
+
+        <h2>Pricing</h2>
+        <p>Free trial: 5 mock tests + basic dashboard. One-time &#8377;4,999 for full access (lifetime, no renewal). See the <a href="pricing.html" class="text-[var(--primary)] underline">pricing page</a> for details.</p>
+
+        <h2>Our commitments</h2>
         <ul>
-          <li><strong>508 verified PYQs</strong> from NEET PG (2018&ndash;2024), INI-CET (2021&ndash;2024), AIIMS PG (2017&ndash;2018)</li>
-          <li><strong>50 features</strong> across Practice, Analytics, Study Tools, Planner, Community, Exam Info, Smart Tools</li>
-          <li><strong>Android app + web</strong> (this site), both offline-capable</li>
-          <li><strong>NEET PG 2026 &amp; INI-CET 2026 dashboards</strong> with exam dates, eligibility, official links</li>
+          <li><strong>Transparent pricing.</strong> One number, paid once, no hidden subscriptions.</li>
+          <li><strong>Honest scope.</strong> We tell you exactly what you get and don't promise outcomes we can't deliver.</li>
+          <li><strong>Original content.</strong> Any explanation prose we write is our own, based on standard textbooks. We do not republish copyrighted material from any commercial provider.</li>
+          <li><strong>Light data use.</strong> The app is built to work on basic phones and slow networks.</li>
+          <li><strong>Reasonable refund.</strong> 7-day window if you've used fewer than 20 questions. See <a href="terms.html#refund" class="text-[var(--primary)] underline">Refund Policy</a>.</li>
         </ul>
 
-        <h2 class="font-display">What's next</h2>
-        <ul>
-          <li>Expand PYQ bank to all 19 subjects (Pharma/Path/Micro/Med/Surg/OBG underrepresented today)</li>
-          <li>500+ high-yield notes from textbooks</li>
-          <li>Full-length NEET PG &amp; INI-CET mock tests with section-locked navigation</li>
-          <li>Smart features: AI doubt solver, custom Q generator, study planner</li>
-          <li>iOS app (Q4 2026)</li>
-          <li>Community: discussion forum, study groups</li>
-        </ul>
+        <h2>What we do not promise</h2>
+        <p>NEETest does not guarantee any examination result, rank, college admission, or any other specific outcome. Please read our <a href="terms.html" class="text-[var(--primary)] underline">Terms &amp; Conditions</a> for the full statement of disclaimers and limitations.</p>
 
-        <h2 class="font-display">Connect</h2>
-        <p>Email: <a href="mailto:hello@neetest.online">hello@neetest.online</a></p>
-        <p>Built with care from Delhi, India &#127470;&#127475;</p>
+        <h2>Contact</h2>
+        <p>For support or queries: <a href="mailto:hello@neetest.online" class="text-[var(--primary)] underline">hello@neetest.online</a>. We aim to respond within 3&ndash;5 business days.</p>
+
+        <p class="text-sm text-[var(--text-muted)] mt-8">NEETest is an independent product. It is not affiliated with NBEMS, AIIMS, NMC, or any examining body.</p>
       </div>
     </section>
   </main>

@@ -1,84 +1,53 @@
-// Shared data — feature catalog (mirrors the Android app)
+// NEETest — feature catalog. Honest about what's built.
+// Status: 'live' = working today; 'soon' = planned, not yet built.
 window.NEETEST_FEATURES = [
-  // PRACTICE (10)
-  { id: 'pyq_bank', cat: 'practice', icon: 'book-open', title: 'PYQ Bank', tagline: '6000+ Previous Year Questions across NEET PG, INI-CET, AIIMS', status: 'live', href: 'questions.html' },
-  { id: 'grand_test', cat: 'practice', icon: 'trophy', title: 'Grand Test', tagline: 'Full 200-question, 3.5-hour mock exam', status: 'live', href: 'mock-tests.html' },
-  { id: 'subject_mock', cat: 'practice', icon: 'flask-conical', title: 'Subject Mock', tagline: '40 Q mini-mocks per subject', status: 'live', href: 'mock-tests.html' },
-  { id: 'daily_ten', cat: 'practice', icon: 'calendar-days', title: 'Daily 10', tagline: '10 fresh PYQs every morning', status: 'soon' },
-  { id: 'qotd', cat: 'practice', icon: 'star', title: 'Question of the Day', tagline: 'Featured high-yield PYQ daily', status: 'soon' },
-  { id: 'custom_test', cat: 'practice', icon: 'sliders-horizontal', title: 'Custom Test', tagline: 'Pick subjects, count, difficulty — build your own', status: 'soon' },
-  { id: 'speed_mode', cat: 'practice', icon: 'zap', title: 'Speed Mode', tagline: '60 seconds per Q — train your gut', status: 'soon' },
-  { id: 'bookmarks', cat: 'practice', icon: 'bookmark', title: 'Bookmarks', tagline: 'Save questions for revision', status: 'live' },
-  { id: 'wrong_answers', cat: 'practice', icon: 'x-circle', title: 'Wrong Answers', tagline: 'Drill questions you got wrong', status: 'live' },
-  { id: 'skipped', cat: 'practice', icon: 'skip-forward', title: 'Skipped Questions', tagline: 'Come back to ones you flagged', status: 'soon' },
-  // ANALYTICS (8)
-  { id: 'dashboard', cat: 'analytics', icon: 'layout-dashboard', title: 'Performance Dashboard', tagline: 'Accuracy, time-per-Q, trends in one view', status: 'soon' },
-  { id: 'heatmap', cat: 'analytics', icon: 'flame', title: 'Subject Heatmap', tagline: 'Visual weakness map across 19 subjects', status: 'soon' },
-  { id: 'topic_mastery', cat: 'analytics', icon: 'gauge', title: 'Topic Mastery', tagline: 'Per-topic mastery score (0-100)', status: 'soon' },
-  { id: 'rank_predictor', cat: 'analytics', icon: 'trending-up', title: 'Rank Predictor', tagline: 'Estimated AIR based on your scores', status: 'pro' },
-  { id: 'percentile', cat: 'analytics', icon: 'percent', title: 'Percentile Calculator', tagline: 'Where you stand vs all NEETest users', status: 'pro' },
-  { id: 'progress', cat: 'analytics', icon: 'line-chart', title: 'Progress Tracker', tagline: 'Day-over-day, week-over-week', status: 'soon' },
-  { id: 'time_analysis', cat: 'analytics', icon: 'clock', title: 'Time Analysis', tagline: 'Which subjects eat your clock', status: 'soon' },
-  { id: 'peer_compare', cat: 'analytics', icon: 'users', title: 'Peer Comparison', tagline: 'Anonymous comparison with your batch', status: 'pro' },
-  // STUDY TOOLS (8)
-  { id: 'hy_notes', cat: 'study', icon: 'file-text', title: 'High-Yield Notes', tagline: 'Crisp summaries from Robbins, Harrison, KDT', status: 'soon', href: 'notes.html' },
-  { id: 'mnemonics', cat: 'study', icon: 'brain', title: 'Mnemonics Library', tagline: 'Searchable mnemonic database', status: 'soon' },
-  { id: 'flowcharts', cat: 'study', icon: 'workflow', title: 'Flowcharts & Tables', tagline: 'Diagnostic algorithms, drug tables', status: 'soon' },
-  { id: 'atlas', cat: 'study', icon: 'image', title: 'Image Atlas', tagline: 'Anatomy, histology, pathology slides', status: 'soon' },
-  { id: 'drug_ref', cat: 'study', icon: 'pill', title: 'Drug Reference', tagline: 'KDT-style drug lookup with doses', status: 'soon' },
-  { id: 'lab_values', cat: 'study', icon: 'test-tube', title: 'Lab Values', tagline: 'Normal ranges & critical values', status: 'soon' },
-  { id: 'treatment_algos', cat: 'study', icon: 'list-checks', title: 'Treatment Algorithms', tagline: 'Step-by-step management protocols', status: 'soon' },
-  { id: 'flashcards', cat: 'study', icon: 'layers', title: 'Flashcards', tagline: 'Spaced-repetition mini cards', status: 'soon' },
-  // PLANNER (7)
-  { id: 'study_planner', cat: 'planner', icon: 'calendar-clock', title: 'Study Planner', tagline: 'Smart 6-month plan to exam day', status: 'pro' },
-  { id: 'daily_goals', cat: 'planner', icon: 'flag', title: 'Daily Goals', tagline: 'Hit your Q-count, build the habit', status: 'live' },
-  { id: 'streak', cat: 'planner', icon: 'flame', title: 'Streak Tracker', tagline: "Don't break the chain", status: 'live' },
-  { id: 'pomodoro', cat: 'planner', icon: 'timer', title: 'Pomodoro Timer', tagline: '25/5 focus blocks built in', status: 'live' },
-  { id: 'spaced_rep', cat: 'planner', icon: 'rotate-cw', title: 'Spaced Repetition', tagline: 'Auto-schedule wrong Qs for review', status: 'soon' },
-  { id: 'countdown', cat: 'planner', icon: 'calendar', title: 'Exam Countdown', tagline: 'Days, hours, minutes to D-day', status: 'live' },
-  { id: 'syllabus', cat: 'planner', icon: 'list-todo', title: 'Syllabus Tracker', tagline: 'Tick off topics as you finish', status: 'live' },
-  // COMMUNITY (5)
-  { id: 'forum', cat: 'community', icon: 'message-square', title: 'Discussion Forum', tagline: 'Per-question discussions with peers', status: 'soon' },
-  { id: 'doubt_solver', cat: 'community', icon: 'help-circle', title: 'Doubt Solver', tagline: 'Ask doubts, get answered fast', status: 'soon' },
-  { id: 'study_groups', cat: 'community', icon: 'users-2', title: 'Study Groups', tagline: 'Form 4-5 person study squads', status: 'soon' },
-  { id: 'leaderboard', cat: 'community', icon: 'crown', title: 'Leaderboards', tagline: 'Weekly + monthly rankings', status: 'soon' },
-  { id: 'mentor', cat: 'community', icon: 'headphones', title: 'Ask a Mentor', tagline: 'Connect with senior PG residents', status: 'pro' },
-  // EXAM INFO (5)
-  { id: 'neet_pg_dash', cat: 'exam', icon: 'graduation-cap', title: 'NEET PG 2026', tagline: 'Notification, dates, application status', status: 'live', href: 'exams.html#neetpg' },
-  { id: 'ini_cet_dash', cat: 'exam', icon: 'graduation-cap', title: 'INI-CET Nov 2026', tagline: 'Notification, dates, syllabus', status: 'live', href: 'exams.html#inicet' },
-  { id: 'cutoffs', cat: 'exam', icon: 'calculator', title: 'Counselling Cutoffs', tagline: 'Year-wise cutoff by college & branch', status: 'soon' },
-  { id: 'colleges', cat: 'exam', icon: 'map-pin', title: 'College Database', tagline: 'All 700+ PG colleges, seats, fees', status: 'soon' },
-  { id: 'state_quota', cat: 'exam', icon: 'filter', title: 'State Quota Helper', tagline: '85% state vs 15% AIQ calculator', status: 'soon' },
-  // SMART TOOLS (7)
-  { id: 'smart_doubt', cat: 'smart', icon: 'sparkles', title: 'Smart Doubt Solver', tagline: 'Stuck? Get an instant detailed answer', status: 'pro' },
-  { id: 'smart_gen_qs', cat: 'smart', icon: 'wand-2', title: 'Smart Question Generator', tagline: 'Endless practice on your weak topics', status: 'pro' },
-  { id: 'smart_revision', cat: 'smart', icon: 'lightbulb', title: 'Smart Revision', tagline: 'We pick what you should revise today', status: 'pro' },
-  { id: 'smart_coach', cat: 'smart', icon: 'heart', title: 'Smart Coach', tagline: 'Daily motivation + plan tweaks', status: 'pro' },
-  { id: 'voice_notes', cat: 'smart', icon: 'mic', title: 'Voice Notes', tagline: 'Dictate revision notes hands-free', status: 'soon' },
-  { id: 'note_taker', cat: 'smart', icon: 'sticky-note', title: 'Notes', tagline: 'Per-topic markdown notes', status: 'live', href: 'notes.html' },
-  { id: 'image_to_card', cat: 'smart', icon: 'camera', title: 'Image → Flashcard', tagline: 'Snap a textbook page, get cards', status: 'pro' },
+  // PRACTICE
+  { id: 'pyq_bank', cat: 'practice', icon: 'book-open', title: 'PYQ Practice', tagline: 'Previous-year MCQs tagged by subject, year, exam', status: 'live', paid: true, href: 'questions.html' },
+  { id: 'grand_test', cat: 'practice', icon: 'trophy', title: 'Full-Length Mock', tagline: '200-question, 3.5-hour mock test', status: 'soon', paid: true },
+  { id: 'subject_mock', cat: 'practice', icon: 'flask-conical', title: 'Subject Mock', tagline: '40-Q mini-mock per subject', status: 'soon', paid: true },
+  { id: 'daily_ten', cat: 'practice', icon: 'calendar-days', title: 'Daily 10', tagline: '10 fresh MCQs each day', status: 'soon', paid: true },
+  { id: 'qotd', cat: 'practice', icon: 'star', title: 'Question of the Day', tagline: 'One featured MCQ daily', status: 'soon', paid: false },
+  { id: 'custom_test', cat: 'practice', icon: 'sliders-horizontal', title: 'Custom Test', tagline: 'Pick subjects, count, difficulty', status: 'soon', paid: true },
+  { id: 'speed_mode', cat: 'practice', icon: 'zap', title: 'Speed Mode', tagline: '60 seconds per Q', status: 'soon', paid: true },
+  { id: 'bookmarks', cat: 'practice', icon: 'bookmark', title: 'Bookmarks', tagline: 'Save questions for revision', status: 'live', paid: true },
+  { id: 'wrong_answers', cat: 'practice', icon: 'x-circle', title: 'Wrong Answers Drill', tagline: 'Re-attempt the ones you got wrong', status: 'live', paid: true },
+  { id: 'skipped', cat: 'practice', icon: 'skip-forward', title: 'Skipped Questions', tagline: 'Come back to flagged questions', status: 'soon', paid: true },
+
+  // ANALYTICS
+  { id: 'dashboard', cat: 'analytics', icon: 'layout-dashboard', title: 'Progress Dashboard', tagline: 'Accuracy, time-per-Q, trends', status: 'live', paid: false },
+  { id: 'heatmap', cat: 'analytics', icon: 'flame', title: 'Subject Heatmap', tagline: 'Strong vs weak subjects visualised', status: 'live', paid: false },
+  { id: 'topic_mastery', cat: 'analytics', icon: 'gauge', title: 'Topic Mastery', tagline: 'Per-topic mastery score', status: 'soon', paid: true },
+  { id: 'progress', cat: 'analytics', icon: 'line-chart', title: 'Progress Tracker', tagline: 'Day-over-day, week-over-week', status: 'live', paid: false },
+  { id: 'time_analysis', cat: 'analytics', icon: 'clock', title: 'Time Analysis', tagline: 'Which subjects eat your clock', status: 'soon', paid: true },
+  { id: 'attempt_log', cat: 'analytics', icon: 'history', title: 'Attempt Log', tagline: 'Full history of every attempt', status: 'soon', paid: true },
+
+  // PLANNER
+  { id: 'daily_goals', cat: 'planner', icon: 'flag', title: 'Daily Goals', tagline: 'Hit your daily question count', status: 'live', paid: false },
+  { id: 'streak', cat: 'planner', icon: 'flame', title: 'Streak Tracker', tagline: "Don't break the chain", status: 'live', paid: false },
+  { id: 'pomodoro', cat: 'planner', icon: 'timer', title: 'Pomodoro Timer', tagline: '25/5 focus blocks', status: 'live', paid: false },
+  { id: 'countdown', cat: 'planner', icon: 'calendar', title: 'Exam Countdown', tagline: 'Days, hours to D-day', status: 'live', paid: false },
+  { id: 'syllabus', cat: 'planner', icon: 'list-todo', title: 'Syllabus Tracker', tagline: 'Tick off topics as you finish', status: 'live', paid: false },
+
+  // EXAM INFO
+  { id: 'neet_pg_dash', cat: 'exam', icon: 'graduation-cap', title: 'NEET PG 2026', tagline: 'Official dates, pattern, eligibility', status: 'live', paid: false, href: 'exams.html#neetpg' },
+  { id: 'ini_cet_dash', cat: 'exam', icon: 'graduation-cap', title: 'INI-CET Nov 2026', tagline: 'Official dates, pattern, eligibility', status: 'live', paid: false, href: 'exams.html#inicet' },
 ];
 
 window.NEETEST_CATEGORIES = {
-  practice: { label: 'Practice', sub: 'Where ranks are forged', color: '#5b6ff6' },
-  analytics: { label: 'Analytics', sub: 'Know your numbers', color: '#14b8a6' },
-  study: { label: 'Study Tools', sub: 'High-yield, fast', color: '#ec4899' },
-  planner: { label: 'Planner', sub: 'Show up every day', color: '#f59e0b' },
-  community: { label: 'Community', sub: "You're not alone", color: '#8b5cf6' },
-  exam: { label: 'Exam Info', sub: 'Dates, cutoffs, colleges', color: '#06b6d4' },
-  smart: { label: 'Smart Tools', sub: 'Personal coach in your pocket', color: '#ef4444' },
+  practice: { label: 'Practice', sub: 'MCQ practice + mock tests', color: '#5b6ff6' },
+  analytics: { label: 'Dashboard', sub: 'Track your progress', color: '#14b8a6' },
+  planner: { label: 'Study Tools', sub: 'Stay consistent', color: '#f59e0b' },
+  exam: { label: 'Exam Info', sub: 'Official dates and pattern', color: '#06b6d4' },
 };
 
 window.NEETEST_EXAMS = {
   neetpg: {
     title: 'NEET PG 2026',
-    targetDate: '30 Aug 2026',
     targetDateRaw: '2026-08-30',
-    status: '⏳ Awaiting official notification',
     pattern: '200 MCQs, 3 hours 30 minutes, single session, computer-based',
     sections: '5 sections × 40 questions each (sequential, locked)',
-    marking: '+4 for correct, −1 for wrong (negative marking)',
-    eligibility: 'MBBS degree from MCI/NMC recognized college + internship completed by 31 July 2026',
+    marking: '+4 for correct, −1 for wrong',
+    eligibility: 'MBBS from MCI/NMC recognised college + internship completed by 31 July 2026',
     application: 'Information Bulletin not yet released',
     results: '~3 weeks post-exam',
     officialUrl: 'https://www.natboard.edu.in/allnotice.php',
@@ -87,17 +56,34 @@ window.NEETEST_EXAMS = {
   },
   inicet: {
     title: 'INI-CET Nov 2026',
-    targetDate: '1 Nov 2026',
     targetDateRaw: '2026-11-01',
-    status: '⏳ Awaiting official notification',
     pattern: '200 MCQs, 3 hours, computer-based',
     sections: '4 parts × 50 questions',
     marking: '+1 for correct, −1/3 for wrong',
-    eligibility: 'MBBS + internship by exam date; for AIIMS, JIPMER, NIMHANS, PGIMER, SCTIMST seats',
-    application: 'Typically opens 2 months before exam (~Sep 2026)',
-    results: 'Usually 7–14 days after exam',
+    eligibility: 'MBBS + internship by exam date',
+    application: 'Typically opens 2 months before exam',
+    results: '7–14 days post-exam',
     officialUrl: 'https://www.aiimsexams.ac.in/info/keydates.html',
     officialLabel: 'AIIMS Exams Key Dates',
     accent: '#06b6d4',
+  },
+};
+
+// Free trial limit: 5 mock tests
+window.NEETEST_FREE_MOCK_LIMIT = 5;
+
+// Simple localStorage-based session (demo; real auth needs backend)
+window.NEETEST_AUTH = {
+  isLoggedIn: () => !!localStorage.getItem('neetest_user'),
+  user: () => { try { return JSON.parse(localStorage.getItem('neetest_user')); } catch { return null; } },
+  login: (email, name) => localStorage.setItem('neetest_user', JSON.stringify({ email, name, joinedAt: Date.now() })),
+  logout: () => { localStorage.removeItem('neetest_user'); localStorage.removeItem('neetest_paid'); },
+  isPaid: () => localStorage.getItem('neetest_paid') === 'true',
+  setPaid: (v) => localStorage.setItem('neetest_paid', v ? 'true' : 'false'),
+  mocksTaken: () => parseInt(localStorage.getItem('neetest_mocks_taken') || '0', 10),
+  incrementMocks: () => {
+    const n = (parseInt(localStorage.getItem('neetest_mocks_taken') || '0', 10) || 0) + 1;
+    localStorage.setItem('neetest_mocks_taken', String(n));
+    return n;
   },
 };

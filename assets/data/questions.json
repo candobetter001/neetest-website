@@ -228,25 +228,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2024-anatomy-0001_0501-q019",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "A 15-year-old boy underwent splenectomy for immune thrombocytopenic purpura. During the procedure, the surgeon noticed bleeding while separating the spleen from the stomach.",
-    "options": [
-      "Which vessels are most likely implicated in this bleeding?",
-      "Left gastric vessels",
-      "Short gastric vessels",
-      "Right gastro-epiploic vessels"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2024-anatomy-0001_0501-q020",
     "exam": "INI-CET",
     "year": 2024,

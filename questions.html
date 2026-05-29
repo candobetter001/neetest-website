@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Question Bank &mdash; NEETest</title>
-  <meta name="description" content="508 free verified NEET PG, INI-CET, and AIIMS PG previous year questions. Filter by subject, exam, year. No signup needed." />
+  <title>Question Bank — NEETest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,87 +17,120 @@
     <section class="relative overflow-hidden py-10 md:py-14">
       <div class="mesh-bg"></div>
       <div class="relative max-w-6xl mx-auto px-4 md:px-6">
-        <div class="text-center mb-8">
-          <span class="section-eyebrow">PYQ Bank &middot; Free Forever</span>
+        <div class="text-center mb-6">
+          <span class="section-eyebrow">Question Bank</span>
           <h1 class="font-display text-3xl md:text-5xl font-bold leading-tight">
-            <span id="q-count">508</span> verified PYQs.<br />
-            <span style="background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;">Practice. Reveal. Repeat.</span>
+            Previous-year MCQ practice
           </h1>
-          <p class="text-[var(--text-muted)] mt-3">From NEET PG, INI-CET, and AIIMS PG &mdash; tagged by year &amp; subject.</p>
+          <p class="text-[var(--text-muted)] mt-3 max-w-2xl mx-auto">Tagged by subject, exam, and year. Instant feedback after every answer.</p>
         </div>
       </div>
     </section>
 
     <section class="py-6">
-      <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <!-- Filter bar -->
-        <div class="flex flex-wrap gap-3 items-center mb-6 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
+
+        <!-- Status strip (free vs paid) -->
+        <div id="status-strip"></div>
+
+        <!-- Filter bar (only relevant when paid) -->
+        <div id="filter-bar" class="flex flex-wrap gap-3 items-center my-6 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
           <div class="flex items-center gap-2 flex-1 min-w-[200px]">
             <i data-lucide="search" class="w-4 h-4 text-[var(--text-muted)]"></i>
             <input id="search" type="text" placeholder="Search question text..." class="w-full bg-transparent outline-none text-sm py-2" />
           </div>
-          <select id="filter-subject" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+          <select id="filter-subject" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
             <option value="">All subjects</option>
           </select>
-          <select id="filter-exam" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+          <select id="filter-exam" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
             <option value="">All exams</option>
           </select>
-          <select id="filter-year" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-sm">
+          <select id="filter-year" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
             <option value="">All years</option>
           </select>
-          <button id="shuffle-btn" class="btn-secondary text-sm py-2 px-3">
+          <button id="shuffle-btn" class="btn-secondary text-sm py-2 px-3 magnetic">
             <i data-lucide="shuffle" class="w-4 h-4"></i>Shuffle
           </button>
         </div>
 
-        <!-- Counters -->
+        <!-- Counter row -->
         <div class="flex items-center gap-4 text-sm text-[var(--text-muted)] mb-4">
-          <span><strong id="filtered-count" class="text-[var(--text)]">--</strong> questions matching</span>
-          <span>&middot;</span>
+          <span><strong id="filtered-count" class="text-[var(--text)]">--</strong> available</span>
+          <span>·</span>
           <span><strong id="answered-count" class="text-[var(--text)]">0</strong> attempted</span>
-          <span>&middot;</span>
+          <span>·</span>
           <span><strong id="correct-count" class="text-emerald-600">0</strong> correct</span>
         </div>
 
-        <!-- Question card -->
         <div id="q-card" class="q-card"></div>
 
-        <!-- Nav buttons -->
         <div class="flex items-center justify-between mt-6">
           <button id="prev-btn" class="btn-secondary"><i data-lucide="chevron-left" class="w-4 h-4"></i>Previous</button>
-          <span class="text-sm text-[var(--text-muted)]"><span id="current-idx">1</span> of <span id="total-idx">--</span></span>
+          <span class="text-sm text-[var(--text-muted)]"><span id="current-idx">--</span> of <span id="total-idx">--</span></span>
           <button id="next-btn" class="btn-primary">Next<i data-lucide="chevron-right" class="w-4 h-4"></i></button>
         </div>
 
-        <!-- Quick stats -->
-        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 text-center" id="subject-stats"></div>
+        <!-- Paywall (shown only for non-paid) -->
+        <div id="paywall" class="hidden mt-8 lock-overlay">
+          <div class="lock-icon"><i data-lucide="lock" class="w-7 h-7"></i></div>
+          <h3 class="font-display text-xl font-bold mb-2">The full question bank is part of lifetime access</h3>
+          <p class="text-sm text-[var(--text-muted)] max-w-md mx-auto mb-5">
+            You've seen 3 sample questions. The full bank — every available previous-year MCQ across all subjects — unlocks with one-time &#8377;4,999.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <a href="pricing.html" class="btn-primary magnetic"><i data-lucide="zap" class="w-4 h-4"></i>See pricing</a>
+            <a href="mock-tests.html" class="btn-secondary magnetic"><i data-lucide="zap" class="w-4 h-4"></i>Try a free mock instead</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <div id="footer-slot"></div>
-
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
   <script>
     renderNav('questions.html');
     renderFooter();
 
-    let QS = [];
-    let filtered = [];
-    let currentIdx = 0;
+    let QS = [], filtered = [], currentIdx = 0;
     let stats = { attempted: 0, correct: 0 };
     let answered = new Set();
+    const PAID = NEETEST_AUTH.isPaid();
+    const LOGGED_IN = NEETEST_AUTH.isLoggedIn();
+    const FREE_SAMPLE_LIMIT = 3;
+
+    // Status banner at top
+    function renderStatus() {
+      const el = document.getElementById('status-strip');
+      if (PAID) {
+        el.innerHTML = `<div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50 text-sm flex items-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+          <span><strong>Lifetime access active.</strong> Full question bank unlocked.</span>
+        </div>`;
+      } else if (LOGGED_IN) {
+        el.innerHTML = `<div class="p-3 rounded-xl border border-amber-200 bg-amber-50 text-sm flex items-center gap-2 justify-between">
+          <div class="flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+          <span><strong>Free trial:</strong> 3 sample questions shown. Upgrade for the full bank.</span></div>
+          <a href="pricing.html" class="font-semibold text-amber-700 underline text-xs whitespace-nowrap">See pricing</a>
+        </div>`;
+      } else {
+        el.innerHTML = `<div class="p-3 rounded-xl border border-indigo-200 bg-indigo-50 text-sm flex items-center gap-2 justify-between">
+          <div class="flex items-center gap-2"><i data-lucide="user-plus" class="w-4 h-4 text-indigo-600"></i>
+          <span><strong>Sign in</strong> to track progress, then upgrade for full access.</span></div>
+          <a href="login.html?redirect=questions.html" class="font-semibold text-indigo-700 underline text-xs whitespace-nowrap">Sign in</a>
+        </div>`;
+      }
+    }
 
     async function loadQuestions() {
       const res = await fetch('assets/data/questions.json');
-      QS = await res.json();
-      document.getElementById('q-count').textContent = QS.length.toLocaleString('en-IN');
-
-      // Populate filters
-      const subjects = [...new Set(QS.map(q => q.subject))].sort();
-      const exams = [...new Set(QS.map(q => q.exam))].sort();
-      const years = [...new Set(QS.map(q => q.year))].sort((a,b) => b - a);
+      const all = await res.json();
+      // Only paid users see the full bank
+      QS = PAID ? all : all.slice(0, FREE_SAMPLE_LIMIT);
+      const subjects = [...new Set(all.map(q => q.subject))].sort();
+      const exams = [...new Set(all.map(q => q.exam))].sort();
+      const years = [...new Set(all.map(q => q.year))].sort((a,b) => b - a);
       const fs = document.getElementById('filter-subject');
       const fe = document.getElementById('filter-exam');
       const fy = document.getElementById('filter-year');
@@ -106,18 +138,10 @@
       exams.forEach(e => fe.insertAdjacentHTML('beforeend', `<option value="${e}">${e}</option>`));
       years.forEach(y => fy.insertAdjacentHTML('beforeend', `<option value="${y}">${y}</option>`));
 
-      // Subject stats
-      const statsEl = document.getElementById('subject-stats');
-      subjects.slice(0, 4).forEach(s => {
-        const count = QS.filter(q => q.subject === s).length;
-        statsEl.insertAdjacentHTML('beforeend', `
-          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--surface)]">
-            <div class="font-display text-2xl font-bold">${count}</div>
-            <div class="text-xs text-[var(--text-muted)] mt-1">${s}</div>
-          </div>
-        `);
-      });
-
+      if (!PAID) {
+        document.getElementById('filter-bar').classList.add('opacity-50', 'pointer-events-none');
+        document.getElementById('paywall').classList.remove('hidden');
+      }
       applyFilters();
     }
 
@@ -126,7 +150,6 @@
       const exam = document.getElementById('filter-exam').value;
       const year = document.getElementById('filter-year').value;
       const search = document.getElementById('search').value.toLowerCase();
-
       filtered = QS.filter(q => {
         if (subj && q.subject !== subj) return false;
         if (exam && q.exam !== exam) return false;
@@ -134,8 +157,7 @@
         if (search && !q.stem.toLowerCase().includes(search)) return false;
         return true;
       });
-
-      document.getElementById('filtered-count').textContent = filtered.length.toLocaleString('en-IN');
+      document.getElementById('filtered-count').textContent = filtered.length;
       document.getElementById('total-idx').textContent = filtered.length;
       currentIdx = 0;
       renderCurrent();
@@ -150,12 +172,10 @@
       }
       const q = filtered[currentIdx];
       document.getElementById('current-idx').textContent = currentIdx + 1;
-      const wasAnswered = answered.has(q.id);
       card.innerHTML = `
         <div class="flex items-center gap-2 mb-4">
           <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">${q.exam} ${q.year}</span>
           <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">${q.subject}</span>
-          ${q.topic ? `<span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">${q.topic}</span>` : ''}
         </div>
         <h2 class="text-lg md:text-xl font-medium leading-relaxed mb-6">${q.stem}</h2>
         <div id="options">
@@ -176,26 +196,24 @@
           answered.add(q.id);
           stats.attempted++;
           if (idx === correct) stats.correct++;
-          updateStats();
+          document.getElementById('answered-count').textContent = stats.attempted;
+          document.getElementById('correct-count').textContent = stats.correct;
           options.forEach((opt, i) => {
             if (i === correct) opt.classList.add('correct');
             else if (i === idx) opt.classList.add('wrong');
           });
+          const correctLetter = String.fromCharCode(97 + correct);
           document.getElementById('reveal-area').innerHTML = `
             <div class="p-4 rounded-xl border-2 ${idx === correct ? 'border-emerald-500 bg-emerald-50' : 'border-rose-500 bg-rose-50'}">
-              <div class="font-semibold text-sm">
-                ${idx === correct ? '&check; Correct!' : `&times; Wrong &mdash; the answer is ${String.fromCharCode(97 + correct)}.`}
+              <div class="font-semibold text-sm mb-2">
+                ${idx === correct ? '✓ Correct — answer is option ' + correctLetter + '.' : '✗ Wrong — correct answer is option ' + correctLetter + '.'}
               </div>
+              <p class="text-xs text-[var(--text-muted)]">A short explanation note for this question is part of the full question bank.</p>
             </div>
           `;
         });
       });
       refreshIcons();
-    }
-
-    function updateStats() {
-      document.getElementById('answered-count').textContent = stats.attempted;
-      document.getElementById('correct-count').textContent = stats.correct;
     }
 
     document.getElementById('search').addEventListener('input', applyFilters);
@@ -214,7 +232,9 @@
       if (currentIdx < filtered.length - 1) { currentIdx++; renderCurrent(); window.scrollTo({top:0,behavior:'smooth'}); }
     });
 
+    renderStatus();
     loadQuestions();
+    refreshIcons();
     initMagnetic();
   </script>
 </body>
