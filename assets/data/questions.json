@@ -1,24 +1,5 @@
 [
   {
-    "id": "inicet-2024-anatomy-0001_0501-q001",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following joints is not formed by the structure shown in the picture?",
-    "options": [
-      "Synchondrosis",
-      "Syndesmosis",
-      "Symphysis",
-      "Plane synovial joint"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2024-anatomy-0001_0501-q003",
     "exam": "INI-CET",
     "year": 2024,
@@ -38,63 +19,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2024-anatomy-0001_0501-q005",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What are the structures passing between the muscles marked as 1 and 2?",
-    "options": [
-      "Recurrent laryngeal nerve and inferior thyroid vessels",
-      "Internal laryngeal nerve and superior laryngeal artery",
-      "Auditory tube and levator palitini",
-      "Glossopharyngeal nerve and stylopharyngeus muscle"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-anatomy-0001_0501-q006",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "At what vertebral level does the part marked in the image lie in a normal anatomical position?",
-    "options": [
-      "S3 spine",
-      "Upper border of L5",
-      "Tip of coccyx",
-      "Disc space between L4 and L5"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-anatomy-0001_0501-q008",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The area marked by the arrow is supplied by which of the following arteries?",
-    "options": [
-      "Diagonal artery",
-      "Right Marginal artery",
-      "Anterior interventricular artery",
-      "Left circumflex artery"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2024-anatomy-0001_0501-q011",
     "exam": "INI-CET",
     "year": 2024,
@@ -106,63 +30,6 @@
       "Ligaments of cooper are found only in lower quadrants",
       "Tail of Spence extends across anterior axillary fold",
       "Breast is made of 10 lobes"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-anatomy-0001_0501-q013",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the normal anatomical variation given in the following CT image.",
-    "options": [
-      "Tracheal diverticulum",
-      "Esophageal duplication",
-      "Aberrant right subclavian artery",
-      "Right aortic arch"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-anatomy-0001_0501-q014",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the marked structure",
-    "options": [
-      "Superficial temporal artery",
-      "Posterior auricular artery",
-      "Middle meningeal artery",
-      "Occipital artery"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-anatomy-0001_0501-q015",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The marked structure serves as a surface landmark for which anatomical structure?",
-    "options": [
-      "Pineal gland",
-      "Wenicke's area",
-      "Stem of the lateral sulcus",
-      "Internal carotid artery siphon"
     ],
     "correctIndex": 2,
     "hasImage": false,
@@ -228,25 +95,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2024-anatomy-0001_0501-q020",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the marked structure",
-    "options": [
-      "Primitive streak",
-      "Notochord",
-      "Neural groove",
-      "Secondary neural plate"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2024-anatomy-0001_0501-q021",
     "exam": "INI-CET",
     "year": 2024,
@@ -285,25 +133,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2024-anatomy-0001_0501-q023",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the marked structure?",
-    "options": [
-      "Oculomotor nerve",
-      "Abducens nerve",
-      "Trochlear nerve",
-      "Ophthalmic division"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2024-anatomy-0001_0501-q024",
     "exam": "INI-CET",
     "year": 2024,
@@ -317,25 +146,6 @@
       "Wrist drop"
     ],
     "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2024-anatomy-0001_0501-q002",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "If a tumor compresses the structures passing through the opening marked in the given image, which of the following sensations would be affected?",
-    "options": [
-      "Sensation of the nasopharynx",
-      "Mucosa of the nasal cavity",
-      "Sensation in the anterior scalp and dorsum of the nose",
-      "Sensation of the chin"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -380,44 +190,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2024-anatomy-0001_0501-q005",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the outer covering of the condition shown in the image?",
-    "options": [
-      "Chorion",
-      "Amnion",
-      "Endoderm",
-      "Ectoderm"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2024-anatomy-0001_0501-q006",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the marked structure.",
-    "options": [
-      "Thoracodorsal nerve",
-      "Medial pectoral nerve",
-      "Subscapular nerve",
-      "Long thoracic nerve"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2024-anatomy-0001_0501-q007",
     "exam": "NEET PG",
     "year": 2024,
@@ -431,25 +203,6 @@
       "Obturator nerve"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2024-anatomy-0001_0501-q008",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Where will you find the epithelium shown in the image?",
-    "options": [
-      "Gall bladder",
-      "Trachea",
-      "Ureter",
-      "Duodenum"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -494,25 +247,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2023-anatomy-0001_0501-q001",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following vessels is involved in the condition affecting the region marked in red in the image shown below?",
-    "options": [
-      "Superior Cerebellar Artery",
-      "Posterior Inferior Cerebellar Artery",
-      "Posterior Superior Cerebellar Artery",
-      "Cerebral artery"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2023-anatomy-0001_0501-q007",
     "exam": "INI-CET",
     "year": 2023,
@@ -524,25 +258,6 @@
       "Loops of jejunum",
       "Root of mesentery",
       "Fundus and body of Gall bladder"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q010",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Given below is the image of a 33-hour chick embryo. Which of the following is derived from the marked structure?",
-    "options": [
-      "Kidney",
-      "Dorsal root ganglion",
-      "Ribs",
-      "Parietal pleura"
     ],
     "correctIndex": 0,
     "hasImage": false,
@@ -570,82 +285,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2023-anatomy-0001_0501-q012",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The sulcus located deep to the marked structure is?",
-    "options": [
-      "Central sulcus",
-      "Stem of the lateral sulcus",
-      "Inferior frontal sulcus",
-      "Superior temporal sulcus"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q013",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Given below is an illustration of a transverse section of the heart. Identify the marked structure.",
-    "options": [
-      "Sub-aortic curtain",
-      "Posterior leaflet of mitral valve",
-      "Aortic valve leaflet",
-      "Anterior aortic sinus"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q014",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the structure marked as A.",
-    "options": [
-      "Intra-pulmonary bronchus",
-      "Terminal bronchiole",
-      "Respiratory bronchiole",
-      "Alveolar sac"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q016",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following is a function of the marked layer?",
-    "options": [
-      "Gluconeogenesis",
-      "Sodium and water retention",
-      "Increased sex hormones",
-      "Immune cell interaction"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2023-anatomy-0001_0501-q017",
     "exam": "INI-CET",
     "year": 2023,
@@ -659,82 +298,6 @@
       "Sciatic nerve"
     ],
     "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q018",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following statements is incorrect about the anomaly shown below?",
-    "options": [
-      "It occurs due to the persistance of prechordal plate",
-      "It occurs due to the defective migration of primordial cells to the genital ridge",
-      "It contains skin, cartilage and bone",
-      "It is a benign tumor of coccyx"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q019",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the arrow-marked structure.",
-    "options": [
-      "Carina",
-      "Superior Vena Cava",
-      "Pulmonary Trunk",
-      "Arch of Aorta"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q020",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the role of the marked structure in the given image?",
-    "options": [
-      "Motor function",
-      "Reward-punishment",
-      "Judgement",
-      "Memory"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-anatomy-0001_0501-q022",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The marked structure sends efferents to which nucleus of the thalamus?",
-    "options": [
-      "Pulvinar",
-      "Ventro-postero-lateral nucleus",
-      "Anterior nucleus",
-      "Lateral nucleus"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -798,25 +361,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2023-anatomy-0001_0501-q001",
-    "exam": "NEET PG",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "A defect in which of the following forms the structure marked below?",
-    "options": [
-      "Internal oblique",
-      "External oblique",
-      "Parietal peritoneum",
-      "Fascia transversalis"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2023-anatomy-0001_0501-q002",
     "exam": "NEET PG",
     "year": 2023,
@@ -830,44 +374,6 @@
       "Masseter"
     ],
     "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2023-anatomy-0001_0501-q003",
-    "exam": "NEET PG",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the structure(s) in the following histological image.",
-    "options": [
-      "Leydig cells of testis",
-      "Pancreatic islet cells",
-      "Hassall's corpuscles",
-      "Glomerulus"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2023-anatomy-0001_0501-q006",
-    "exam": "NEET PG",
-    "year": 2023,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following structures develops from the structure marked A?",
-    "options": [
-      "Medial umbilical ligament",
-      "Median umbilical ligament",
-      "Meckel's diverticulum",
-      "Ligamentum teres"
-    ],
-    "correctIndex": 1,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -1026,44 +532,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2022-anatomy-0001_0501-q009",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the nerve supply of the structure marked in the image?",
-    "options": [
-      "Radial nerve",
-      "Median nerve",
-      "Ulnar nerve",
-      "Musculocutaneous nerve"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2022-anatomy-0001_0501-q012",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the blood supply of the structure marked in the image below?",
-    "options": [
-      "Anterior cerebral artery and middle cerebral artery",
-      "Anterior cerebral artery and posterior cerebral artery",
-      "Anterior cerebral artery and anterior communicating artery",
-      "Middle cerebral artery and posterior cerebral artery"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2022-anatomy-0001_0501-q013",
     "exam": "INI-CET",
     "year": 2022,
@@ -1140,44 +608,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2022-anatomy-0001_0501-q022",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the nerve passing around the marked structure.",
-    "options": [
-      "Common peroneal nerve",
-      "Sural nerve",
-      "Tibial nerve",
-      "Femoral nerve"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2022-anatomy-0001_0501-q024",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Bleeding as shown in the image is due to which of the following vessels?",
-    "options": [
-      "Bridging veins",
-      "Middle meningeal artery",
-      "Lenticulostriate artery",
-      "Vertebral artery"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2022-anatomy-0001_0501-q026",
     "exam": "INI-CET",
     "year": 2022,
@@ -1189,25 +619,6 @@
       "Lateral sacral artery",
       "Inferior gluteal artery",
       "Superior gluteal artery"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2022-anatomy-0001_0501-q027",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the incorrect statement regarding the marked structure.",
-    "options": [
-      "It is the meeting point of frontal, parietal, temporal and sphenoid bones.",
-      "Blow to the lateral side of the skull injures the marked structure.",
-      "Accessory middle meningeal artery lies under this structure.",
-      "It corresponds to site of anterolateral fontanelle of fetal skull."
     ],
     "correctIndex": 2,
     "hasImage": false,
@@ -1235,25 +646,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2022-anatomy-0001_0501-q035",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the cranial nerve that arises from the marked part.",
-    "options": [
-      "Occulomotor nerve",
-      "Glossopharyngeal nerve",
-      "Abducens nerve",
-      "Facial nerve"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2022-anatomy-0001_0501-q037",
     "exam": "INI-CET",
     "year": 2022,
@@ -1267,25 +659,6 @@
       "Left inferior gluteal nerve"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2022-anatomy-0001_0501-q001",
-    "exam": "NEET PG",
-    "year": 2022,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The structure marked A in the image below gives rise to which of the following structures?",
-    "options": [
-      "Gastrosplenic ligament",
-      "Lienorenal ligament",
-      "Falciform ligament",
-      "Gastrophrenic ligament"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -1349,44 +722,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2021-anatomy-0001_0501-q002",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "A 12-year-old presented with fever and difficulty swallowing. He had swelling in the marked region and was advised to undergo surgery. Post-surgery the gauze continued to soak with blood. Which of the following vessels must have been injured?",
-    "options": [
-      "Tonsillar branch of facial artery",
-      "Ascending pharyngeal artery",
-      "Paratonsillar vein",
-      "Retromandibular vein"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q003",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "At which level does the nerve supply for the marked structure arise?",
-    "options": [
-      "Red nucleus",
-      "Sub thalamic nuclei",
-      "Decussation of pyramidal tract",
-      "Olivary nucleus"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2021-anatomy-0001_0501-q004",
     "exam": "INI-CET",
     "year": 2021,
@@ -1398,25 +733,6 @@
       "2, 3, 4, 6",
       "2, 3, 4, 5, 6",
       "1, 4, 5, 6"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q005",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Fibers from the marked structure terminate at which of the following?",
-    "options": [
-      "Fastigial nucleus",
-      "Inferior olivary nucleus",
-      "Red nucleus",
-      "Subthalamus"
     ],
     "correctIndex": 2,
     "hasImage": false,
@@ -1444,82 +760,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2021-anatomy-0001_0501-q010",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The Para-sagittal section of the abdomen is given below. What is the superior border of the marked structure?",
-    "options": [
-      "Caudate lobe of liver",
-      "Duodenum",
-      "Lesser omentum",
-      "Inferior vena cava"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q014",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Fibers from the marked structure end in which of the following areas of the thalamus?",
-    "options": [
-      "Posterior nucleus",
-      "Reticular nucleus",
-      "Anterior nucleus",
-      "Ventral Lateral nucleus"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q015",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The cell marked in the below slide is inhibitory to",
-    "options": [
-      "Deep nuclei of cerebellum",
-      "Vestibular nuclei",
-      "Inferior olivary nucleus",
-      "Basal ganglia"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q016",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The marked structure develops from which of the following structures?",
-    "options": [
-      "Common cardinal vein",
-      "Anterior cardinal vein",
-      "Supracardinal vein",
-      "Subcardinal vein"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2021-anatomy-0001_0501-q020",
     "exam": "INI-CET",
     "year": 2021,
@@ -1533,25 +773,6 @@
       "3- Nuclei of epithelial cell"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-anatomy-0001_0501-q022",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the most common complication of the central line insertion below the marked bone?",
-    "options": [
-      "Arterial puncture",
-      "Thrombophlebitis",
-      "Empyema",
-      "Chylothorax"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -1683,25 +904,6 @@
       "Extensor pollicis longus and abductor pollicis brevis",
       "Extensor pollicis longus and extensor pollicis brevis",
       "Abductor pollicis longus and abductor pollicis brevis"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2020-anatomy-0001_0501-q002",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the cell marked in the histological image of the cerebellum shown below :",
-    "options": [
-      "Purkinje cells",
-      "Basket cells",
-      "Golgi cells",
-      "Granule cell"
     ],
     "correctIndex": 0,
     "hasImage": false,
@@ -1862,25 +1064,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2020-anatomy-0001_0501-q011",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The muscle marked by the arrow in the image below is innervated by the .",
-    "options": [
-      "Dorsal scapular nerve",
-      "Suprascapular nerve",
-      "From the dorsal rami of C1",
-      "Subscapular nerve"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2020-anatomy-0001_0501-q012",
     "exam": "NEET PG",
     "year": 2020,
@@ -1900,44 +1083,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2020-anatomy-0001_0501-q014",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The type of joint marked in the image below is :",
-    "options": [
-      "Syndesmosis",
-      "Synarthrosis",
-      "Synchondrosis",
-      "Synovial"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2020-anatomy-0001_0501-q015",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the sign shown in the image below:",
-    "options": [
-      "Popeye sign",
-      "Hill-Sachs sign",
-      "Griesinger sign",
-      "Rising sun sign"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2020-anatomy-0001_0501-q016",
     "exam": "NEET PG",
     "year": 2020,
@@ -1949,25 +1094,6 @@
       "Anal cancer",
       "Sigmoid colon cancer",
       "Prostate cancer"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2020-anatomy-0001_0501-q017",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the type of cartilage shown in the image below:",
-    "options": [
-      "Hyaline cartilage",
-      "Elastic cartilage",
-      "Articular cartilage",
-      "Fibrocartilage"
     ],
     "correctIndex": 1,
     "hasImage": false,
@@ -2014,44 +1140,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2019-anatomy-0001_0501-q004",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which fibre is marked by the arrow in the image given below?",
-    "options": [
-      "Short association",
-      "Long association",
-      "Projection",
-      "Commissural"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2019-anatomy-0001_0501-q005",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which nerve passes through the foramen marked in the image below?",
-    "options": [
-      "Lingual nerve",
-      "Mandibular nerve",
-      "Chorda tympani nerve",
-      "Inferior alveolar nerve"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2019-anatomy-0001_0501-q006",
     "exam": "NEET PG",
     "year": 2019,
@@ -2065,63 +1153,6 @@
       "Gall bladder"
     ],
     "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2019-anatomy-0001_0501-q008",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The arrow in the image denotes which of the following muscles?",
-    "options": [
-      "Extensor carpi radialis longus",
-      "Brachioradialis",
-      "Supinator",
-      "Flexor carpi radialis brevis"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2019-anatomy-0001_0501-q009",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the nerve supply of the structure marked in the image below?",
-    "options": [
-      "Posterior interosseus nerve",
-      "Median nerve",
-      "Anterior interosseus nerve",
-      "Ulnar nerve"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2019-anatomy-0001_0501-q010",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Nerve supply of the area marked by arrow in the image is:",
-    "options": [
-      "Radial nerve",
-      "Posterior interosseus nerve",
-      "Median nerve",
-      "Ulnar nerve"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -2204,25 +1235,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2019-anatomy-0001_0501-q017",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the structure marked B in the image given below :",
-    "options": [
-      "Pineal gland",
-      "Falx cerebri",
-      "Fornix",
-      "Pituitary gland"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2019-anatomy-0001_0501-q018",
     "exam": "NEET PG",
     "year": 2019,
@@ -2293,25 +1305,6 @@
       "Hypoglossal nerve"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2018-anatomy-0001_0501-q001",
-    "exam": "NEET PG",
-    "year": 2018,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the thickened nerve marked in the arrow in the image shown below:",
-    "options": [
-      "Great auricular nerve",
-      "Lesser occipital nerve",
-      "Facial nerve",
-      "Auriculotemporal nerve"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -2432,25 +1425,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2018-anatomy-0001_0501-q009",
-    "exam": "NEET PG",
-    "year": 2018,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What is the function of the muscle marked as A in the image below, at the metacarpophalangeal joint?",
-    "options": [
-      "Flexion",
-      "Extension",
-      "Adduction",
-      "Abduction"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2018-anatomy-0001_0501-q010",
     "exam": "NEET PG",
     "year": 2018,
@@ -2546,63 +1520,6 @@
     "needsManualSource": false
   },
   {
-    "id": "aiims-2017-anatomy-0001_0501-q003",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Among the following, what is the function of the marked muscles?",
-    "options": [
-      "Depression",
-      "Protrusion",
-      "Elevation",
-      "Retraction"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-anatomy-0001_0501-q005",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "The structure marked with the asterisk in the electron micrograph indicates .",
-    "options": [
-      "Mitochondria",
-      "Golgi bodies",
-      "Secretory vesicles",
-      "Ribosomes"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-anatomy-0001_0501-q007",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Identify the structure passing through the foramen marked.",
-    "options": [
-      "Abducens nerve",
-      "Spinal accessory nerve",
-      "Ophthalmic artery",
-      "Middle meningeal artery"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "aiims-2017-anatomy-0001_0501-q008",
     "exam": "AIIMS",
     "year": 2017,
@@ -2616,25 +1533,6 @@
       "Ellipsoid"
     ],
     "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-anatomy-0001_0501-q009",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following is connected to the structure marked as A in the image below?",
-    "options": [
-      "Orbital cortex",
-      "Hippocampus",
-      "Striate cortex",
-      "Optic chiasma"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -2711,44 +1609,6 @@
       "Fundus of gall bladder"
     ],
     "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-anatomy-0001_0501-q016",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "Which of the following structures does the cell pointed in arrow inhibit?",
-    "options": [
-      "Vestibular nuclei",
-      "Anterior horn of spinal",
-      "Basal ganglia",
-      "Deep nuclei of cerebellum"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-anatomy-0001_0501-q018",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Anatomy",
-    "topic": null,
-    "stem": "What represents the marked area in the given histology of lymph node?",
-    "options": [
-      "Marginal zone",
-      "Paracortical zone",
-      "Germinal center",
-      "Mantle zone"
-    ],
-    "correctIndex": 3,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -3154,25 +2014,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2024-biochemistry-0502_0998-q007",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "You received a text message from your friend JOHN DOE about occupational exposure after he visited his doctor as shown below. What is the test used to diagnose?",
-    "options": [
-      "Anthracosis",
-      "Lead poisoning",
-      "Silicosis",
-      "Asbestosis"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2024-biochemistry-0502_0998-q008",
     "exam": "NEET PG",
     "year": 2024,
@@ -3241,25 +2082,6 @@
       "Glucocerebrosidase",
       "Sphingomyelinase",
       "Alpha 1,4-glucosidase"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2024-biochemistry-0502_0998-q014",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A 3-month-old child was brought to the clinic with a history of difficulty in feeding and failure to thrive. On examination, the child is floppy, 48 cm in length and weighs 2.8 kg. There is generalized hypotonia, macroglossia and hepatomegaly. The chest x-ray of the child is given below. What is the most likely diagnosis?",
-    "options": [
-      "Ebstein's anomaly",
-      "Pompe's disease",
-      "Transposition of great arteries",
-      "Von- Gierke's disease"
     ],
     "correctIndex": 1,
     "hasImage": false,
@@ -3363,25 +2185,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2024-biochemistry-0502_0998-q021",
-    "exam": "NEET PG",
-    "year": 2024,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "In the given Lineweaver-Burk plot, the blue line represents the action of an enzyme, and the red line represents the action of the same enzyme in the presence of an inhibitor. What is the type of inhibition shown here?",
-    "options": [
-      "Competitive inhibition",
-      "Non-competitive inhibition",
-      "Uncompetitive inhibition",
-      "Allosteric inhibition"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2023-biochemistry-0502_0998-q001",
     "exam": "INI-CET",
     "year": 2023,
@@ -3393,25 +2196,6 @@
       "Vitamin B1",
       "Vitamin B12",
       "Vitamin B6"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-biochemistry-0502_0998-q002",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A 12-year-old boy with type 1 diabetes mellitus presents with unconsciousness. His urine is subjected to a test and the results are shown below. What is the test done?",
-    "options": [
-      "Seliwanoff's test- Fructose",
-      "Benedict's test- Reducing sugars",
-      "Fouchet's test- Bilirubin",
-      "Rothera's test- Ketone bodies"
     ],
     "correctIndex": 3,
     "hasImage": false,
@@ -4161,44 +2945,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2022-biochemistry-0502_0998-q018",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A patient presented with reduced levels of high-density lipoprotein, and ABCA1 mutation. On examination, tonsils appeared as shown in the image. What is the diagnosis?",
-    "options": [
-      "Tangier's disease",
-      "Abetalipoprotenemia",
-      "Hyperlipoproteinemia",
-      "Wolman's disease"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2022-biochemistry-0502_0998-q019",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A baby is being evaluated for delayed developmental milestones. On examination, the child has hepatosplenomegaly. A microscopic image of the bone marrow evaluation is shown below. What is the diagnosis?",
-    "options": [
-      "Gaucher disease",
-      "Niemann-Pick disease",
-      "Hunter disease",
-      "Hurler disease"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2022-biochemistry-0502_0998-q020",
     "exam": "INI-CET",
     "year": 2022,
@@ -4617,25 +3363,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2021-biochemistry-0502_0998-q009",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "The enzyme kinetics depicted in the Graph is suggestive of-",
-    "options": [
-      "Allosteric Activation",
-      "Cooperative Binding",
-      "Michaelis Menten kinetics",
-      "Sigmoid Curve"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2021-biochemistry-0502_0998-q010",
     "exam": "INI-CET",
     "year": 2021,
@@ -4649,25 +3376,6 @@
       "Adding trichloroacetic acid"
     ],
     "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2021-biochemistry-0502_0998-q012",
-    "exam": "INI-CET",
-    "year": 2021,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "Identify the type of marked chromosome in the given karyotype.",
-    "options": [
-      "Acrocentric",
-      "Metacentric",
-      "Submetacentric",
-      "Telocentric"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -4877,25 +3585,6 @@
       "1 and 2"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2021-biochemistry-0502_0998-q001",
-    "exam": "NEET PG",
-    "year": 2021,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "An alcoholic patient presented with itchy lesions as shown in the image, He also has a",
-    "options": [
-      "red-colored beefy tongue. Which of the following histories would you like to additionally ask/ elicit in this patient?",
-      "Ask for diarrhea and history of memory loss",
-      "Ask for diarrhea, thiamine deficiency features, and detailed dietary history",
-      "History of allergy"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -5168,25 +3857,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2020-biochemistry-0502_0998-q008",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A patient presented with symptoms of peripheral neuropathy and macrocytic anemia. She was given folate 5mg and the blood picture improved. However, the neurologic manifestations were aggravated. What is the most likely cause?",
-    "options": [
-      "Malabsorption of folate",
-      "Treatment with folate unmasking pyridoxine deficiency",
-      "Deficiency of folate reductase in CNS",
-      "Folate therapy using the B12 stores"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2020-biochemistry-0502_0998-q009",
     "exam": "NEET PG",
     "year": 2020,
@@ -5217,25 +3887,6 @@
       "Xanthine oxidase",
       "Phenylalanine hydroxylase",
       "Dihydro oratate dehydrogenase"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2020-biochemistry-0502_0998-q011",
-    "exam": "NEET PG",
-    "year": 2020,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A 34-year-old male was on maize as a staple diet for a prolonged period. He presented with diarrhoea and lesion over his neck as shown in the image below. The condition occurs due to deficiency of:",
-    "options": [
-      "Niacin",
-      "Zinc",
-      "Thiamine",
-      "Iron"
     ],
     "correctIndex": 0,
     "hasImage": false,
@@ -5643,25 +4294,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2018-biochemistry-0502_0998-q004",
-    "exam": "NEET PG",
-    "year": 2018,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "A patient presents with recurrent kidney stones. Microscopic examination finding of the urine specimen is shown below. Which of the following is not seen in the urine of this patient?",
-    "options": [
-      "Ornithine",
-      "Lysine",
-      "Arginine",
-      "Histidine"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2018-biochemistry-0502_0998-q005",
     "exam": "NEET PG",
     "year": 2018,
@@ -5979,25 +4611,6 @@
       "Hydroxylysine"
     ],
     "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-biochemistry-0502_0998-q010",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Biochemistry",
-    "topic": null,
-    "stem": "Identify the marked bond:",
-    "options": [
-      "Ionic bond",
-      "Covalent bond",
-      "Hydrogen bond",
-      "Phosphodiester Bond"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -6536,25 +5149,6 @@
     "needsManualSource": false
   },
   {
-    "id": "aiims-2017-pharmacology-0502_0998-q029",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Pharmacology",
-    "topic": null,
-    "stem": "A male patient who is suffering from a psychotic disorder is on antipsychotic, antidepressant and antihypertensive treatment. He suddenly developed tachycardia and chest tightness. On evaluation he had metabolic acidosis. ECG showed widened QRS complex and prolonged QT interval. Which of the following drugs is responsible for this?",
-    "options": [
-      "Amitriptyline",
-      "Amlodipine",
-      "Chlorthalidone",
-      "Enalapril"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "aiims-2017-pharmacology-0502_0998-q031",
     "exam": "AIIMS",
     "year": 2017,
@@ -6587,44 +5181,6 @@
       "Conjugated Estrogen"
     ],
     "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-physiology-0502_0998-q004",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Which hormones are produced from the zones labelled in the image given?",
-    "options": [
-      "A-cortisol, B-aldosterone, C-androgens, D-epinephrine",
-      "A-epinephrine, B-cortisol, C-aldosterone, D-androgens",
-      "A-aldosterone, B-epinephrine, C-androgens, D-cortisol",
-      "A-aldosterone, B-cortisol, C-androgens, D-epinephrine"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-physiology-0502_0998-q006",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "EOG, EEG, and EMG of a patient are given respectively from above downwards. Which stage of sleep does the marked area represent?",
-    "options": [
-      "NREM I sleep",
-      "NREM II sleep",
-      "REM sleep",
-      "NREM III sleep"
-    ],
-    "correctIndex": 2,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -6946,25 +5502,6 @@
       "Hypoxia",
       "Acidosis",
       "Alkalosis"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2024-physiology-0502_0998-q030",
-    "exam": "INI-CET",
-    "year": 2024,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Identify the marked structure.",
-    "options": [
-      "Intercalated disc",
-      "Connective tissue",
-      "Cytoskeletal condensation",
-      "Nerve fibre"
     ],
     "correctIndex": 0,
     "hasImage": false,
@@ -7296,25 +5833,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2023-physiology-0502_0998-q010",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "The type of hypoxia based on the graph is (Consider the plot in red as normal)",
-    "options": [
-      "Stagnant hypoxia",
-      "Histotoxic hypoxia",
-      "Hypoxic hypoxia",
-      "Anemic hypoxia"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2023-physiology-0502_0998-q011",
     "exam": "INI-CET",
     "year": 2023,
@@ -7328,25 +5846,6 @@
       "Both assertion and reason are independently true and the reason is the correct explanation for the assertion"
     ],
     "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-physiology-0502_0998-q012",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Windkessel effect is shown by all except",
-    "options": [
-      "Radial artery",
-      "Renal Artery",
-      "Aorta",
-      "Carotid artery"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -7429,63 +5928,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2023-physiology-0502_0998-q018",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Which of the following is responsible for the phase marked C to D in the given nerve action potential?",
-    "options": [
-      "Na+ influx",
-      "K+ influx",
-      "Na+ efflux",
-      "K+ efflux"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-physiology-0502_0998-q019",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "The given graph shows the effect of PTH on blood calcium and phosphate levels in an experimental animal. How does PTH increase plasma calcium levels?",
-    "options": [
-      "By increasing osetoclastic activity",
-      "By decreasing renal excretion of calcium",
-      "By increasing osteoblastic activity",
-      "By increasing osteoclastic activity and decreasing renal excretion of calcium"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2023-physiology-0502_0998-q020",
-    "exam": "INI-CET",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "In the given cross-section of a muscle spindle, the structure marked below is innervated by which of the following motor nerve fibres?",
-    "options": [
-      "Gamma",
-      "Alpha",
-      "Beta",
-      "Delta"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2023-physiology-0502_0998-q021",
     "exam": "INI-CET",
     "year": 2023,
@@ -7524,25 +5966,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2023-physiology-0502_0998-q001",
-    "exam": "NEET PG",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Identify the marked region in the given spirometry.",
-    "options": [
-      "Functional residual capacity",
-      "Tidal volume",
-      "Expiratory reserve volume",
-      "Expiratory capacity"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2023-physiology-0502_0998-q002",
     "exam": "NEET PG",
     "year": 2023,
@@ -7556,25 +5979,6 @@
       "Red hot skin"
     ],
     "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2023-physiology-0502_0998-q003",
-    "exam": "NEET PG",
-    "year": 2023,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Identify the correctly matched pair of substances with their renal clearance from the graph given below.",
-    "options": [
-      "A - Glucose, B - PAH, C - Bicarbonate and D - Inulin",
-      "A - Glucose, B - Bicarbonate, C - Inulin and D - PAH",
-      "A - PAH, B - Inulin, C - Glucose and D - Bicarbonate",
-      "A - Inulin, B - Glucose, C - Bicarbonate and D - PAH"
-    ],
-    "correctIndex": 1,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -7809,25 +6213,6 @@
     "needsManualSource": false
   },
   {
-    "id": "inicet-2022-physiology-0502_0998-q018",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "The graph below shows oxygen dissociation curves. What does the curve marked as 'A'",
-    "options": [
-      "indicate?",
-      "Myoglobin",
-      "Carboxyhemoglobinemia",
-      "Methemoglobin"
-    ],
-    "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "inicet-2022-physiology-0502_0998-q019",
     "exam": "INI-CET",
     "year": 2022,
@@ -7841,25 +6226,6 @@
       "Liver"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "inicet-2022-physiology-0502_0998-q020",
-    "exam": "INI-CET",
-    "year": 2022,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "The image shows changes in membrane potential during an action potential. The region marked between 4 to 5 is due to .",
-    "options": [
-      "Influx of Na+",
-      "Efflux of Na+",
-      "Influx of K+",
-      "Efflux of K+"
-    ],
-    "correctIndex": 3,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -8037,25 +6403,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2022-physiology-0502_0998-q003",
-    "exam": "NEET PG",
-    "year": 2022,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "The image below depicts which of the following types of cell-to-cell signaling?",
-    "options": [
-      "Paracrine",
-      "Autocrine",
-      "Endocrine",
-      "Merocrine"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2022-physiology-0502_0998-q004",
     "exam": "NEET PG",
     "year": 2022,
@@ -8069,25 +6416,6 @@
       "The dotted line represents that micturition has occurred"
     ],
     "correctIndex": 1,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "neetpg-2022-physiology-0502_0998-q005",
-    "exam": "NEET PG",
-    "year": 2022,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "In a patient, the hypothalamic thermostat was reset from point A to point C as shown below. Which of the following happens in stage A compared to stage B?",
-    "options": [
-      "Shivering",
-      "Sweating",
-      "Increased blood flow to skin",
-      "Inhibition of chemical thermogenesis"
-    ],
-    "correctIndex": 0,
     "hasImage": false,
     "imagePath": null,
     "explanation": null,
@@ -9006,25 +7334,6 @@
     "needsManualSource": false
   },
   {
-    "id": "neetpg-2019-physiology-0502_0998-q012",
-    "exam": "NEET PG",
-    "year": 2019,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Based on the agglutination test shown below, what is the blood group?",
-    "options": [
-      "B positive",
-      "A positive",
-      "O positive",
-      "AB positive"
-    ],
-    "correctIndex": 2,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "neetpg-2019-physiology-0502_0998-q015",
     "exam": "NEET PG",
     "year": 2019,
@@ -9405,25 +7714,6 @@
     "needsManualSource": false
   },
   {
-    "id": "aiims-2017-physiology-0001_0501-q007",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Identify the hormone from the picture",
-    "options": [
-      "Growth hormone",
-      "Cortisol",
-      "Estrogen",
-      "Insulin"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "aiims-2017-physiology-0001_0501-q008",
     "exam": "AIIMS",
     "year": 2017,
@@ -9500,25 +7790,6 @@
     "needsManualSource": false
   },
   {
-    "id": "aiims-2017-physiology-0001_0501-q014",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "A patient has a ■blood glucose level of 200 mg/dL and GFR of 90 ml/min. What is the amount of glucose excreted if the transport maximum of the patient is as shown below?",
-    "options": [
-      "80 mg/min",
-      "50 mg/min",
-      "40 mg/min",
-      "30 mg/min"
-    ],
-    "correctIndex": 3,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
     "id": "aiims-2017-physiology-0001_0501-q015",
     "exam": "AIIMS",
     "year": 2017,
@@ -9530,25 +7801,6 @@
       "Histamine",
       "Prostaglandin",
       "Angiotensin"
-    ],
-    "correctIndex": 0,
-    "hasImage": false,
-    "imagePath": null,
-    "explanation": null,
-    "needsManualSource": false
-  },
-  {
-    "id": "aiims-2017-physiology-0001_0501-q016",
-    "exam": "AIIMS",
-    "year": 2017,
-    "subject": "Physiology",
-    "topic": null,
-    "stem": "Which of the following is the constituent of the marked area in the electron microscopic picture of muscle?",
-    "options": [
-      "Alpha actinin",
-      "Actin",
-      "Titin",
-      "Tropomyosin"
     ],
     "correctIndex": 0,
     "hasImage": false,
