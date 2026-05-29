@@ -1,12 +1,26 @@
 // NEETest — shared site behavior
 
+function renderBetaBanner() {
+  if (sessionStorage.getItem('neetest_beta_hidden') === 'true') return;
+  const slot = document.getElementById('beta-slot');
+  const html = `
+    <div class="beta-banner">
+      <span class="beta-pill">BETA</span>
+      <span>We're actively building this. Some features may not work yet. Found a bug? <a href="mailto:hello@neetest.online?subject=Bug%20report" class="underline">Tell us</a>.</span>
+      <button class="beta-close" onclick="sessionStorage.setItem('neetest_beta_hidden','true'); this.parentElement.style.display='none';" aria-label="Dismiss">✕</button>
+    </div>
+  `;
+  if (slot) { slot.innerHTML = html; }
+  else { document.body.insertAdjacentHTML('afterbegin', `<div id="beta-slot">${html}</div>`); }
+}
+
 function renderNav(active) {
   const auth = window.NEETEST_AUTH;
   const links = [
     { href: 'index.html', label: 'Home' },
-    { href: 'features.html', label: 'Features' },
     { href: 'questions.html', label: 'Question Bank' },
     { href: 'mock-tests.html', label: 'Mock Tests' },
+    { href: 'subjects.html', label: 'Subjects' },
     { href: 'exams.html', label: 'Exams' },
     { href: 'pricing.html', label: 'Pricing' },
   ];
@@ -55,9 +69,10 @@ function renderFooter() {
         <div>
           <h4 class="font-semibold mb-3 text-sm">Product</h4>
           <ul class="space-y-2 text-sm text-[var(--text-muted)]">
-            <li><a href="features.html" class="hover:text-[var(--primary)]">Features</a></li>
             <li><a href="questions.html" class="hover:text-[var(--primary)]">Question Bank</a></li>
             <li><a href="mock-tests.html" class="hover:text-[var(--primary)]">Mock Tests</a></li>
+            <li><a href="subjects.html" class="hover:text-[var(--primary)]">Subjects</a></li>
+            <li><a href="features.html" class="hover:text-[var(--primary)]">Features</a></li>
             <li><a href="pricing.html" class="hover:text-[var(--primary)]">Pricing</a></li>
           </ul>
         </div>
@@ -138,6 +153,7 @@ function daysUntil(dateStr) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  renderBetaBanner();
   if (window.lucide) lucide.createIcons();
   initReveal();
   initCounters();

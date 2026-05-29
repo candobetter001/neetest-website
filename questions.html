@@ -138,6 +138,12 @@
       exams.forEach(e => fe.insertAdjacentHTML('beforeend', `<option value="${e}">${e}</option>`));
       years.forEach(y => fy.insertAdjacentHTML('beforeend', `<option value="${y}">${y}</option>`));
 
+      // Apply URL params (?subject=Anatomy etc.)
+      const params = new URLSearchParams(location.search);
+      if (params.get('subject')) fs.value = params.get('subject');
+      if (params.get('exam')) fe.value = params.get('exam');
+      if (params.get('year')) fy.value = params.get('year');
+
       if (!PAID) {
         document.getElementById('filter-bar').classList.add('opacity-50', 'pointer-events-none');
         document.getElementById('paywall').classList.remove('hidden');
