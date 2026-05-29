@@ -18,7 +18,7 @@ This is a small Cloudflare Worker that generates 6-digit OTPs, emails them via R
 2. Go to **API Keys** → **Create API Key** (give it any name, "full access" is fine for sending)
 3. Copy the key — starts with `re_...`
 
-(Optional but recommended) Add `neetest.online` as a verified domain in Resend so emails come from `hello@neetest.online`. Without verification you can only send from `onboarding@resend.dev`.
+(Optional but recommended) Add `neetest.online` as a verified domain in Resend so emails come from `candobetter001@gmail.com`. Without verification you can only send from `onboarding@resend.dev`.
 
 ## Step 2 — Create a KV namespace
 
@@ -48,7 +48,7 @@ wrangler secret put RESEND_API_KEY
 # paste your re_... key when prompted
 
 wrangler secret put FROM_EMAIL
-# paste:  NEETest <hello@neetest.online>
+# paste:  NEETest <candobetter001@gmail.com>
 # (or: NEETest <onboarding@resend.dev> if you skipped domain verification)
 ```
 

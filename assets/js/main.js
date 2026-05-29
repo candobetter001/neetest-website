@@ -6,7 +6,7 @@ function renderBetaBanner() {
   const html = `
     <div class="beta-banner">
       <span class="beta-pill">BETA</span>
-      <span>We're actively building this. Some features may not work yet. Found a bug? <a href="mailto:hello@neetest.online?subject=Bug%20report" class="underline">Tell us</a>.</span>
+      <span>We're actively building this. Some features may not work yet. Found a bug? <a href="mailto:candobetter001@gmail.com?subject=Bug%20report" class="underline">Tell us</a>.</span>
       <button class="beta-close" onclick="sessionStorage.setItem('neetest_beta_hidden','true'); this.parentElement.style.display='none';" aria-label="Dismiss">✕</button>
     </div>
   `;

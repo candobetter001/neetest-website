@@ -8,7 +8,7 @@
 // Requires:
 //   - KV namespace bound as OTP_STORE
 //   - Secret RESEND_API_KEY (from https://resend.com)
-//   - Secret FROM_EMAIL (e.g. "NEETest <hello@neetest.online>")
+//   - Secret FROM_EMAIL (e.g. "NEETest <candobetter001@gmail.com>")
 //   - Optional secret ALLOWED_ORIGIN (default: https://neetest.online)
 //
 // Rate-limited: max 5 send-OTP per email per hour.
