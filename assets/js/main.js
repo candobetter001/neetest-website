@@ -23,6 +23,7 @@ function renderNav(active) {
     { href: 'subjects.html', label: 'Subjects' },
     { href: 'exams.html', label: 'Exams' },
     { href: 'pricing.html', label: 'Pricing' },
+    { href: 'download.html', label: 'Download' },
   ];
   const loggedIn = auth.isLoggedIn();
   const user = auth.user();
@@ -33,13 +34,17 @@ function renderNav(active) {
     <header class="nav">
       <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
         <a href="index.html" class="flex items-center gap-2 font-display font-bold text-xl">
-          <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white">N</span>
+          <img src="assets/img/logo-mark.png" alt="NEETest" class="w-8 h-8 rounded-lg" />
           <span>NEETest</span>
         </a>
         <nav class="nav-links flex items-center gap-1">
           ${links.map(l => `<a href="${l.href}" class="px-3 py-1.5 rounded-lg text-sm hover:text-[var(--primary)] ${l.href === active ? 'active' : ''}">${l.label}</a>`).join('')}
         </nav>
         <div class="flex items-center gap-2">
+          <a href="download.html" class="btn-secondary text-sm py-2 px-3 magnetic" aria-label="Download Android app">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Get app</span>
+          </a>
           ${authBtn}
           <a href="pricing.html" class="btn-primary text-sm py-2 px-4 magnetic">
             <i data-lucide="zap" class="w-4 h-4"></i>
@@ -59,7 +64,7 @@ function renderFooter() {
       <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
         <div class="col-span-2">
           <a href="index.html" class="flex items-center gap-2 font-display font-bold text-xl mb-3">
-            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg" style="background:linear-gradient(135deg,#4f46e5,#06b6d4);color:white">N</span>
+            <img src="assets/img/logo-mark.png" alt="NEETest" class="w-8 h-8 rounded-lg" />
             <span>NEETest</span>
           </a>
           <p class="text-sm text-[var(--text-muted)] max-w-sm">
