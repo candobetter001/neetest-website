@@ -30,33 +30,60 @@ function renderNav(active) {
   const authBtn = loggedIn
     ? `<a href="profile.html" class="btn-secondary text-sm py-2 px-3 magnetic"><i data-lucide="user" class="w-4 h-4"></i><span class="hidden sm:inline">${user?.name || 'Profile'}</span></a>`
     : `<a href="login.html" class="btn-secondary text-sm py-2 px-3 magnetic"><i data-lucide="log-in" class="w-4 h-4"></i><span class="hidden sm:inline">Log in</span></a>`;
+  // Mobile menu: full link list + key actions, so the app download is always reachable on a phone.
+  const mobileLinks = [
+    ...links,
+    { href: 'download.html', label: 'Get the Android app' },
+    loggedIn ? { href: 'profile.html', label: user?.name ? user.name : 'Profile' } : { href: 'login.html', label: 'Log in' },
+    { href: 'pricing.html', label: 'Get full access' },
+  ];
   const html = `
     <header class="nav">
-      <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-        <a href="index.html" class="flex items-center gap-2 font-display font-bold text-xl">
-          <img src="assets/img/logo-mark.png" alt="NEETest" class="w-8 h-8 rounded-lg" />
-          <span>NEETest</span>
-        </a>
-        <nav class="nav-links flex items-center gap-1">
-          ${links.map(l => `<a href="${l.href}" class="px-3 py-1.5 rounded-lg text-sm hover:text-[var(--primary)] ${l.href === active ? 'active' : ''}">${l.label}</a>`).join('')}
-        </nav>
-        <div class="flex items-center gap-2">
-          <a href="download.html" class="btn-secondary text-sm py-2 px-3 magnetic" aria-label="Download Android app">
+      <div style="max-width:var(--maxw)" class="mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-6 min-w-0">
+          <a href="index.html" class="flex items-center gap-2 font-display font-bold text-xl shrink-0">
+            <img src="assets/img/logo-mark.png" alt="NEETest" class="w-8 h-8 rounded-lg" />
+            <span>NEETest</span>
+          </a>
+          <nav class="nav-links flex items-center gap-1">
+            ${links.map(l => `<a href="${l.href}" class="nav-link px-2.5 py-1.5 rounded-lg text-sm whitespace-nowrap ${l.href === active ? 'active' : ''}">${l.label}</a>`).join('')}
+          </nav>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="download.html" class="btn-secondary text-sm py-2 px-3" aria-label="Download Android app">
             <i data-lucide="download" class="w-4 h-4"></i>
             <span class="hidden sm:inline">Get app</span>
           </a>
           ${authBtn}
-          <a href="pricing.html" class="btn-primary text-sm py-2 px-4 magnetic">
+          <a href="pricing.html" class="btn-primary text-sm py-2 px-4 hidden sm:inline-flex">
             <i data-lucide="zap" class="w-4 h-4"></i>
-            <span class="hidden sm:inline">Get full access</span>
+            <span>Get full access</span>
           </a>
+          <button class="nav-toggle btn-secondary p-2" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu(this)">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
         </div>
+      </div>
+      <div id="mobile-menu" class="mobile-menu">
+        ${mobileLinks.map(l => `<a href="${l.href}" class="${l.href === active ? 'active' : ''}">${l.label}</a>`).join('')}
       </div>
     </header>
   `;
   const slot = document.getElementById('nav-slot');
   if (slot) slot.innerHTML = html;
 }
+
+function toggleMobileMenu(btn) {
+  const menu = document.getElementById('mobile-menu');
+  if (!menu) return;
+  const open = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  btn.innerHTML = open
+    ? '<i data-lucide="x" class="w-5 h-5"></i>'
+    : '<i data-lucide="menu" class="w-5 h-5"></i>';
+  if (window.lucide) lucide.createIcons();
+}
+window.toggleMobileMenu = toggleMobileMenu;
 
 function renderFooter() {
   const html = `
@@ -138,23 +165,58 @@ function initCounters() {
 }
 
 function initMagnetic() {
-  document.querySelectorAll('.magnetic').forEach(btn => {
-    if (btn._magnetic) return;
-    btn._magnetic = true;
-    btn.addEventListener('mousemove', e => {
-      const r = btn.getBoundingClientRect();
-      const x = e.clientX - r.left - r.width / 2;
-      const y = e.clientY - r.top - r.height / 2;
-      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.25}px)`;
-    });
-    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
-  });
+  // Intentionally a no-op. The cursor-follow "magnetic" jitter read as an AI demo tic;
+  // the redesign uses calm, deliberate button transitions instead. Kept for call-site compatibility.
 }
 
 function daysUntil(dateStr) {
   const target = new Date(dateStr + 'T09:00:00');
   const now = new Date();
   return Math.max(0, Math.ceil((target - now) / 86400000));
+}
+
+// ── Current affairs / latest research feed ────────────────────────────────
+// Pulls a short exam-relevant medical digest from the Worker (Gemini-backed,
+// KV-cached server-side). If the endpoint isn't deployed yet, the static cards
+// already in the page are left untouched, so the section never looks broken.
+async function loadCurrentAffairs() {
+  const grid = document.getElementById('affairs-grid');
+  const api = window.NEETEST_OTP_ENDPOINT;
+  if (!grid || !api) return;
+  try {
+    const res = await fetch(`${api}/affairs/latest`, { method: 'GET' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const items = Array.isArray(data.items) ? data.items.slice(0, 6) : [];
+    if (!items.length) return;
+
+    grid.innerHTML = items.map((it, i) => {
+      const tag = (it.tag || 'Update').toString();
+      const title = (it.title || '').toString();
+      const summary = (it.summary || '').toString();
+      return `
+        <article class="card-news reveal" style="transition-delay:${(i % 3) * 0.06}s">
+          <span class="tag-pill">${escapeHtml(tag)}</span>
+          <h3 class="font-display text-lg font-semibold mt-3 leading-snug">${escapeHtml(title)}</h3>
+          <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">${escapeHtml(summary)}</p>
+        </article>`;
+    }).join('');
+
+    const stamp = document.getElementById('affairs-updated');
+    if (stamp && data.updated) {
+      const d = new Date(data.updated);
+      if (!isNaN(d)) stamp.textContent = 'Updated ' + d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    if (window.lucide) lucide.createIcons();
+    initReveal();
+  } catch (_) {
+    /* offline or endpoint not live yet — keep the static fallback cards */
+  }
+}
+window.loadCurrentAffairs = loadCurrentAffairs;
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 document.addEventListener('DOMContentLoaded', () => {

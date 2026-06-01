@@ -3,6 +3,14 @@
 # Set secrets with:
 #   npx wrangler secret put RESEND_API_KEY
 #   npx wrangler secret put FROM_EMAIL
+#   npx wrangler secret put SUPABASE_URL
+#   npx wrangler secret put SUPABASE_SERVICE_KEY
+#
+# Current-affairs feed (Gemini). GEMINI_API_KEY_ALT is the least-used spare key and is
+# tried first; GEMINI_API_KEY (used by the question pipeline) is only a fallback:
+#   npx wrangler secret put GEMINI_API_KEY_ALT   # least-used → used first
+#   npx wrangler secret put GEMINI_API_KEY       # fallback
+#
 # Create the KV namespace once with:
 #   npx wrangler kv:namespace create OTP_STORE
 # Then paste the returned id below in [[kv_namespaces]].
@@ -10,6 +18,11 @@
 name = "neetest-otp"
 main = "worker.js"
 compatibility_date = "2026-05-01"
+account_id = "c4202fc1a112c93d0db0e4bc60f64517"
+
+# Optional: override the Gemini model (worker.js defaults to gemini-2.0-flash).
+[vars]
+GEMINI_MODEL = "gemini-2.0-flash"
 
 # Bind a KV namespace called OTP_STORE.
 # Run `npx wrangler kv:namespace create OTP_STORE` once and paste the id here.

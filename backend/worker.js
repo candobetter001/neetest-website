@@ -30,13 +30,22 @@ export default {
 
     const cors = {
       'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',
     };
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
+    }
+
+    // GET endpoints (current-affairs feed)
+    if (request.method === 'GET') {
+      if (url.pathname === '/affairs/latest') {
+        try { return await handleAffairs(url, env, cors); }
+        catch (e) { return json({ ok: false, error: 'server error', detail: String(e).slice(0, 200) }, 500, cors); }
+      }
+      return json({ ok: false, error: 'not found' }, 404, cors);
     }
 
     if (request.method !== 'POST') {
@@ -208,6 +217,88 @@ async function handlePayment(body, env, cors) {
 
   const invoice = result.data?.[0]?.invoice_number || null;
   return json({ ok: true, invoice_number: invoice }, 200, cors);
+}
+
+// ── Current affairs / latest research (Gemini-backed, KV-cached) ──────────────
+// Returns { ok, updated, items:[{tag,title,summary}] }.
+// Cache lives in OTP_STORE under `affairs:latest` and refreshes every AFFAIRS_TTL.
+const AFFAIRS_TTL_SECONDS = 7 * 24 * 3600;   // refresh weekly
+const AFFAIRS_KEY = 'affairs:latest';
+
+async function handleAffairs(url, env, cors) {
+  const force = url.searchParams.get('refresh') === '1';
+
+  if (!force) {
+    const cached = await env.OTP_STORE.get(AFFAIRS_KEY);
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        return json({ ok: true, cached: true, ...parsed }, 200, cors);
+      } catch { /* fall through and regenerate */ }
+    }
+  }
+
+  const items = await generateAffairs(env);
+  if (!items || !items.length) {
+    // No key configured / Gemini failed — let the site keep its static fallback.
+    return json({ ok: false, error: 'feed unavailable', items: [] }, 503, cors);
+  }
+
+  const payload = { updated: new Date().toISOString(), items };
+  // Persist a bit longer than the refresh window so a transient failure still serves stale.
+  await env.OTP_STORE.put(AFFAIRS_KEY, JSON.stringify(payload), { expirationTtl: AFFAIRS_TTL_SECONDS * 2 });
+  return json({ ok: true, cached: false, ...payload }, 200, cors);
+}
+
+async function generateAffairs(env) {
+  // Try the least-used key first, then fall back. GEMINI_API_KEY_ALT is the spare/least-used
+  // key; GEMINI_API_KEY is the one the question-generation pipeline already leans on, so it's
+  // only a fallback here.
+  const keys = [env.GEMINI_API_KEY_ALT, env.GEMINI_API_KEY].filter(Boolean);
+  if (!keys.length) return null;
+
+  const model = env.GEMINI_MODEL || 'gemini-2.0-flash';
+  const prompt = [
+    'You are a medical-education editor preparing a short current-affairs digest for Indian',
+    'postgraduate medical entrance aspirants (NEET PG and INI-CET).',
+    'List 6 recent, exam-relevant developments in medicine: new clinical guidelines, landmark',
+    'trials, drug approvals, or high-yield updates from roughly the last 12 months.',
+    'For each, give a punchy tag (1-2 words like "Guidelines", "Landmark trial", "Drug approval",',
+    '"High-yield"), a concise title (<=12 words), and a 1-2 sentence summary explaining why it',
+    'matters for the exam. Keep it factual and conservative; do not invent trial names or numbers.',
+    'Return ONLY valid JSON of the form:',
+    '{"items":[{"tag":"...","title":"...","summary":"..."}]}',
+  ].join(' ');
+
+  for (const key of keys) {
+    try {
+      const resp = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.4, responseMimeType: 'application/json' },
+          }),
+        },
+      );
+      if (!resp.ok) continue;   // quota/invalid key — try next
+      const data = await resp.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      const parsed = JSON.parse(text);
+      const items = (parsed.items || [])
+        .filter(it => it && it.title && it.summary)
+        .slice(0, 6)
+        .map(it => ({
+          tag: String(it.tag || 'Update').slice(0, 24),
+          title: String(it.title).slice(0, 140),
+          summary: String(it.summary).slice(0, 280),
+        }));
+      if (items.length) return items;
+    } catch { /* try next key */ }
+  }
+  return null;
 }
 
 function json(payload, status, cors) {
