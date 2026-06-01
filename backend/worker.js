@@ -257,7 +257,11 @@ async function generateAffairs(env) {
   const keys = [env.GEMINI_API_KEY_ALT, env.GEMINI_API_KEY].filter(Boolean);
   if (!keys.length) return null;
 
-  const model = env.GEMINI_MODEL || 'gemini-2.0-flash';
+  // Try models in order — 2.5-flash first (higher quota), 2.0-flash fallback
+  const modelList = (env.GEMINI_MODEL
+    ? [env.GEMINI_MODEL]
+    : ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-001']);
+
   const prompt = [
     'You are a medical-education editor preparing a short current-affairs digest for Indian',
     'postgraduate medical entrance aspirants (NEET PG and INI-CET).',
@@ -271,6 +275,7 @@ async function generateAffairs(env) {
   ].join(' ');
 
   for (const key of keys) {
+    for (const model of modelList) {
     try {
       const resp = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
@@ -283,7 +288,7 @@ async function generateAffairs(env) {
           }),
         },
       );
-      if (!resp.ok) continue;   // quota/invalid key — try next
+      if (!resp.ok) continue;  // quota/invalid key/model — try next
       const data = await resp.json();
       const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
       const parsed = JSON.parse(text);
@@ -296,7 +301,8 @@ async function generateAffairs(env) {
           summary: String(it.summary).slice(0, 280),
         }));
       if (items.length) return items;
-    } catch { /* try next key */ }
+    } catch { /* try next model/key */ }
+    } // end model loop
   }
   return null;
 }
