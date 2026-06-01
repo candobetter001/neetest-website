@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=4" />
+  <link rel="stylesheet" href="assets/css/main.css?v=5" />
 </head>
 <body>
   <div id="nav-slot"></div>
@@ -102,7 +102,7 @@
           <h2 class="text-3xl md:text-4xl font-semibold">Two things, done properly.</h2>
         </div>
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="reveal feature-card cat-practice">
+          <div class="reveal-up feature-card cat-practice">
             <div class="icon-wrap"><i data-lucide="book-open" class="w-5 h-5"></i></div>
             <h3 class="font-display font-semibold text-xl">MCQ Practice Papers</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
@@ -114,7 +114,7 @@
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5" style="color:var(--success)"></i>Bookmark + wrong-answer drill</li>
             </ul>
           </div>
-          <div class="reveal feature-card cat-analytics" style="transition-delay:0.08s">
+          <div class="reveal-up feature-card cat-analytics" style="--reveal-delay:0.12s">
             <div class="icon-wrap"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></div>
             <h3 class="font-display font-semibold text-xl">Progress Dashboard</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
@@ -130,6 +130,58 @@
         <p class="text-sm text-[var(--text-muted)] mt-8 max-w-2xl">
           That's our entire scope. We don't sell videos, lectures, notes, mentor sessions, or rank guarantees. If you want those, look elsewhere &mdash; honestly.
         </p>
+      </div>
+    </section>
+
+    <!-- DARK IMMERSIVE ETHOS SECTION -->
+    <section class="section-dark py-24 md:py-36" id="ethos">
+      <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
+        <div class="max-w-3xl">
+          <span class="section-eyebrow">The difference</span>
+          <h2 class="reveal-up text-3xl md:text-5xl font-semibold leading-[1.12]">
+            Built on what actually moves your rank &mdash; and nothing that doesn't.
+          </h2>
+          <p class="reveal-up muted mt-6 text-lg leading-relaxed" style="--reveal-delay:.08s">
+            Most prep platforms bury you in hours of video and a leaderboard. We took the opposite bet: the marks come from disciplined repetition and an honest mirror on your weak spots. So that's all we built.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10 md:gap-12 mt-16 md:mt-20">
+          <div class="ethos-col reveal-up" style="--reveal-delay:.05s">
+            <div class="ethos-num">01</div>
+            <h3 class="font-display text-2xl font-semibold mt-3 mb-2">Practice deliberately</h3>
+            <p class="muted text-sm leading-relaxed">Real previous-year MCQs, tagged by subject, year and exam. You drill the exact patterns examiners keep repeating &mdash; not random trivia.</p>
+          </div>
+          <div class="ethos-col reveal-up" style="--reveal-delay:.16s">
+            <div class="ethos-num">02</div>
+            <h3 class="font-display text-2xl font-semibold mt-3 mb-2">See your weak spots</h3>
+            <p class="muted text-sm leading-relaxed">After every attempt your dashboard updates &mdash; accuracy, time-per-question, and the precise topics quietly costing you marks.</p>
+          </div>
+          <div class="ethos-col reveal-up" style="--reveal-delay:.27s">
+            <div class="ethos-num">03</div>
+            <h3 class="font-display text-2xl font-semibold mt-3 mb-2">No noise</h3>
+            <p class="muted text-sm leading-relaxed">No videos, no influencer hype, no rank guarantees. One focused tool, one honest one-time price, all future updates included.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 md:mt-24 pt-10" style="border-top:1px solid rgba(255,255,255,0.14)">
+          <div class="reveal-up" style="--reveal-delay:.04s">
+            <div class="big-stat" id="ethos-days">--</div>
+            <div class="muted text-sm mt-2">days to NEET&nbsp;PG 2026</div>
+          </div>
+          <div class="reveal-up" style="--reveal-delay:.12s">
+            <div class="big-stat">2</div>
+            <div class="muted text-sm mt-2">exams covered &mdash; PG &amp; INI-CET</div>
+          </div>
+          <div class="reveal-up" style="--reveal-delay:.20s">
+            <div class="big-stat">&#8377;0</div>
+            <div class="muted text-sm mt-2">to start &mdash; 5 free mocks</div>
+          </div>
+          <div class="reveal-up" style="--reveal-delay:.28s">
+            <div class="big-stat">1&times;</div>
+            <div class="muted text-sm mt-2">one-time price, lifetime access</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -287,14 +339,15 @@
 
   <div id="footer-slot"></div>
 
-  <script src="assets/js/data.js?v=4"></script>
-  <script src="assets/js/main.js?v=4"></script>
+  <script src="assets/js/data.js?v=5"></script>
+  <script src="assets/js/main.js?v=5"></script>
   <script>
     renderNav('index.html');
     renderFooter();
     document.getElementById('hero-countdown').textContent = daysUntil('2026-08-30');
     document.getElementById('neet-pg-days').textContent = daysUntil('2026-08-30');
     document.getElementById('ini-cet-days').textContent = daysUntil('2026-11-01');
+    document.getElementById('ethos-days').textContent = daysUntil('2026-08-30');
 
     // Apply early-bird pricing to hero + teaser
     (function applyHeroPricing() {

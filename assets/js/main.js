@@ -132,14 +132,38 @@ function renderFooter() {
 }
 
 function initReveal() {
-  const els = document.querySelectorAll('.reveal:not(.visible)');
-  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visible')); return; }
+  const sel = '.reveal, .reveal-up, .reveal-left, .reveal-right, .reveal-scale';
+  const els = document.querySelectorAll(sel);
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visible')); return; }
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }, { threshold: 0.1 });
-  els.forEach(e => obs.observe(e));
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => { if (!e.classList.contains('visible')) obs.observe(e); });
+}
+
+// Thin top scroll-progress bar — added once, updated on scroll (rAF-throttled).
+function initScrollProgress() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let bar = document.querySelector('.scroll-progress');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    document.body.appendChild(bar);
+  }
+  let ticking = false;
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
 }
 
 function initCounters() {
@@ -224,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   initReveal();
   initCounters();
-  initMagnetic();
+  initScrollProgress();
 });
 
 window.refreshIcons = () => { if (window.lucide) lucide.createIcons(); };
