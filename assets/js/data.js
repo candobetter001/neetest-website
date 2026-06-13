@@ -69,17 +69,18 @@ window.NEETEST_EXAMS = {
   },
 };
 
-// Free trial limit: 5 mock tests
-window.NEETEST_FREE_MOCK_LIMIT = 5;
+// FREE FOR EVERYONE (no paywall while in beta). Unlimited mocks, all features.
+window.NEETEST_FREE_MOCK_LIMIT = Infinity;
+window.NEETEST_IS_FREE = true;
 
-// Pricing
+// Pricing object kept (defined to avoid reference errors) but the product is free.
 window.NEETEST_PRICING = {
-  earlyBird: 1999,
-  regular: 4999,
-  earlyBirdDeadline: '2026-06-15',  // before this date → early bird applies
-  isEarlyBird() { return new Date() < new Date(this.earlyBirdDeadline + 'T23:59:59'); },
-  currentPrice() { return this.isEarlyBird() ? this.earlyBird : this.regular; },
-  savings() { return this.regular - this.earlyBird; },
+  free: true,
+  earlyBird: 0,
+  regular: 0,
+  isEarlyBird() { return false; },
+  currentPrice() { return 0; },
+  savings() { return 0; },
 };
 
 // Practice modes (for paid users on questions.html)
@@ -104,7 +105,7 @@ window.NEETEST_AUTH = {
   user: () => { try { return JSON.parse(localStorage.getItem('neetest_user')); } catch { return null; } },
   login: (email, name) => localStorage.setItem('neetest_user', JSON.stringify({ email, name, joinedAt: Date.now() })),
   logout: () => { localStorage.removeItem('neetest_user'); localStorage.removeItem('neetest_paid'); },
-  isPaid: () => localStorage.getItem('neetest_paid') === 'true',
+  isPaid: () => true,   // free for everyone — all content unlocked
   setPaid: (v) => localStorage.setItem('neetest_paid', v ? 'true' : 'false'),
   mocksTaken: () => parseInt(localStorage.getItem('neetest_mocks_taken') || '0', 10),
   incrementMocks: () => {

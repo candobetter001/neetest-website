@@ -22,7 +22,6 @@ function renderNav(active) {
     { href: 'mock-tests.html', label: 'Mock Tests' },
     { href: 'subjects.html', label: 'Subjects' },
     { href: 'exams.html', label: 'Exams' },
-    { href: 'pricing.html', label: 'Pricing' },
     { href: 'download.html', label: 'Download' },
   ];
   const loggedIn = auth.isLoggedIn();
@@ -37,7 +36,7 @@ function renderNav(active) {
     ...links,
     { href: 'download.html', label: 'Get the Android app' },
     loggedIn ? { href: 'profile.html', label: 'My account' } : { href: 'login.html', label: 'Log in' },
-    { href: 'pricing.html', label: 'Get full access' },
+    { href: 'login.html', label: 'Start free' },
   ];
   const html = `
     <header class="nav">
@@ -57,9 +56,9 @@ function renderNav(active) {
             <span class="hidden sm:inline">Get app</span>
           </a>
           ${authBtn}
-          <a href="pricing.html" class="btn-primary text-sm py-2 px-4 hidden sm:inline-flex">
+          <a href="login.html" class="btn-primary text-sm py-2 px-4 hidden sm:inline-flex">
             <i data-lucide="zap" class="w-4 h-4"></i>
-            <span>Get full access</span>
+            <span>Start free</span>
           </a>
           <button class="nav-toggle btn-secondary p-2" aria-label="Open menu" aria-expanded="false" onclick="toggleMobileMenu(this)">
             <i data-lucide="menu" class="w-5 h-5"></i>
@@ -107,7 +106,7 @@ function renderFooter() {
             <li><a href="mock-tests.html" class="hover:text-[var(--primary)]">Mock Tests</a></li>
             <li><a href="subjects.html" class="hover:text-[var(--primary)]">Subjects</a></li>
             <li><a href="features.html" class="hover:text-[var(--primary)]">Features</a></li>
-            <li><a href="pricing.html" class="hover:text-[var(--primary)]">Pricing</a></li>
+            <li><a href="download.html" class="hover:text-[var(--primary)]">Download app</a></li>
           </ul>
         </div>
         <div>
