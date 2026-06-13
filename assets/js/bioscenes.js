@@ -142,9 +142,97 @@
     return { destroy() { dead = true; cancelAnimationFrame(raf); window.removeEventListener('resize', resize); if (canvas.parentNode) canvas.remove(); } };
   }
 
+  // Shared canvas boilerplate for the dedicated renderers
+  function mkCanvas(el) {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+    el.appendChild(canvas);
+    const x = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const st = { canvas, x, dpr, W: 0, H: 0, raf: 0, dead: false };
+    st.resize = function () {
+      st.W = el.clientWidth || window.innerWidth; st.H = el.clientHeight || 600;
+      canvas.width = st.W * dpr; canvas.height = st.H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    st.resize(); window.addEventListener('resize', st.resize, { passive: true });
+    st.destroy = function () { st.dead = true; cancelAnimationFrame(st.raf); window.removeEventListener('resize', st.resize); if (canvas.parentNode) canvas.remove(); };
+    return st;
+  }
+
+  // Blood-cell flow — biconcave red discs drifting through plasma (clip 3)
+  function renderBlood(el) {
+    const s = mkCanvas(el), x = s.x;
+    let C = [];
+    function seed() {
+      C = []; const n = Math.round((s.W * s.H) / 26000) + 6;
+      for (let i = 0; i < n; i++) C.push({ x: Math.random() * s.W, y: Math.random() * s.H, r: 9 + Math.random() * 12, v: 0.25 + Math.random() * 0.7, a: Math.random() * 7, va: (Math.random() - 0.5) * 0.01, wbc: Math.random() < 0.18, z: 0.5 + Math.random() * 0.6 });
+    }
+    seed(); const _rz = s.resize; s.resize = function () { _rz(); seed(); }; window.addEventListener('resize', s.resize, { passive: true });
+    const t0 = performance.now();
+    function frame(now) {
+      if (s.dead) return; const t = (now - t0) / 1000;
+      x.clearRect(0, 0, s.W, s.H);
+      for (let i = 0; i < C.length; i++) {
+        const o = C[i]; o.x += o.v; o.y += Math.sin(t * 0.5 + i) * 0.15; o.a += o.va;
+        if (o.x - o.r > s.W) { o.x = -o.r; o.y = Math.random() * s.H; }
+        x.save(); x.translate(o.x, o.y); x.rotate(o.a); x.scale(1, 0.72);
+        if (o.wbc) {
+          x.fillStyle = 'rgba(255,225,225,' + (0.5 * o.z) + ')'; x.beginPath(); x.arc(0, 0, o.r, 0, 7); x.fill();
+          x.fillStyle = 'rgba(226,59,66,0.45)'; x.beginPath(); x.arc(0, 0, o.r * 0.45, 0, 7); x.fill();
+        } else {
+          x.fillStyle = 'rgba(200,30,40,' + (0.32 * o.z) + ')'; x.beginPath(); x.arc(0, 0, o.r, 0, 7); x.fill();
+          x.strokeStyle = 'rgba(255,90,90,' + (0.4 * o.z) + ')'; x.lineWidth = 1.4; x.stroke();
+          x.fillStyle = 'rgba(120,12,20,' + (0.45 * o.z) + ')'; x.beginPath(); x.arc(0, 0, o.r * 0.5, 0, 7); x.fill();
+        }
+        x.restore();
+      }
+      s.raf = requestAnimationFrame(frame);
+    }
+    s.raf = requestAnimationFrame(frame);
+    return { destroy: s.destroy };
+  }
+
+  // Floating viruses — spiked pathogen particles drifting (clip 4)
+  function renderVirus(el) {
+    const s = mkCanvas(el), x = s.x;
+    let V = [];
+    function seed() {
+      V = []; const n = Math.round((s.W * s.H) / 90000) + 3;
+      for (let i = 0; i < n; i++) V.push({ x: Math.random() * s.W, y: Math.random() * s.H, r: 16 + Math.random() * 26, a: Math.random() * 7, va: (Math.random() - 0.5) * 0.006, vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25, z: 0.45 + Math.random() * 0.55 });
+    }
+    seed(); const _rz = s.resize; s.resize = function () { _rz(); seed(); }; window.addEventListener('resize', s.resize, { passive: true });
+    const t0 = performance.now();
+    function frame(now) {
+      if (s.dead) return; const t = (now - t0) / 1000;
+      x.clearRect(0, 0, s.W, s.H);
+      for (let i = 0; i < V.length; i++) {
+        const o = V[i]; o.x += o.vx; o.y += o.vy; o.a += o.va;
+        if (o.x < -o.r) o.x = s.W + o.r; if (o.x > s.W + o.r) o.x = -o.r;
+        if (o.y < -o.r) o.y = s.H + o.r; if (o.y > s.H + o.r) o.y = -o.r;
+        x.save(); x.translate(o.x, o.y); x.rotate(o.a);
+        const al = 0.5 * o.z;
+        x.strokeStyle = 'rgba(226,59,66,' + (al * 0.7) + ')'; x.lineWidth = 1.4;
+        const spikes = 14;
+        for (let k = 0; k < spikes; k++) {
+          const ang = k / spikes * Math.PI * 2, x2 = Math.cos(ang) * o.r * 1.45, y2 = Math.sin(ang) * o.r * 1.45;
+          x.beginPath(); x.moveTo(Math.cos(ang) * o.r, Math.sin(ang) * o.r); x.lineTo(x2, y2); x.stroke();
+          x.fillStyle = 'rgba(255,120,120,' + al + ')'; x.beginPath(); x.arc(x2, y2, 2.6, 0, 7); x.fill();
+        }
+        x.fillStyle = 'rgba(160,22,32,' + (al + 0.12) + ')'; x.beginPath(); x.arc(0, 0, o.r, 0, 7); x.fill();
+        x.fillStyle = 'rgba(255,90,90,' + (al * 0.5) + ')'; x.beginPath(); x.arc(0, 0, o.r * 0.5, 0, 7); x.fill();
+        x.restore();
+      }
+      s.raf = requestAnimationFrame(frame);
+    }
+    s.raf = requestAnimationFrame(frame);
+    return { destroy: s.destroy };
+  }
+
   function build(el) {
     const type = el.dataset.bg;
     if (type === 'dna') return renderDna(el);
+    if (type === 'bloodflow') return renderBlood(el);
+    if (type === 'virus') return renderVirus(el);
     const cfg = SCENES[type];
     if (!cfg) return null;
 
