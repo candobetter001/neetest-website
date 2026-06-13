@@ -1,33 +1,33 @@
 /* NEETest — editorial light theme, shared styles + animations
    Redesign 2026-06-01: serif headlines, warm paper palette, restrained accents.
    Fonts imported here so every page upgrades without per-file edits. */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@400;500;600;700&display=swap');
 
 /* Force light mode regardless of OS dark-mode preference */
 :root {
   color-scheme: light only;
 
-  /* Warm editorial paper + ink */
-  --bg: #fbfaf7;
+  /* Clinical white + warm ink — a medical palette built around red */
+  --bg: #fdfbfa;
   --surface: #ffffff;
-  --surface-2: #f4f1ea;
-  --paper-line: #efece4;
-  --text: #1b1a17;
-  --text-muted: #5c574e;
-  --border: #e6e2d8;
-  --border-strong: #d8d3c6;
+  --surface-2: #f7f1f0;
+  --paper-line: #f1e8e7;
+  --text: #1a1413;
+  --text-muted: #6b5d5b;
+  --border: #ece1df;
+  --border-strong: #ddcecb;
 
-  /* Restrained brand: indigo as the single confident accent, teal secondary */
-  --primary: #3a36c9;
-  --primary-hover: #2f2ba6;
-  --primary-soft: #edecfb;
-  --accent: #0e7c86;            /* deeper, less "neon" teal */
-  --accent-soft: #e3f1f2;
-  --ink-rule: #1b1a17;
+  /* Medical red as the single confident brand colour, maroon as the deep accent */
+  --primary: #c1121f;          /* deep medical red */
+  --primary-hover: #9c0e18;
+  --primary-soft: #fce9ea;
+  --accent: #7d0a14;           /* dark maroon */
+  --accent-soft: #f8e6e7;
+  --ink-rule: #1a1413;
 
-  --success: #15803d;
+  --success: #15803d;          /* kept green for "correct" semantics */
   --warning: #b45309;
-  --danger: #b91c1c;
+  --danger: #c1121f;
   --pink: #be185d;
   --violet: #6d28d9;
 
@@ -43,7 +43,7 @@ html {
 body {
   background: var(--bg) !important;
   color: var(--text) !important;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -60,7 +60,7 @@ body {
 /* Headlines are serif for an authoritative, encyclopedic feel.            */
 h1, h2, h3, h4,
 .font-display {
-  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   letter-spacing: -0.02em;
   color: var(--text);
   font-weight: 600;
@@ -74,7 +74,7 @@ p { text-wrap: pretty; }
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter Tight', sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -121,7 +121,7 @@ p { text-wrap: pretty; }
   font-weight: 600; border-radius: 8px; transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
   box-shadow: 0 1px 2px rgba(27,26,23,0.12);
 }
-.btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 8px 20px -10px rgba(58,54,201,0.6); }
+.btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 8px 20px -10px rgba(193,18,31,0.55); }
 .btn-secondary {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.7rem 1.35rem; background: var(--surface); color: var(--text);
@@ -133,8 +133,8 @@ p { text-wrap: pretty; }
 /* Magnetic is intentionally a no-op now (the jitter read as "AI demo") */
 .magnetic { transition: transform 0.18s ease; }
 
-.cat-practice { --cat: #3a36c9; }
-.cat-analytics { --cat: #0e7c86; }
+.cat-practice { --cat: #c1121f; }
+.cat-analytics { --cat: #7d0a14; }
 .cat-study { --cat: #be185d; }
 .cat-planner { --cat: #b45309; }
 .cat-community { --cat: #6d28d9; }
@@ -169,7 +169,7 @@ p { text-wrap: pretty; }
 
 /* Stat numbers: serif, ink — not gradient text */
 .stat-num {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700;
   color: var(--text); letter-spacing: -0.02em;
 }
@@ -280,30 +280,26 @@ p { text-wrap: pretty; }
 /* ── Dark immersive section — "a new page opens as you scroll" ─────────── */
 .section-dark {
   position: relative; overflow: hidden;
-  background: #100f0d; color: #ece7dd;
-  /* Cursor-following warm glow — JS sets --mx/--my, see initEthosGlow() */
-  background-image: radial-gradient(circle 420px at var(--mx, 50%) var(--my, 50%),
-                                     rgba(244, 162, 97, 0.07), transparent 60%);
-  transition: background-position 0.1s linear;
+  background: #1a0c0d; color: #f0e3e2;   /* deep red-black for the blood-cell layer */
 }
 .section-dark::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.6;
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.7;
   background:
-    radial-gradient(760px 380px at 10% -5%, rgba(99,93,255,0.22), transparent 60%),
-    radial-gradient(640px 360px at 95% 105%, rgba(14,124,134,0.20), transparent 60%);
+    radial-gradient(760px 380px at 10% -5%, rgba(193,18,31,0.28), transparent 60%),
+    radial-gradient(640px 360px at 95% 105%, rgba(125,10,20,0.30), transparent 60%);
 }
 .section-dark > * { position: relative; z-index: 1; }
-.section-dark h1, .section-dark h2, .section-dark h3 { color: #fbf8f2; }
-.section-dark .section-eyebrow { color: #4ec5cf; }
-.section-dark .section-eyebrow::before { background: #4ec5cf; }
-.section-dark .muted { color: #a39d92; }
+.section-dark h1, .section-dark h2, .section-dark h3 { color: #fff5f4; }
+.section-dark .section-eyebrow { color: #ff8a8a; }
+.section-dark .section-eyebrow::before { background: #ff8a8a; }
+.section-dark .muted { color: #c9b3b1; }
 .ethos-col { border-top: 1px solid rgba(255,255,255,0.16); padding-top: 1.35rem; }
 .ethos-num {
-  font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; font-weight: 600;
-  letter-spacing: 0.1em; color: #4ec5cf;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.1em; color: #ff8a8a;
 }
 .section-dark .big-stat {
-  font-family: 'Fraunces', Georgia, serif; font-weight: 700;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-weight: 700;
   font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1; color: #fbf8f2; letter-spacing: -0.02em;
 }
 
@@ -312,13 +308,13 @@ main { animation: fade-in 0.45s ease-out; }
 
 /* ── Editorial helpers (new, opt-in) ──────────────────────────────────── */
 .kicker {
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
+  font-family: 'Inter Tight', sans-serif; font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
 }
 .rule { height: 1px; background: var(--border); border: 0; }
 .rule-ink { height: 2px; background: var(--ink-rule); border: 0; width: 48px; }
 .lead { font-size: 1.18rem; line-height: 1.65; color: var(--text-muted); }
-.prose-serif { font-family: 'Fraunces', Georgia, serif; }
+.prose-serif { font-family: 'Bricolage Grotesque', system-ui, sans-serif; }
 .accent-underline {
   background-image: linear-gradient(transparent 62%, color-mix(in srgb, var(--primary) 22%, transparent) 0);
   background-repeat: no-repeat;
@@ -399,7 +395,7 @@ main { animation: fade-in 0.45s ease-out; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--primary);
@@ -476,27 +472,22 @@ main { animation: fade-in 0.45s ease-out; }
   .nav-toggle { display: inline-flex; }
 }
 
-/* ── Full-page animated background (Vanta NET) ──────────────────────────────
-   One fixed layer behind the whole page. Content sits above it (z-index:1) and
-   page sections are transparent so the animation is visible everywhere. Solid
-   cards (.feature-card/.tile/.glass/.card-news + the chart panels) keep their
-   own background so text on top stays readable. */
-#page-bg {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  opacity: 0.6;
+/* ── Per-section animated backgrounds ───────────────────────────────────────
+   The three hero/showcase/CTA sections each carry a distinct, bold, full-bleed
+   animation in a .section-bg layer. Content sits above (z-index:1). Solid cards
+   keep their own background so text stays readable on top. */
+.has-bg { position: relative; isolation: isolate; }
+.section-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.section-bg canvas { display: block; width: 100% !important; height: 100% !important; }
+.has-bg > *:not(.section-bg) { position: relative; z-index: 1; }
+/* Light sections: soften the edges of the animation so headline text stays crisp */
+.section-bg.fade-light::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 75% at 30% 45%, transparent 40%, var(--bg) 100%);
 }
-#page-bg canvas { width: 100% !important; height: 100% !important; display: block; }
 
-/* Lift all real content above the background layer */
-#beta-slot, #nav-slot, main, #footer-slot, .grain { position: relative; z-index: 1; }
-
-/* Make the alternating "panel" sections translucent so the net shows through
-   while keeping a faint frosted tint for separation/readability. */
-.section-panel {
-  background: color-mix(in srgb, var(--surface) 78%, transparent) !important;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
+/* Content panels stay solid (no full-page background behind them now) */
+.section-panel { background: var(--surface); }
 
 /* ── Film grain overlay — a fixed, very subtle noise texture over the whole
    page. One of the cheapest "this was made by a human" signals; breaks the
@@ -507,11 +498,10 @@ main { animation: fade-in 0.45s ease-out; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #page-bg { display: none !important; }
+  .section-bg { display: none !important; }
 }
-/* Mobile: skip the heavy WebGL layer, keep the page light */
+/* Mobile: skip the heavy WebGL layers, keep the page light */
 @media (max-width: 767px) {
-  #page-bg { display: none !important; }
+  .section-bg { display: none !important; }
   .grain { opacity: 0.025; }
-  .section-panel { background: var(--surface) !important; backdrop-filter: none; }
 }
