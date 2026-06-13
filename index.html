@@ -15,16 +15,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=6" />
+  <link rel="stylesheet" href="assets/css/main.css?v=7" />
 </head>
 <body>
+  <div class="grain" aria-hidden="true"></div>
   <div id="nav-slot"></div>
 
   <main>
     <!-- HERO -->
-    <section class="relative overflow-hidden">
-      <div class="mesh-bg"></div>
-      <div class="relative mx-auto px-4 md:px-6 pt-14 md:pt-20 pb-14 md:pb-20" style="max-width:var(--maxw)">
+    <section class="relative overflow-hidden has-bg">
+      <div class="section-bg" data-bg="ecg"></div>
+      <div class="mx-auto px-4 md:px-6 pt-14 md:pt-20 pb-14 md:pb-20" style="max-width:var(--maxw)">
         <div class="grid lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-7">
             <span class="section-eyebrow">For NEET&nbsp;PG &amp; INI-CET aspirants</span>
@@ -119,7 +120,8 @@
     </section>
 
     <!-- WHAT YOU GET -->
-    <section class="py-16 md:py-20 bg-[var(--surface)] border-y border-[var(--border)]">
+    <section class="py-16 md:py-20 bg-[var(--surface)] border-y border-[var(--border)] has-bg">
+      <div class="section-bg" data-bg="dots"></div>
       <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
         <div class="max-w-2xl mb-12">
           <span class="section-eyebrow">What you get</span>
@@ -221,7 +223,8 @@
     </section>
 
     <!-- DARK IMMERSIVE ETHOS SECTION -->
-    <section class="section-dark py-24 md:py-36" id="ethos">
+    <section class="section-dark py-24 md:py-36 has-bg bg-interactive" id="ethos">
+      <div class="section-bg" data-bg="net"></div>
       <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
         <div class="max-w-3xl">
           <span class="section-eyebrow">The difference</span>
@@ -519,9 +522,9 @@
     </section>
 
     <!-- CTA -->
-    <section class="py-20 md:py-28 relative overflow-hidden">
-      <div class="mesh-bg"></div>
-      <div class="relative mx-auto px-4 md:px-6 text-center" style="max-width:760px">
+    <section class="py-20 md:py-28 relative overflow-hidden has-bg">
+      <div class="section-bg" data-bg="globe"></div>
+      <div class="mx-auto px-4 md:px-6 text-center" style="max-width:760px">
         <h2 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight">
           Ready to start? <span class="accent-underline">Create your free account.</span>
         </h2>
@@ -544,12 +547,13 @@
 
   <div id="footer-slot"></div>
 
-  <script src="assets/js/data.js?v=5"></script>
-  <script src="assets/js/main.js?v=6"></script>
+  <script src="assets/js/data.js?v=7"></script>
+  <script src="assets/js/main.js?v=7"></script>
   <!-- Dashboard visualisations (lazy-loads Chart.js only when canvas elements exist) -->
-  <script src="assets/js/dashboard.js?v=6"></script>
-  <!-- 3D ECG ribbon background (desktop only, skipped under reduced-motion) -->
-  <script type="module" src="assets/js/ecg-3d.js?v=6"></script>
+  <script src="assets/js/dashboard.js?v=7"></script>
+  <!-- Per-section interactive backgrounds: ECG ribbon + Vanta NET/DOTS/GLOBE.
+       IntersectionObserver-managed, desktop-only, skipped under reduced-motion. -->
+  <script src="assets/js/backgrounds.js?v=7"></script>
   <script>
     renderNav('index.html');
     renderFooter();

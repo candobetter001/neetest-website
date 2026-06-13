@@ -31,7 +31,7 @@
   --pink: #be185d;
   --violet: #6d28d9;
 
-  --maxw: 1180px;
+  --maxw: 1320px;
 }
 
 html {
@@ -473,4 +473,49 @@ main { animation: fade-in 0.45s ease-out; }
 @media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-toggle { display: inline-flex; }
+}
+
+/* ── Section background layers (Vanta / canvas, full-bleed, behind content) ──
+   Each target <section> gets position:relative; a .section-bg child fills it
+   edge-to-edge (full viewport width) while text stays in the --maxw column.
+   This uses the side margins the user flagged: animation spans the full width,
+   content stays readable. */
+.has-bg { position: relative; isolation: isolate; }
+.section-bg {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+}
+.section-bg canvas { display: block; }
+.has-bg > *:not(.section-bg) { position: relative; z-index: 1; }
+/* Vanta is mouse-interactive — re-enable pointer events only on the canvas layer
+   for sections where we WANT the interaction (dark ethos). Opt-in via .bg-interactive. */
+.bg-interactive .section-bg { pointer-events: auto; }
+.bg-interactive .section-bg + * { pointer-events: none; }
+.bg-interactive .section-bg ~ *:not(.section-bg) { pointer-events: auto; }
+
+/* Soft fade so the animated layer never fights the text directly behind it */
+.section-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(120% 80% at 50% 50%, transparent 30%, var(--bg) 100%);
+  opacity: 0.55;
+}
+.section-dark .section-bg::after {
+  background: radial-gradient(130% 90% at 50% 40%, transparent 25%, #100f0d 100%);
+  opacity: 0.7;
+}
+
+/* ── Film grain overlay — a fixed, very subtle noise texture over the whole
+   page. One of the cheapest "this was made by a human" signals; breaks the
+   flat-vector look that reads as AI-generated. */
+.grain {
+  position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-bg { display: none !important; }
+}
+/* Mobile: skip the heavy WebGL layers, keep the page light */
+@media (max-width: 767px) {
+  .section-bg { display: none !important; }
+  .grain { opacity: 0.025; }
 }
