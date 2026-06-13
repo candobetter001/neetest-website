@@ -5,31 +5,36 @@
 
 /* Force light mode regardless of OS dark-mode preference */
 :root {
-  color-scheme: light only;
+  color-scheme: dark;
 
-  /* Clinical white + warm ink — a medical palette built around red */
-  --bg: #fdfbfa;
-  --surface: #ffffff;
-  --surface-2: #f7f1f0;
-  --paper-line: #f1e8e7;
-  --text: #1a1413;
-  --text-muted: #6b5d5b;
-  --border: #ece1df;
-  --border-strong: #ddcecb;
+  /* Dark med-tech — deep red-black with glowing red. (User-chosen 2026-06-13;
+     supersedes the old "light only" note.) */
+  --bg: #120708;
+  --surface: #1d1011;          /* solid dark card fallback */
+  --surface-2: #271619;
+  --paper-line: rgba(255,255,255,0.06);
+  --text: #f6ece9;
+  --text-muted: #b9a4a2;
+  --border: rgba(255,255,255,0.10);
+  --border-strong: rgba(255,255,255,0.18);
 
-  /* Medical red as the single confident brand colour, maroon as the deep accent */
-  --primary: #c1121f;          /* deep medical red */
-  --primary-hover: #9c0e18;
-  --primary-soft: #fce9ea;
-  --accent: #7d0a14;           /* dark maroon */
-  --accent-soft: #f8e6e7;
-  --ink-rule: #1a1413;
+  /* Brighter red so it reads as "glowing" on the dark ground */
+  --primary: #e23b42;
+  --primary-hover: #f25a60;
+  --primary-soft: rgba(226,59,66,0.16);
+  --accent: #ff8a8a;           /* coral accent */
+  --accent-soft: rgba(255,138,138,0.14);
+  --ink-rule: #f6ece9;
 
-  --success: #15803d;          /* kept green for "correct" semantics */
-  --warning: #b45309;
-  --danger: #c1121f;
-  --pink: #be185d;
-  --violet: #6d28d9;
+  --success: #34d399;          /* readable on dark */
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --pink: #f472b6;
+  --violet: #a78bfa;
+
+  /* Frosted-glass card surface */
+  --glass-bg: rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.12);
 
   --maxw: 1600px;
   --gutter: clamp(1rem, 4vw, 4rem);
@@ -37,7 +42,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light only;
+  color-scheme: dark;
   background: var(--bg);
 }
 body {
@@ -50,10 +55,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Override any dark-mode media queries from CDN libs */
-@media (prefers-color-scheme: dark) {
-  :root { color-scheme: light only !important; }
-  html, body { background: #fbfaf7 !important; color: #1b1a17 !important; }
+/* Site is intentionally dark in both OS modes */
+@media (prefers-color-scheme: light) {
+  html, body { background: var(--bg) !important; color: var(--text) !important; }
 }
 
 /* ── Editorial typography ─────────────────────────────────────────────── */
@@ -107,12 +111,22 @@ p { text-wrap: pretty; }
   mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
 }
 
-/* Solid, clean card (replaces glassmorphism) */
+/* Frosted-glass card — dark, translucent, blurred so the animation glows through */
 .glass {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 0 var(--paper-line), 0 18px 40px -28px rgba(27,26,23,0.22);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px -30px rgba(0,0,0,0.7);
 }
+/* Apply the glass treatment to every card surface on the dark theme */
+.feature-card, .tile, .card-news, .section-panel,
+.q-card, .exam-paper, .lock-overlay {
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+/* Neutralise any Tailwind white backgrounds against the dark theme */
+.bg-white { background: var(--glass-bg) !important; }
 
 /* ── Buttons: crisp, editorial, no gimmicks ───────────────────────────── */
 .btn-primary {
@@ -200,9 +214,9 @@ p { text-wrap: pretty; }
 /* ── Navigation ───────────────────────────────────────────────────────── */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(251,250,247,0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(18,7,8,0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid var(--border);
 }
 .nav a.active { color: var(--primary); font-weight: 600; }
@@ -376,7 +390,7 @@ main { animation: fade-in 0.45s ease-out; }
 
 /* Exam-paper layout for mock tests */
 .exam-paper {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 2rem;
@@ -415,7 +429,7 @@ main { animation: fade-in 0.45s ease-out; }
   margin-bottom: 0.65rem;
   cursor: pointer;
   transition: all 0.15s ease;
-  background: white;
+  background: var(--surface);
 }
 .exam-option:hover { border-color: var(--primary); background: var(--primary-soft); }
 .exam-option.selected { border-color: var(--primary); background: var(--primary-soft); }
@@ -426,7 +440,7 @@ main { animation: fade-in 0.45s ease-out; }
   display: inline-flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 0.85rem;
   flex-shrink: 0;
-  background: white;
+  background: var(--surface);
 }
 .exam-option.selected .opt-label { background: var(--primary); color: white; border-color: var(--primary); }
 
@@ -440,7 +454,7 @@ main { animation: fade-in 0.45s ease-out; }
   aspect-ratio: 1;
   border: 1px solid var(--border-strong);
   border-radius: 8px;
-  background: white;
+  background: var(--surface);
   font-weight: 700;
   font-size: 0.85rem;
   cursor: pointer;

@@ -101,8 +101,50 @@
 
   const instances = new Map();
 
+  // Dedicated, depth-shaded DNA double helix (hero).
+  function renderDna(el) {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+    el.appendChild(canvas);
+    const x = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let W = 0, H = 0, raf = 0, dead = false;
+    function resize() {
+      W = el.clientWidth || window.innerWidth; H = el.clientHeight || 600;
+      canvas.width = W * dpr; canvas.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize(); window.addEventListener('resize', resize, { passive: true });
+    const t0 = performance.now();
+    function frame(now) {
+      if (dead) return;
+      const t = (now - t0) / 1000;
+      x.clearRect(0, 0, W, H);
+      const cx = W * 0.74, R = Math.min(W * 0.13, 70), turns = 3.0, ph = t * 0.9;
+      const top = H * 0.08, bot = H * 0.92, n = 70;
+      for (let i = 0; i <= n; i++) {
+        const f = i / n, yy = top + f * (bot - top), a = f * Math.PI * 2 * turns + ph;
+        const z1 = Math.cos(a), z2 = Math.cos(a + Math.PI);
+        const x1 = cx + Math.sin(a) * R, x2 = cx + Math.sin(a + Math.PI) * R;
+        if (i % 2 === 0) {
+          x.strokeStyle = 'rgba(226,59,66,' + (0.12 + 0.16 * ((z1 + 1) / 2)) + ')';
+          x.lineWidth = 1.2; x.beginPath(); x.moveTo(x1, yy); x.lineTo(x2, yy); x.stroke();
+        }
+        const s1 = 2.2 + 2.4 * ((z1 + 1) / 2), a1 = 0.4 + 0.55 * ((z1 + 1) / 2);
+        x.fillStyle = (z1 > 0 ? 'rgba(255,120,120,' : 'rgba(200,30,45,') + a1 + ')';
+        x.beginPath(); x.arc(x1, yy, s1, 0, 7); x.fill();
+        const s2 = 2.2 + 2.4 * ((z2 + 1) / 2), a2 = 0.4 + 0.55 * ((z2 + 1) / 2);
+        x.fillStyle = (z2 > 0 ? 'rgba(255,120,120,' : 'rgba(200,30,45,') + a2 + ')';
+        x.beginPath(); x.arc(x2, yy, s2, 0, 7); x.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+    return { destroy() { dead = true; cancelAnimationFrame(raf); window.removeEventListener('resize', resize); if (canvas.parentNode) canvas.remove(); } };
+  }
+
   function build(el) {
     const type = el.dataset.bg;
+    if (type === 'dna') return renderDna(el);
     const cfg = SCENES[type];
     if (!cfg) return null;
 
