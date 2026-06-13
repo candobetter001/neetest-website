@@ -12,9 +12,10 @@
 // view and destroys it when it leaves. Skipped on mobile + reduced-motion.
 
 (function () {
+  // Animations run on mobile too now (users asked to see them on their phones).
+  // Only "reduce motion" accessibility preference disables them.
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const screenW = (window.screen && window.screen.width) || window.innerWidth || 1024;
-  if (reduce || screenW < 768) return;
+  if (reduce) return;
 
   const targets = Array.from(document.querySelectorAll('.section-bg[data-bg]'));
   if (!targets.length) return;

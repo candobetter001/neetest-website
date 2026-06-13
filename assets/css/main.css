@@ -500,8 +500,7 @@ main { animation: fade-in 0.45s ease-out; }
 @media (prefers-reduced-motion: reduce) {
   .section-bg { display: none !important; }
 }
-/* Mobile: skip the heavy WebGL layers, keep the page light */
+/* Mobile: animations stay ON (users wanted to see them on phones). Keep grain light. */
 @media (max-width: 767px) {
-  .section-bg { display: none !important; }
   .grain { opacity: 0.025; }
 }
