@@ -1,7 +1,7 @@
 /* NEETest — editorial light theme, shared styles + animations
    Redesign 2026-06-01: serif headlines, warm paper palette, restrained accents.
    Fonts imported here so every page upgrades without per-file edits. */
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* Force light mode regardless of OS dark-mode preference */
 :root {
@@ -31,7 +31,8 @@
   --pink: #be185d;
   --violet: #6d28d9;
 
-  --maxw: 1320px;
+  --maxw: 1600px;
+  --gutter: clamp(1rem, 4vw, 4rem);
 }
 
 html {
@@ -42,7 +43,7 @@ html {
 body {
   background: var(--bg) !important;
   color: var(--text) !important;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -59,8 +60,8 @@ body {
 /* Headlines are serif for an authoritative, encyclopedic feel.            */
 h1, h2, h3, h4,
 .font-display {
-  font-family: 'Source Serif 4', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
-  letter-spacing: -0.012em;
+  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  letter-spacing: -0.02em;
   color: var(--text);
   font-weight: 600;
 }
@@ -73,7 +74,7 @@ p { text-wrap: pretty; }
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -168,7 +169,7 @@ p { text-wrap: pretty; }
 
 /* Stat numbers: serif, ink — not gradient text */
 .stat-num {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700;
   color: var(--text); letter-spacing: -0.02em;
 }
@@ -298,11 +299,11 @@ p { text-wrap: pretty; }
 .section-dark .muted { color: #a39d92; }
 .ethos-col { border-top: 1px solid rgba(255,255,255,0.16); padding-top: 1.35rem; }
 .ethos-num {
-  font-family: 'Source Serif 4', Georgia, serif; font-size: 0.85rem; font-weight: 600;
+  font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; font-weight: 600;
   letter-spacing: 0.1em; color: #4ec5cf;
 }
 .section-dark .big-stat {
-  font-family: 'Source Serif 4', Georgia, serif; font-weight: 700;
+  font-family: 'Fraunces', Georgia, serif; font-weight: 700;
   font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: 1; color: #fbf8f2; letter-spacing: -0.02em;
 }
 
@@ -311,13 +312,13 @@ main { animation: fade-in 0.45s ease-out; }
 
 /* ── Editorial helpers (new, opt-in) ──────────────────────────────────── */
 .kicker {
-  font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.72rem; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted);
 }
 .rule { height: 1px; background: var(--border); border: 0; }
 .rule-ink { height: 2px; background: var(--ink-rule); border: 0; width: 48px; }
 .lead { font-size: 1.18rem; line-height: 1.65; color: var(--text-muted); }
-.prose-serif { font-family: 'Source Serif 4', Georgia, serif; }
+.prose-serif { font-family: 'Fraunces', Georgia, serif; }
 .accent-underline {
   background-image: linear-gradient(transparent 62%, color-mix(in srgb, var(--primary) 22%, transparent) 0);
   background-repeat: no-repeat;
@@ -398,7 +399,7 @@ main { animation: fade-in 0.45s ease-out; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--primary);
@@ -475,32 +476,26 @@ main { animation: fade-in 0.45s ease-out; }
   .nav-toggle { display: inline-flex; }
 }
 
-/* ── Section background layers (Vanta / canvas, full-bleed, behind content) ──
-   Each target <section> gets position:relative; a .section-bg child fills it
-   edge-to-edge (full viewport width) while text stays in the --maxw column.
-   This uses the side margins the user flagged: animation spans the full width,
-   content stays readable. */
-.has-bg { position: relative; isolation: isolate; }
-.section-bg {
-  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+/* ── Full-page animated background (Vanta NET) ──────────────────────────────
+   One fixed layer behind the whole page. Content sits above it (z-index:1) and
+   page sections are transparent so the animation is visible everywhere. Solid
+   cards (.feature-card/.tile/.glass/.card-news + the chart panels) keep their
+   own background so text on top stays readable. */
+#page-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.6;
 }
-.section-bg canvas { display: block; }
-.has-bg > *:not(.section-bg) { position: relative; z-index: 1; }
-/* Vanta is mouse-interactive — re-enable pointer events only on the canvas layer
-   for sections where we WANT the interaction (dark ethos). Opt-in via .bg-interactive. */
-.bg-interactive .section-bg { pointer-events: auto; }
-.bg-interactive .section-bg + * { pointer-events: none; }
-.bg-interactive .section-bg ~ *:not(.section-bg) { pointer-events: auto; }
+#page-bg canvas { width: 100% !important; height: 100% !important; display: block; }
 
-/* Soft fade so the animated layer never fights the text directly behind it */
-.section-bg::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(120% 80% at 50% 50%, transparent 30%, var(--bg) 100%);
-  opacity: 0.55;
-}
-.section-dark .section-bg::after {
-  background: radial-gradient(130% 90% at 50% 40%, transparent 25%, #100f0d 100%);
-  opacity: 0.7;
+/* Lift all real content above the background layer */
+#beta-slot, #nav-slot, main, #footer-slot, .grain { position: relative; z-index: 1; }
+
+/* Make the alternating "panel" sections translucent so the net shows through
+   while keeping a faint frosted tint for separation/readability. */
+.section-panel {
+  background: color-mix(in srgb, var(--surface) 78%, transparent) !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* ── Film grain overlay — a fixed, very subtle noise texture over the whole
@@ -512,10 +507,11 @@ main { animation: fade-in 0.45s ease-out; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .section-bg { display: none !important; }
+  #page-bg { display: none !important; }
 }
-/* Mobile: skip the heavy WebGL layers, keep the page light */
+/* Mobile: skip the heavy WebGL layer, keep the page light */
 @media (max-width: 767px) {
-  .section-bg { display: none !important; }
+  #page-bg { display: none !important; }
   .grain { opacity: 0.025; }
+  .section-panel { background: var(--surface) !important; backdrop-filter: none; }
 }
