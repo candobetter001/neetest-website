@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="light only" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methodology — How NEETest scores you</title>
+  <meta name="description" content="The math behind your dashboard. No black box: every score the tool shows you is derived from a formula you can verify here." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css?v=6" />
+  <style>
+    .prose { font-size: 1.05rem; line-height: 1.78; }
+    .prose h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.45rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.85rem; letter-spacing: -0.01em; }
+    .prose h3 { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.15rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.6rem; }
+    .prose p { margin-bottom: 1.1rem; }
+    .prose ul, .prose ol { margin-left: 1.4rem; margin-bottom: 1.1rem; }
+    .prose li { margin-bottom: 0.5rem; }
+    .prose code, .formula {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.95em;
+      background: var(--surface-2);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+    }
+    .formula-block {
+      display: block;
+      background: var(--surface-2);
+      border-left: 3px solid var(--primary);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 1.02rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .note {
+      border-left: 3px solid var(--accent);
+      padding: 0.85rem 1.1rem;
+      background: var(--accent-soft);
+      color: var(--text);
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <section class="py-16 md:py-20">
+      <div class="mx-auto px-4 md:px-6" style="max-width:760px">
+        <span class="section-eyebrow">Methodology</span>
+        <h1 class="text-4xl md:text-5xl font-semibold leading-[1.08]">No black box.</h1>
+        <p class="lead mt-5">Every number the dashboard shows you is derived from a formula you can verify here. If the tool tells you that Endocrinology is your weakest topic, you should be able to check the math.</p>
+      </div>
+    </section>
+
+    <section class="pb-24">
+      <div class="mx-auto px-4 md:px-6 prose" style="max-width:760px">
+
+        <h2>1. Accuracy</h2>
+        <p>The simplest one. For any subject, topic, or attempt:</p>
+        <div class="formula-block">accuracy = correct ÷ attempted</div>
+        <p>Skipped questions don&rsquo;t count as either correct or attempted. Marked-for-review questions count as attempted only if a final option was selected.</p>
+
+        <h2>2. Time-per-question</h2>
+        <p>Average seconds spent on each question that was attempted:</p>
+        <div class="formula-block">avg_time = total_seconds_on_attempted_qs ÷ attempted</div>
+        <p>If you switched tabs or your screen locked, that idle time is excluded &mdash; we only count time when the question was actually on screen.</p>
+
+        <h2>3. Weakness score (the most important one)</h2>
+        <p>This is the formula that ranks your weak areas on the dashboard. For any topic:</p>
+        <div class="formula-block">weakness = (1 &minus; accuracy) &times; &radic;(avg_time / median_time) &times; topic_weight</div>
+        <p>In plain English, it&rsquo;s the product of three factors:</p>
+        <ol>
+          <li><strong>(1 &minus; accuracy)</strong> &mdash; how often you get it wrong. If you&rsquo;re at 60% accuracy, this term is 0.40.</li>
+          <li><strong>&radic;(avg_time / median_time)</strong> &mdash; how much slower than typical you are on this topic. Median time is computed across all NEETest users on the same topic. Square root softens the penalty so a topic that takes 1.5&times; longer isn&rsquo;t treated as 1.5&times; weaker &mdash; it&rsquo;s &radic;1.5 &asymp; 1.22&times; weaker.</li>
+          <li><strong>topic_weight</strong> &mdash; how often that topic appears in real NEET PG and INI-CET papers. Endocrinology has a higher weight than, say, History of Medicine.</li>
+        </ol>
+        <div class="note">
+          <strong>Why this matters:</strong> a topic where you&rsquo;re wrong half the time but it appears once a year is less urgent than a topic where you&rsquo;re wrong 30% of the time but it appears on every paper. The formula encodes that judgement instead of just sorting by accuracy.
+        </div>
+
+        <h2>4. Topic weights</h2>
+        <p>We compute topic weights from the last 5 years of released NEET PG and INI-CET papers. For each topic we count how many questions referenced it, then normalise so weights sum to 1.0 within each subject.</p>
+        <p>The weights are recomputed once a year after the new papers are released and added to our bank. The current snapshot is from <strong>NEET PG 2024 + INI-CET 2024</strong>.</p>
+
+        <h2>5. Mock test percentile</h2>
+        <p>For each full-length mock you attempt:</p>
+        <div class="formula-block">percentile = (number_of_users_you_outscored ÷ total_users) &times; 100</div>
+        <p>We use a minimum sample size of 200 prior attempts before reporting a percentile. If fewer than 200 users have attempted that specific mock, we report your raw score and an asterisked &ldquo;percentile pending&rdquo; instead.</p>
+
+        <h2>6. Day-over-day trend</h2>
+        <p>The line you see on the dashboard sparkline is a 7-day exponentially-weighted moving average of your daily accuracy. It smooths out single bad days so the trend reflects real improvement, not noise.</p>
+        <div class="formula-block">EWMA<sub>today</sub> = 0.3 &times; accuracy<sub>today</sub> + 0.7 &times; EWMA<sub>yesterday</sub></div>
+
+        <h2>7. What we deliberately do not measure</h2>
+        <p>A few things commercial platforms measure that we don&rsquo;t, on purpose:</p>
+        <ul>
+          <li><strong>Streak.</strong> Streaks reward showing up, not learning. You can &ldquo;keep a streak alive&rdquo; by attempting 5 easy questions a day and stagnate for a year. We don&rsquo;t show one.</li>
+          <li><strong>Leaderboards.</strong> The exam isn&rsquo;t a leaderboard. Your competition is the cutoff, not other aspirants.</li>
+          <li><strong>&ldquo;Confidence score.&rdquo;</strong> No prep tool can measure how confident you actually are on exam day. We don&rsquo;t invent metrics that sound good but mean nothing.</li>
+        </ul>
+
+        <h2>8. Where this is implemented</h2>
+        <p>The formulas above are implemented in the Android app&rsquo;s analytics layer and in the website&rsquo;s dashboard JavaScript. If you find a discrepancy between what the tool shows you and what the formulas predict, that&rsquo;s a bug &mdash; please email <a href="mailto:candobetter001@gmail.com" class="text-[var(--primary)] underline">candobetter001@gmail.com</a> with your account ID and we&rsquo;ll fix it.</p>
+
+        <h2>9. Will the formulas change?</h2>
+        <p>Yes, occasionally. If we tune a weight or update topic weights after a new exam year, that&rsquo;s logged on the <a href="changelog.html" class="text-[var(--primary)] underline">changelog</a> with the date and the reason. We don&rsquo;t silently change scoring &mdash; you should be able to see why a topic&rsquo;s rank moved.</p>
+
+        <p class="text-sm text-[var(--text-muted)] mt-10">NEETest is an independent product. It is not affiliated with NBEMS, AIIMS, NMC, or any examining body. Question weights are derived from publicly released exam papers.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <script src="assets/js/data.js?v=6"></script>
+  <script src="assets/js/main.js?v=6"></script>
+  <script>
+    renderNav('methodology.html');
+    renderFooter();
+  </script>
+</body>
+</html>

@@ -7,62 +7,84 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — NEETest</title>
+  <meta name="description" content="Why NEETest exists, who built it, and what it does and does not do." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/main.css?v=6" />
   <style>
-    .prose { font-size: 1rem; line-height: 1.75; }
-    .prose h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
-    .prose p { margin-bottom: 1rem; }
-    .prose ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
+    .prose { font-size: 1.05rem; line-height: 1.78; }
+    .prose h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.45rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 0.85rem; letter-spacing: -0.01em; }
+    .prose p { margin-bottom: 1.1rem; }
+    .prose ul { list-style: disc; margin-left: 1.4rem; margin-bottom: 1.1rem; }
     .prose li { margin-bottom: 0.5rem; }
+    .prose strong { color: var(--text); }
+    .founder-aside {
+      border-left: 3px solid var(--primary);
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
   <div id="nav-slot"></div>
 
   <main>
-    <section class="relative overflow-hidden py-16 md:py-20">
-      <div class="mesh-bg"></div>
-      <div class="relative max-w-3xl mx-auto px-4 md:px-6 text-center">
+    <section class="py-16 md:py-20">
+      <div class="mx-auto px-4 md:px-6" style="max-width:760px">
         <span class="section-eyebrow">About</span>
-        <h1 class="font-display text-4xl md:text-6xl font-bold">A focused practice tool.</h1>
-        <p class="text-[var(--text-muted)] mt-4 text-lg">Nothing more. Nothing less.</p>
+        <h1 class="text-4xl md:text-5xl font-semibold leading-[1.08]">A focused practice tool, built by someone who&nbsp;sat the exam.</h1>
+        <p class="lead mt-5">No videos. No mentors. No leaderboards. Just an MCQ bank and a dashboard that tells you the truth about where you stand.</p>
       </div>
     </section>
 
-    <section class="py-12 pb-24">
-      <div class="max-w-3xl mx-auto px-4 md:px-6 prose">
-        <h2>What NEETest is</h2>
-        <p>NEETest is a self-paced MCQ practice tool and progress dashboard for aspirants preparing for NEET PG, INI-CET, and similar postgraduate medical entrance examinations.</p>
-        <p>It gives you two things:</p>
+    <section class="pb-24">
+      <div class="mx-auto px-4 md:px-6 prose" style="max-width:760px">
+
+        <h2>Why this exists</h2>
+        <p>I built NEETest after my own PG prep convinced me that most of the commercial platforms are selling the wrong thing.</p>
+        <p>They sell hours. Video hours, live-class hours, doubt-solving hours. But the marks come from a different place entirely &mdash; sitting with a question bank, getting things wrong, finding out specifically <em>which</em> things you keep getting wrong, and doing it again the next day.</p>
+        <p>I noticed I&rsquo;d watch eight hours of lectures and my mock scores wouldn&rsquo;t move. I&rsquo;d sit with two hundred MCQs and a notebook over a weekend and my scores would jump. The expensive thing was decorative. The cheap thing was doing the work.</p>
+
+        <div class="founder-aside">
+          So the question I asked was: what would the cheap thing look like if it was built well? Not bigger. Not flashier. Just very, very well-made for the one job it has.
+        </div>
+
+        <h2>What NEETest does</h2>
         <ul>
-          <li>A growing bank of previous-year MCQs you can practice, tagged by subject, year, and exam.</li>
-          <li>A dashboard that shows your accuracy, time taken, and weak subject areas.</li>
+          <li>A growing bank of MCQs, tagged by subject, year, and exam. Practice in topic-mode or take a timed mock.</li>
+          <li>A dashboard that updates after every attempt &mdash; accuracy, time-per-question, subject heatmap, weakest topics.</li>
+          <li>Bookmarks, wrong-answer drill, exam countdowns for NEET PG and INI-CET.</li>
         </ul>
 
-        <h2>What NEETest is not</h2>
-        <p>We do not offer video lectures, live classes, one-on-one mentoring, textbook chapters, doubt solving, college counselling, rank guarantees, or any service other than the two above. If you want any of those, NEETest is not the right tool for you.</p>
+        <h2>What NEETest does not do</h2>
+        <p>No video lectures. No live classes. No one-on-one mentoring. No textbook chapters. No doubt solving. No college counselling. No rank guarantees. No leaderboards. No streak gamification.</p>
+        <p>If you want any of those, you&rsquo;re not the wrong person &mdash; this is the wrong tool. Look elsewhere, honestly.</p>
 
-        <h2>Pricing</h2>
-        <p>Free trial: 5 mock tests + basic dashboard. One-time payment for lifetime access — see the <a href="pricing.html" class="text-[var(--primary)] underline">pricing page</a> for current price (early-bird offer available).</p>
+        <h2>How we score your weak areas</h2>
+        <p>The dashboard&rsquo;s &ldquo;weak topic&rdquo; ranking isn&rsquo;t a black box. The math is published in plain English on the <a href="methodology.html" class="text-[var(--primary)] underline font-medium">methodology page</a>. You should be able to verify what the tool is telling you about your own learning.</p>
 
-        <h2>Our commitments</h2>
+        <h2>Pricing &amp; commitments</h2>
         <ul>
-          <li><strong>Transparent pricing.</strong> One number, paid once, no hidden subscriptions.</li>
-          <li><strong>Honest scope.</strong> We tell you exactly what you get and don't promise outcomes we can't deliver.</li>
-          <li><strong>Original content.</strong> Any explanation prose we write is our own, based on standard textbooks. We do not republish copyrighted material from any commercial provider.</li>
-          <li><strong>Light data use.</strong> The app is built to work on basic phones and slow networks.</li>
-          <li><strong>Reasonable refund.</strong> 7-day window if you've used fewer than 20 questions. See <a href="terms.html#refund" class="text-[var(--primary)] underline">Refund Policy</a>.</li>
+          <li><strong>One price, paid once.</strong> No subscription. The early-bird is &#8377;1,999 lifetime &mdash; see the <a href="pricing.html" class="text-[var(--primary)] underline">pricing page</a> for the current rate.</li>
+          <li><strong>Honest scope.</strong> What&rsquo;s above is what you get. No upsell pages, no add-on tiers.</li>
+          <li><strong>Original content.</strong> Any explanation prose is written by us based on standard textbooks. We do not republish copyrighted material from any commercial provider.</li>
+          <li><strong>Light data use.</strong> The Android app is built to work on basic phones and slow networks.</li>
+          <li><strong>Reasonable refund.</strong> 7-day window if you&rsquo;ve used fewer than 20 questions. See <a href="terms.html#refund" class="text-[var(--primary)] underline">Refund Policy</a>.</li>
+          <li><strong>If we shut down,</strong> we&rsquo;ll give 30 days&rsquo; notice and export your data. You won&rsquo;t wake up to a dead login one morning.</li>
         </ul>
 
         <h2>What we do not promise</h2>
-        <p>NEETest does not guarantee any examination result, rank, college admission, or any other specific outcome. Please read our <a href="terms.html" class="text-[var(--primary)] underline">Terms &amp; Conditions</a> for the full statement of disclaimers and limitations.</p>
+        <p>NEETest does not guarantee any examination result, rank, college admission, or any other specific outcome. The exam is hard. We give you a sharper tool, not a shortcut. Read our <a href="terms.html" class="text-[var(--primary)] underline">Terms &amp; Conditions</a> for the full disclaimer.</p>
+
+        <h2>Who&rsquo;s behind it</h2>
+        <p>Right now, one person. I&rsquo;m choosing to stay anonymous until the product is solid and proven &mdash; not because I&rsquo;m hiding, but because I&rsquo;d rather you judge the tool on the tool. Once we&rsquo;re out of beta, there&rsquo;ll be a real name and face on this page.</p>
 
         <h2>Contact</h2>
-        <p>For support or queries: <a href="mailto:candobetter001@gmail.com" class="text-[var(--primary)] underline">candobetter001@gmail.com</a>. We aim to respond within 3&ndash;5 business days.</p>
+        <p>For support, bugs, or honest criticism: <a href="mailto:candobetter001@gmail.com" class="text-[var(--primary)] underline">candobetter001@gmail.com</a>. I read every email myself. Replies usually within 3&ndash;5 business days.</p>
 
         <p class="text-sm text-[var(--text-muted)] mt-8">NEETest is an independent product. It is not affiliated with NBEMS, AIIMS, NMC, or any examining body.</p>
       </div>
@@ -70,12 +92,11 @@
   </main>
 
   <div id="footer-slot"></div>
-  <script src="assets/js/data.js?v=5"></script>
-  <script src="assets/js/main.js?v=5"></script>
+  <script src="assets/js/data.js?v=6"></script>
+  <script src="assets/js/main.js?v=6"></script>
   <script>
     renderNav('about.html');
     renderFooter();
-    initMagnetic();
   </script>
 </body>
 </html>

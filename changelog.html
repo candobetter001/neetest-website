@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="color-scheme" content="light only" />
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog — NEETest</title>
+  <meta name="description" content="What changed in NEETest, when, and why. Updated whenever we ship." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="assets/css/main.css?v=6" />
+  <style>
+    .log-entry { border-left: 2px solid var(--border); padding-left: 1.5rem; position: relative; margin-bottom: 2.5rem; }
+    .log-entry::before {
+      content: ''; position: absolute; left: -7px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--primary); border: 2px solid var(--bg);
+    }
+    .log-date { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.04em; }
+    .log-title { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.25rem; font-weight: 600; margin-top: 0.3rem; margin-bottom: 0.6rem; }
+    .log-body { color: var(--text-muted); line-height: 1.7; }
+    .log-body ul { list-style: disc; margin-left: 1.3rem; margin-top: 0.4rem; }
+    .log-body li { margin-bottom: 0.35rem; }
+    .log-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 2px 8px; border-radius: 999px; margin-right: 0.4rem; text-transform: uppercase;
+    }
+    .tag-feature  { background: var(--primary-soft); color: var(--primary); }
+    .tag-content  { background: var(--accent-soft);  color: var(--accent); }
+    .tag-fix      { background: #fef3c7; color: #92400e; }
+    .tag-data     { background: #dcfce7; color: #166534; }
+    .tag-design   { background: #ede9fe; color: #5b21b6; }
+  </style>
+</head>
+<body>
+  <div id="nav-slot"></div>
+
+  <main>
+    <section class="py-16 md:py-20">
+      <div class="mx-auto px-4 md:px-6" style="max-width:760px">
+        <span class="section-eyebrow">Changelog</span>
+        <h1 class="text-4xl md:text-5xl font-semibold leading-[1.08]">What changed, when, and why.</h1>
+        <p class="lead mt-5">Bi-weekly updates. Visible builds. No silent changes to scoring or features.</p>
+      </div>
+    </section>
+
+    <section class="pb-24">
+      <div class="mx-auto px-4 md:px-6" style="max-width:760px">
+
+        <div class="log-entry">
+          <div class="log-date">2026-06-09</div>
+          <h2 class="log-title">Website visual layer overhaul</h2>
+          <div class="log-body">
+            <p>Big-batch update of the public site to better reflect what the product actually does. The dashboard claim now shows a real dashboard, not three text numbers.</p>
+            <ul>
+              <li><span class="log-tag tag-design">Design</span>3D ECG ribbon background on the hero (skipped on mobile and reduced-motion).</li>
+              <li><span class="log-tag tag-feature">Feature</span>Hero preview replaced with a live mini-dashboard: 14-day accuracy sparkline + per-subject accuracy bars + countdown.</li>
+              <li><span class="log-tag tag-feature">Feature</span>New &ldquo;Sample dashboard&rdquo; section: 19-subject mastery heatmap, time-vs-accuracy bubble chart, last-10-mock percentile bars.</li>
+              <li><span class="log-tag tag-design">Design</span>Removed blanket fade-up animations. Kept on the dark &ldquo;ethos&rdquo; section only.</li>
+              <li><span class="log-tag tag-feature">Feature</span>ECG divider now draws in once on viewport entry instead of looping.</li>
+              <li><span class="log-tag tag-feature">Feature</span>Hero countdown ticks down on first view; exam dashboard counters animate from 0.</li>
+              <li><span class="log-tag tag-feature">Feature</span>Cursor-following warm glow inside the dark section.</li>
+              <li><span class="log-tag tag-fix">Fix</span>Stale localStorage usernames (e.g. test data) no longer surface in the nav. Replaced with stable &ldquo;My account&rdquo; label.</li>
+              <li><span class="log-tag tag-content">Content</span>New <a href="methodology.html" class="text-[var(--primary)] underline">methodology page</a> documenting the weakness-score formula and topic weights.</li>
+              <li><span class="log-tag tag-content">Content</span>Founder note added to <a href="about.html" class="text-[var(--primary)] underline">About</a>.</li>
+              <li><span class="log-tag tag-content">Content</span>This changelog page started.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-date">2026-06-02</div>
+          <h2 class="log-title">Question bank expanded across all 19 subjects</h2>
+          <div class="log-body">
+            <p>Finished extracting and parsing the entire previous-year question source. Every subject now has full coverage from AIIMS 2017 through NEET 2024 (8 years &times; 3 exam types).</p>
+            <ul>
+              <li><span class="log-tag tag-data">Data</span>Bank size: 1,891 &rarr; 5,366 questions.</li>
+              <li><span class="log-tag tag-data">Data</span>New subjects: Surgery +379, Ophthalmology +157, ENT +134 (was empty), Radiology +113, Dermatology +108, plus 14 others.</li>
+              <li><span class="log-tag tag-fix">Fix</span>Subject names normalised (e.g. <code>Community_Medicine</code> &rarr; <code>Community Medicine</code>) so filters work correctly.</li>
+              <li><span class="log-tag tag-fix">Fix</span>140 duplicate questions deduplicated by stem.</li>
+              <li><span class="log-tag tag-data">Data</span>940 question images extracted from the source PDF and matched to their questions. APK rebundled with images (now ~75 MB).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-date">2026-06-01</div>
+          <h2 class="log-title">Android app launcher icon + Gemini feed live</h2>
+          <div class="log-body">
+            <ul>
+              <li><span class="log-tag tag-design">Design</span>App launcher icon now wired correctly. Adaptive icon with indigo background on supported devices.</li>
+              <li><span class="log-tag tag-feature">Feature</span>Weekly current-affairs feed (Gemini-summarised, KV-cached for 7 days, with a static fallback).</li>
+              <li><span class="log-tag tag-fix">Fix</span>Favicon switched from SVG to PNG across all pages (some browsers were not rendering the SVG).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-date">2026-05-31</div>
+          <h2 class="log-title">Editorial redesign rolled out site-wide</h2>
+          <div class="log-body">
+            <ul>
+              <li><span class="log-tag tag-design">Design</span>Switched to <strong>Source Serif 4</strong> for headlines and warm-paper palette across all 13 pages.</li>
+              <li><span class="log-tag tag-design">Design</span>Removed gradient text, glassmorphism, animated mesh blobs &mdash; the &ldquo;AI-generated SaaS&rdquo; visual signature.</li>
+              <li><span class="log-tag tag-fix">Fix</span>Mobile navigation now has a working hamburger menu &mdash; app download button is finally reachable on phones.</li>
+              <li><span class="log-tag tag-feature">Feature</span>Dark immersive &ldquo;The difference&rdquo; section added between light sections.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="log-entry">
+          <div class="log-date">2026-05-29</div>
+          <h2 class="log-title">Resend OTP delivery + Supabase student registry</h2>
+          <div class="log-body">
+            <ul>
+              <li><span class="log-tag tag-feature">Feature</span>Real OTP emails now sent via Resend from <code>noreply@neetest.online</code> (domain verified).</li>
+              <li><span class="log-tag tag-feature">Feature</span>Student records and payments persisted to Supabase; auto-generated GST invoice numbers.</li>
+              <li><span class="log-tag tag-fix">Fix</span>Razorpay handler no longer silently swallows failures &mdash; user gets a clear error.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-sm text-[var(--text-muted)] mt-12">Older entries will be added as the bi-weekly rhythm catches up. Found a regression? Email <a href="mailto:candobetter001@gmail.com" class="text-[var(--primary)] underline">candobetter001@gmail.com</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <script src="assets/js/data.js?v=6"></script>
+  <script src="assets/js/main.js?v=6"></script>
+  <script>
+    renderNav('changelog.html');
+    renderFooter();
+  </script>
+</body>
+</html>

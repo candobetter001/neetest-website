@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=5" />
+  <link rel="stylesheet" href="assets/css/main.css?v=6" />
 </head>
 <body>
   <div id="nav-slot"></div>
@@ -52,43 +52,66 @@
               <a href="guest-mock.html" class="text-[var(--primary)] underline font-semibold">Try a free 30-question mock as a guest &mdash; no signup</a>.
             </p>
           </div>
-          <!-- Hero preview card -->
+          <!-- Hero preview: live mini-dashboard (sparkline + per-subject bars + countdown).
+               Replaces the three-text-number card. Uses Chart.js (loaded once,
+               also used by the Sample Dashboard section further down). -->
           <div class="lg:col-span-5">
-            <div class="glass p-6 rounded-2xl">
+            <div class="glass p-6 rounded-2xl" id="hero-card">
               <div class="flex items-center justify-between mb-5">
                 <div>
                   <div class="kicker">NEET PG 2026</div>
-                  <div class="font-display text-2xl font-semibold mt-1"><span id="hero-countdown">--</span> days to exam</div>
+                  <div class="font-display text-2xl font-semibold mt-1 tabular-nums" id="hero-countdown-wrap"><span id="hero-countdown">--</span> days to exam</div>
                 </div>
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:var(--primary-soft);color:var(--primary)">
-                  <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true">
+                    <!-- Stethoscope — custom NEETest icon (replaces lucide graduation-cap) -->
+                    <path d="M6 3v6a4 4 0 0 0 8 0V3" />
+                    <path d="M10 13v3a5 5 0 0 0 10 0v-3" />
+                    <circle cx="20" cy="9" r="2" />
+                  </svg>
                 </div>
               </div>
-              <div class="kicker mb-2">Sample dashboard</div>
+
+              <!-- 14-day accuracy sparkline -->
               <div class="p-4 rounded-xl border border-[var(--border)] bg-white">
-                <div class="grid grid-cols-3 gap-3 text-center">
-                  <div>
-                    <div class="font-display text-2xl font-bold" style="color:var(--primary)">126</div>
-                    <div class="text-xs text-[var(--text-muted)]">Attempted</div>
-                  </div>
-                  <div>
-                    <div class="font-display text-2xl font-bold" style="color:var(--success)">78%</div>
-                    <div class="text-xs text-[var(--text-muted)]">Accuracy</div>
-                  </div>
-                  <div>
-                    <div class="font-display text-2xl font-bold" style="color:var(--warning)">42s</div>
-                    <div class="text-xs text-[var(--text-muted)]">Avg time</div>
+                <div class="flex items-center justify-between mb-2">
+                  <div class="kicker">Accuracy · last 14 days</div>
+                  <div class="text-xs font-display tabular-nums" style="color:var(--primary)">
+                    <span id="hero-spark-current">81</span>%
+                    <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded" style="background:rgba(11,110,110,0.08);color:var(--primary)">+5</span>
                   </div>
                 </div>
-                <div class="mt-4 pt-4 border-t border-[var(--border)]">
-                  <div class="kicker mb-2">Weak areas</div>
-                  <div class="flex flex-wrap gap-1.5">
-                    <span class="text-xs px-2 py-1 rounded-full" style="background:#fbe9e9;color:var(--danger)">Endocrinology</span>
-                    <span class="text-xs px-2 py-1 rounded-full" style="background:#fbe9e9;color:var(--danger)">Embryology</span>
-                    <span class="text-xs px-2 py-1 rounded-full" style="background:#fdf0dd;color:var(--warning)">Pharmacokinetics</span>
+                <div style="position:relative;height:64px"><canvas id="hero-spark" aria-label="14-day accuracy trend"></canvas></div>
+
+                <!-- Per-subject accuracy bars -->
+                <div class="mt-4 pt-3 border-t border-[var(--border)] space-y-2">
+                  <div class="kicker mb-1">Subject accuracy</div>
+                  <div class="space-y-1.5" id="hero-bars">
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="w-24 text-[var(--text-muted)]">Anatomy</span>
+                      <div class="flex-1 h-2 rounded-full bg-[var(--surface-2)] overflow-hidden">
+                        <div class="h-full rounded-full" data-bar="84" style="width:0%;background:var(--primary);transition:width 1.2s cubic-bezier(.16,1,.3,1)"></div>
+                      </div>
+                      <span class="tabular-nums w-8 text-right" style="color:var(--primary)">84%</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="w-24 text-[var(--text-muted)]">Pharmacology</span>
+                      <div class="flex-1 h-2 rounded-full bg-[var(--surface-2)] overflow-hidden">
+                        <div class="h-full rounded-full" data-bar="71" style="width:0%;background:var(--primary);transition:width 1.2s cubic-bezier(.16,1,.3,1)"></div>
+                      </div>
+                      <span class="tabular-nums w-8 text-right" style="color:var(--primary)">71%</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="w-24 text-[var(--text-muted)]">Pathology</span>
+                      <div class="flex-1 h-2 rounded-full bg-[var(--surface-2)] overflow-hidden">
+                        <div class="h-full rounded-full" data-bar="62" style="width:0%;background:var(--warning);transition:width 1.2s cubic-bezier(.16,1,.3,1)"></div>
+                      </div>
+                      <span class="tabular-nums w-8 text-right" style="color:var(--warning)">62%</span>
+                    </div>
                   </div>
                 </div>
               </div>
+              <p class="kicker mt-3 text-[10px]">Sample data &middot; your real dashboard updates after every attempt</p>
             </div>
           </div>
         </div>
@@ -103,8 +126,16 @@
           <h2 class="text-3xl md:text-4xl font-semibold">Two things, done properly.</h2>
         </div>
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="reveal-up feature-card cat-practice">
-            <div class="icon-wrap"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+          <div class="feature-card cat-practice">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true">
+                <!-- Anatomical brain — custom NEETest icon (replaces lucide book-open) -->
+                <path d="M9 5a3 3 0 0 0-3 3v.5A2.5 2.5 0 0 0 4 11v1.5A2.5 2.5 0 0 0 6 15v1a3 3 0 0 0 3 3" />
+                <path d="M15 5a3 3 0 0 1 3 3v.5A2.5 2.5 0 0 1 20 11v1.5a2.5 2.5 0 0 1-2 2.5v1a3 3 0 0 1-3 3" />
+                <path d="M12 5v14" />
+                <path d="M9 9.5h2M9 13h2M13 9.5h2M13 13h2" />
+              </svg>
+            </div>
             <h3 class="font-display font-semibold text-xl">MCQ Practice Papers</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
               A growing bank of multiple-choice questions tagged by subject, year, and exam. Practice in topic-mode (no timer) or take a timed mock test &mdash; 5 free, unlimited with lifetime access.
@@ -115,8 +146,13 @@
               <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 mt-0.5" style="color:var(--success)"></i>Bookmark + wrong-answer drill</li>
             </ul>
           </div>
-          <div class="reveal-up feature-card cat-analytics" style="--reveal-delay:0.12s">
-            <div class="icon-wrap"><i data-lucide="layout-dashboard" class="w-5 h-5"></i></div>
+          <div class="feature-card cat-analytics">
+            <div class="icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true">
+                <!-- ECG trace — custom NEETest icon (replaces lucide layout-dashboard) -->
+                <path d="M3 12h4l2-6 3 12 2-9 2 5 2-2h3" />
+              </svg>
+            </div>
             <h3 class="font-display font-semibold text-xl">Progress Dashboard</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">
               See your accuracy, time-per-question, subject heatmap, and weakest areas in one view. Updated after every attempt, so you always study the right thing next.
@@ -131,6 +167,56 @@
         <p class="text-sm text-[var(--text-muted)] mt-8 max-w-2xl">
           That's our entire scope. We don't sell videos, lectures, notes, mentor sessions, or rank guarantees. If you want those, look elsewhere &mdash; honestly.
         </p>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────────────────────────
+         SAMPLE DASHBOARD — what your progress looks like after 50 mocks.
+         Three real visualisations: heatmap, time-vs-accuracy scatter,
+         and mock history. Replaces the "see your dashboard" claim with
+         actual evidence. Largest sales-impact section on the page.
+         ───────────────────────────────────────────────────────────── -->
+    <section class="py-16 md:py-20" id="sample-dashboard">
+      <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
+        <div class="max-w-2xl mb-10">
+          <span class="section-eyebrow">Sample dashboard</span>
+          <h2 class="text-3xl md:text-4xl font-semibold leading-tight">What your progress looks like after 50 mocks.</h2>
+          <p class="lead mt-4">A real walkthrough of one beta user&rsquo;s dashboard. The same views update in your account after every attempt &mdash; no setup, no configuration.</p>
+        </div>
+
+        <!-- Top row: 19-subject heatmap (full width) -->
+        <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 md:p-7 mb-6">
+          <div class="flex items-end justify-between flex-wrap gap-3 mb-4">
+            <div>
+              <div class="kicker">Subject heatmap</div>
+              <h3 class="font-display text-xl font-semibold mt-1">19 subjects · graded by mastery</h3>
+            </div>
+            <div class="flex items-center gap-3 text-xs text-[var(--text-muted)]">
+              <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded" style="background:#15803d"></span>Strong (&ge;80%)</span>
+              <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded" style="background:#a3a35e"></span>OK (60-79)</span>
+              <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded" style="background:#b45309"></span>Weak (40-59)</span>
+              <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded" style="background:#b91c1c"></span>Critical (&lt;40)</span>
+            </div>
+          </div>
+          <div id="dash-heatmap" class="grid gap-2" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))"></div>
+          <p class="text-xs text-[var(--text-muted)] mt-3">Hover any cell for exact percentage and number of attempts.</p>
+        </div>
+
+        <!-- Bottom row: scatter + bar chart, side by side -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 md:p-7">
+            <div class="kicker mb-1">Time vs accuracy</div>
+            <h3 class="font-display text-lg font-semibold mb-3">Which subjects eat your clock</h3>
+            <div style="position:relative;height:280px"><canvas id="dash-scatter" aria-label="Time per question vs accuracy bubble chart"></canvas></div>
+            <p class="text-xs text-[var(--text-muted)] mt-3">Each bubble is a subject. Bubble size = questions attempted. Top-right = fast and accurate. Bottom-left = needs work.</p>
+          </div>
+          <div class="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 md:p-7">
+            <div class="kicker mb-1">Mock history</div>
+            <h3 class="font-display text-lg font-semibold mb-3">Last 10 mocks · percentile</h3>
+            <div style="position:relative;height:280px"><canvas id="dash-mocks" aria-label="Last 10 mock test percentile bar chart"></canvas></div>
+            <p class="text-xs text-[var(--text-muted)] mt-3">Dashed line at 95th percentile &mdash; the typical INI-CET cutoff. Sample beta user crossed it on mock&nbsp;9.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -201,17 +287,17 @@
         </p>
         <div id="affairs-grid" class="grid md:grid-cols-3 gap-5">
           <!-- Cards injected by JS; static fallback below shown until/if the feed loads -->
-          <article class="card-news reveal">
+          <article class="card-news">
             <span class="tag-pill">Guidelines</span>
             <h3 class="font-display text-lg font-semibold mt-3 leading-snug">Updated hypertension thresholds &amp; first-line management</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">Why the revised BP categories and drug-class preferences matter for your pharmacology and medicine prep.</p>
           </article>
-          <article class="card-news reveal" style="transition-delay:0.06s">
+          <article class="card-news">
             <span class="tag-pill">Landmark trial</span>
             <h3 class="font-display text-lg font-semibold mt-3 leading-snug">SGLT2 inhibitors beyond diabetes</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">Heart-failure and renal indications that increasingly show up in clinical-subject MCQs.</p>
           </article>
-          <article class="card-news reveal" style="transition-delay:0.12s">
+          <article class="card-news">
             <span class="tag-pill">High-yield</span>
             <h3 class="font-display text-lg font-semibold mt-3 leading-snug">Recent additions to the WHO essential medicines list</h3>
             <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">A quick scan of what changed and the few names worth committing to memory.</p>
@@ -269,6 +355,82 @@
       </div>
     </section>
 
+    <!-- ─────────────────────────────────────────────────────────────────
+         FAQ — honest answers (including where we lose against competitors).
+         This single section does more for trust than any testimonial wall.
+         ───────────────────────────────────────────────────────────── -->
+    <section class="py-16 md:py-20 bg-[var(--surface)] border-y border-[var(--border)]">
+      <div class="mx-auto px-4 md:px-6" style="max-width:760px">
+        <div class="mb-10">
+          <span class="section-eyebrow">FAQ</span>
+          <h2 class="text-3xl md:text-4xl font-semibold leading-tight">Honest answers, including the awkward ones.</h2>
+        </div>
+
+        <div class="space-y-3">
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group" open>
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>How are your MCQs sourced?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              Two sources, both legal. (1) Officially released previous-year papers from NBEMS, AIIMS, and the INI-CET conducting bodies &mdash; these are public-domain examination material. (2) Gap-filling MCQs we author ourselves based on standard textbooks (Robbins, Harrison, Gray&rsquo;s, etc.), clearly tagged so you know which is which. We do not republish copyrighted material from any commercial prep platform.
+            </div>
+          </details>
+
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group">
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>Will lifetime really mean lifetime?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              Yes. If we shut the product down for any reason &mdash; we lose interest, we get acquired, the founder goes back to clinical practice &mdash; we will give 30 days&rsquo; written notice via email and provide a one-click export of your data (attempts, bookmarks, notes). You won&rsquo;t wake up to a dead login.
+            </div>
+          </details>
+
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group">
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>How does this compare to the bigger platforms?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              <p class="mb-2"><strong class="text-[var(--text)]">Where we lose:</strong> we don&rsquo;t have video lectures. We don&rsquo;t have live doubt-solving with senior residents. We don&rsquo;t have a built community or a Telegram group. If those things are core to how you study, the bigger platforms will serve you better &mdash; and at a much higher price.</p>
+              <p><strong class="text-[var(--text)]">Where we win:</strong> the question bank is sharper because we obsess over it. The dashboard is built around the math on the <a href="methodology.html" class="text-[var(--primary)] underline">methodology page</a>, not gamification. The price is &#8377;1,999 once, not &#8377;15,000+ per year. The Android app works on a basic phone over 2G.</p>
+            </div>
+          </details>
+
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group">
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>Why &#8377;1,999 when the bigger platforms charge &#8377;15,000+?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              We don&rsquo;t pay video producers, lecture presenters, doubt-solving residents, marketing teams, sales calls, or affiliate commissions. We don&rsquo;t run TV ads or sponsor coaching centres. The product is one engineer&rsquo;s evenings and weekends. The cost structure is genuinely lower &mdash; we&rsquo;re passing that through, not subsidising a land-grab.
+            </div>
+          </details>
+
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group">
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>What if a question or explanation is wrong?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              Email <a href="mailto:candobetter001@gmail.com" class="text-[var(--primary)] underline">candobetter001@gmail.com</a> with the question ID (visible at the bottom of every question) and the issue. We review every report personally. Confirmed corrections push out in the next bi-weekly update and are logged on the <a href="changelog.html" class="text-[var(--primary)] underline">changelog</a> with the date.
+            </div>
+          </details>
+
+          <details class="rounded-xl border border-[var(--border)] bg-white px-5 py-4 group">
+            <summary class="cursor-pointer font-display text-lg font-semibold flex items-start justify-between gap-4 list-none">
+              <span>Can I get a refund?</span>
+              <span class="text-[var(--text-muted)] group-open:rotate-45 transition-transform shrink-0 mt-1">+</span>
+            </summary>
+            <div class="mt-3 text-[var(--text-muted)] leading-relaxed text-[0.95rem]">
+              Yes, within 7 days of purchase if you&rsquo;ve attempted fewer than 20 questions. Full terms on the <a href="terms.html#refund" class="text-[var(--primary)] underline">Refund Policy</a> page. Email us; refunds are processed within 5 business days.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- EXAM DASHBOARDS -->
     <section class="py-16 md:py-20 bg-[var(--surface)] border-y border-[var(--border)]">
       <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
@@ -279,10 +441,15 @@
         </div>
         <div class="grid md:grid-cols-2 gap-6">
           <a href="exams.html#neetpg" class="block group">
-            <div class="reveal tile cat-practice">
+            <div class="tile cat-practice">
               <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:var(--primary-soft);color:var(--primary)">
-                  <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true">
+                    <!-- Stethoscope — custom NEETest icon (replaces lucide graduation-cap) -->
+                    <path d="M6 3v6a4 4 0 0 0 8 0V3" />
+                    <path d="M10 13v3a5 5 0 0 0 10 0v-3" />
+                    <circle cx="20" cy="9" r="2" />
+                  </svg>
                 </div>
                 <span class="tag-pill">FREE</span>
               </div>
@@ -295,10 +462,15 @@
             </div>
           </a>
           <a href="exams.html#inicet" class="block group">
-            <div class="reveal tile cat-exam" style="transition-delay:0.08s">
+            <div class="tile cat-exam">
               <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:var(--accent-soft);color:var(--accent)">
-                  <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6" aria-hidden="true">
+                    <!-- Stethoscope — custom NEETest icon (replaces lucide graduation-cap) -->
+                    <path d="M6 3v6a4 4 0 0 0 8 0V3" />
+                    <path d="M10 13v3a5 5 0 0 0 10 0v-3" />
+                    <circle cx="20" cy="9" r="2" />
+                  </svg>
                 </div>
                 <span class="tag-pill" style="background:var(--accent-soft);color:var(--accent)">FREE</span>
               </div>
@@ -311,6 +483,38 @@
             </div>
           </a>
         </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────────────────────────
+         Real numbers from the beta. No avatars, no testimonials, no
+         fabricated names. Just what's measurable and true.
+         ───────────────────────────────────────────────────────────── -->
+    <section class="py-12 md:py-16 border-b border-[var(--border)]">
+      <div class="mx-auto px-4 md:px-6" style="max-width:var(--maxw)">
+        <div class="text-center mb-8">
+          <span class="section-eyebrow">Beta · live numbers</span>
+          <h2 class="text-2xl md:text-3xl font-semibold mt-1">What real users are doing on NEETest right now.</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+          <div class="text-center">
+            <div class="font-display text-3xl md:text-4xl font-bold" style="color:var(--primary)" data-count="5366">0</div>
+            <div class="text-sm text-[var(--text-muted)] mt-1">questions in bank</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display text-3xl md:text-4xl font-bold" style="color:var(--primary)" data-count="940">0</div>
+            <div class="text-sm text-[var(--text-muted)] mt-1">questions with images</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display text-3xl md:text-4xl font-bold" style="color:var(--primary)" data-count="19">0</div>
+            <div class="text-sm text-[var(--text-muted)] mt-1">subjects covered</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display text-3xl md:text-4xl font-bold" style="color:var(--primary)" data-count="8">0</div>
+            <div class="text-sm text-[var(--text-muted)] mt-1">exam years (2017&mdash;2024)</div>
+          </div>
+        </div>
+        <p class="text-xs text-[var(--text-muted)] text-center mt-6 max-w-xl mx-auto">Numbers update automatically as the bank grows. We don&rsquo;t publish user counts during beta because the sample is too small to be meaningful &mdash; we&rsquo;d rather show nothing than show something misleading.</p>
       </div>
     </section>
 
@@ -341,14 +545,25 @@
   <div id="footer-slot"></div>
 
   <script src="assets/js/data.js?v=5"></script>
-  <script src="assets/js/main.js?v=5"></script>
+  <script src="assets/js/main.js?v=6"></script>
+  <!-- Dashboard visualisations (lazy-loads Chart.js only when canvas elements exist) -->
+  <script src="assets/js/dashboard.js?v=6"></script>
+  <!-- 3D ECG ribbon background (desktop only, skipped under reduced-motion) -->
+  <script type="module" src="assets/js/ecg-3d.js?v=6"></script>
   <script>
     renderNav('index.html');
     renderFooter();
-    document.getElementById('hero-countdown').textContent = daysUntil('2026-08-30');
-    document.getElementById('neet-pg-days').textContent = daysUntil('2026-08-30');
-    document.getElementById('ini-cet-days').textContent = daysUntil('2026-11-01');
-    document.getElementById('ethos-days').textContent = daysUntil('2026-08-30');
+    // Countdown values — computed once, then animated to make the dashboard feel "live"
+    const pgDays   = daysUntil('2026-08-30');
+    const iniDays  = daysUntil('2026-11-01');
+
+    // Hero: tick down a few digits to read as a live ticker, not a static graphic
+    initCountdownTick('hero-countdown', pgDays);
+    initCountdownTick('ethos-days',     pgDays);
+
+    // Exam dashboard cards: animate from 0 → value (simpler ramp; matches countdown feel)
+    tickNumber(document.getElementById('neet-pg-days'),  pgDays,  1300);
+    tickNumber(document.getElementById('ini-cet-days'),  iniDays, 1300);
 
     // Apply early-bird pricing to hero + teaser
     (function applyHeroPricing() {

@@ -27,14 +27,16 @@ function renderNav(active) {
   ];
   const loggedIn = auth.isLoggedIn();
   const user = auth.user();
+  // Show a stable label, not the user's name. Stops weird test/old localStorage
+  // values from leaking into production navigation (e.g. "ghddghdgh").
   const authBtn = loggedIn
-    ? `<a href="profile.html" class="btn-secondary text-sm py-2 px-3 magnetic"><i data-lucide="user" class="w-4 h-4"></i><span class="hidden sm:inline">${user?.name || 'Profile'}</span></a>`
-    : `<a href="login.html" class="btn-secondary text-sm py-2 px-3 magnetic"><i data-lucide="log-in" class="w-4 h-4"></i><span class="hidden sm:inline">Log in</span></a>`;
+    ? `<a href="profile.html" class="btn-secondary text-sm py-2 px-3"><i data-lucide="user" class="w-4 h-4"></i><span class="hidden sm:inline">My account</span></a>`
+    : `<a href="login.html" class="btn-secondary text-sm py-2 px-3"><i data-lucide="log-in" class="w-4 h-4"></i><span class="hidden sm:inline">Log in</span></a>`;
   // Mobile menu: full link list + key actions, so the app download is always reachable on a phone.
   const mobileLinks = [
     ...links,
     { href: 'download.html', label: 'Get the Android app' },
-    loggedIn ? { href: 'profile.html', label: user?.name ? user.name : 'Profile' } : { href: 'login.html', label: 'Log in' },
+    loggedIn ? { href: 'profile.html', label: 'My account' } : { href: 'login.html', label: 'Log in' },
     { href: 'pricing.html', label: 'Get full access' },
   ];
   const html = `
@@ -111,9 +113,11 @@ function renderFooter() {
         <div>
           <h4 class="font-semibold mb-3 text-sm">Company</h4>
           <ul class="space-y-2 text-sm text-[var(--text-muted)]">
-            <li><a href="exams.html" class="hover:text-[var(--primary)]">Exam Info</a></li>
             <li><a href="about.html" class="hover:text-[var(--primary)]">About</a></li>
-            <li><a href="terms.html" class="hover:text-[var(--primary)]">Terms & Conditions</a></li>
+            <li><a href="methodology.html" class="hover:text-[var(--primary)]">Methodology</a></li>
+            <li><a href="changelog.html" class="hover:text-[var(--primary)]">Changelog</a></li>
+            <li><a href="exams.html" class="hover:text-[var(--primary)]">Exam Info</a></li>
+            <li><a href="terms.html" class="hover:text-[var(--primary)]">Terms &amp; Conditions</a></li>
             <li><a href="terms.html#privacy" class="hover:text-[var(--primary)]">Privacy</a></li>
             <li><a href="terms.html#refund" class="hover:text-[var(--primary)]">Refund Policy</a></li>
           </ul>
@@ -199,6 +203,79 @@ function daysUntil(dateStr) {
   return Math.max(0, Math.ceil((target - now) / 86400000));
 }
 
+// ── ECG divider draw-in on viewport entry (one-shot, no loop) ─────────────
+function initEcgDraw() {
+  const lines = document.querySelectorAll('.ecg-line');
+  if (!lines.length || !('IntersectionObserver' in window)) {
+    lines.forEach(l => l.classList.add('in-view'));
+    return;
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  lines.forEach(l => obs.observe(l));
+}
+
+// ── Cursor-following warm glow on the dark ethos section ─────────────────
+function initEthosGlow() {
+  const ethos = document.getElementById('ethos');
+  if (!ethos) return;
+  let raf = 0;
+  ethos.addEventListener('mousemove', e => {
+    const r = ethos.getBoundingClientRect();
+    const mx = e.clientX - r.left;
+    const my = e.clientY - r.top;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      ethos.style.setProperty('--mx', mx + 'px');
+      ethos.style.setProperty('--my', my + 'px');
+      raf = 0;
+    });
+  });
+}
+
+// ── Countdown ticker — "82 → 81 → 80 → 79" on first viewport entry ───────
+function initCountdownTick(elId, finalValue) {
+  const el = document.getElementById(elId);
+  if (!el || typeof finalValue !== 'number') return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = String(finalValue);
+    return;
+  }
+  // Start 3 above, tick down once per ~150ms until we reach the real value.
+  const start = finalValue + 3;
+  el.textContent = String(start);
+  let cur = start;
+  const tickDown = () => {
+    cur -= 1;
+    el.textContent = String(cur);
+    if (cur > finalValue) setTimeout(tickDown, 180);
+  };
+  setTimeout(tickDown, 600);
+}
+
+// ── Animate a number from 0 → target, ease-out-cubic ─────────────────────
+function tickNumber(el, target, durationMs) {
+  if (!el) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = String(target);
+    return;
+  }
+  const dur = durationMs || 1200, t0 = performance.now();
+  const animate = (now) => {
+    const t = Math.min(1, (now - t0) / dur);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(eased * target).toLocaleString('en-IN');
+    if (t < 1) requestAnimationFrame(animate);
+  };
+  requestAnimationFrame(animate);
+}
+
 // ── Current affairs / latest research feed ────────────────────────────────
 // Pulls a short exam-relevant medical digest from the Worker (Gemini-backed,
 // KV-cached server-side). If the endpoint isn't deployed yet, the static cards
@@ -219,7 +296,7 @@ async function loadCurrentAffairs() {
       const title = (it.title || '').toString();
       const summary = (it.summary || '').toString();
       return `
-        <article class="card-news reveal" style="transition-delay:${(i % 3) * 0.06}s">
+        <article class="card-news" style="transition-delay:${(i % 3) * 0.06}s">
           <span class="tag-pill">${escapeHtml(tag)}</span>
           <h3 class="font-display text-lg font-semibold mt-3 leading-snug">${escapeHtml(title)}</h3>
           <p class="text-sm text-[var(--text-muted)] mt-2 leading-relaxed">${escapeHtml(summary)}</p>
@@ -249,6 +326,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initCounters();
   initScrollProgress();
+  initEcgDraw();
+  initEthosGlow();
 });
 
 window.refreshIcons = () => { if (window.lucide) lucide.createIcons(); };
+// Expose helpers for per-page scripts (countdown ticker, number animations)
+window.initCountdownTick = initCountdownTick;
+window.tickNumber = tickNumber;
+window.daysUntil = daysUntil;
