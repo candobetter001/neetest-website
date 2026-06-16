@@ -303,6 +303,7 @@ p { text-wrap: pretty; }
     radial-gradient(640px 360px at 95% 105%, rgba(125,10,20,0.30), transparent 60%);
 }
 .section-dark > * { position: relative; z-index: 1; }
+.section-dark .section-bg { opacity: 0.18; }
 .section-dark h1, .section-dark h2, .section-dark h3 { color: #fff5f4; }
 .section-dark .section-eyebrow { color: #ff8a8a; }
 .section-dark .section-eyebrow::before { background: #ff8a8a; }
@@ -491,7 +492,7 @@ main { animation: fade-in 0.45s ease-out; }
    animation in a .section-bg layer. Content sits above (z-index:1). Solid cards
    keep their own background so text stays readable on top. */
 .has-bg { position: relative; isolation: isolate; }
-.section-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.section-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; opacity: 0.32; }
 .section-bg canvas { display: block; width: 100% !important; height: 100% !important; }
 .has-bg > *:not(.section-bg) { position: relative; z-index: 1; }
 /* Light sections: soften the edges of the animation so headline text stays crisp */
