@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=11" />
+  <link rel="stylesheet" href="assets/css/main.css?v=18" />
 </head>
 <body>
   <div id="nav-slot"></div>
@@ -46,13 +46,13 @@
             <i data-lucide="search" class="w-4 h-4 text-[var(--text-muted)]"></i>
             <input id="search" type="text" placeholder="Search question text..." class="w-full bg-transparent outline-none text-sm py-2" />
           </div>
-          <select id="filter-subject" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
+          <select id="filter-subject" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm">
             <option value="">All subjects</option>
           </select>
-          <select id="filter-exam" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
+          <select id="filter-exam" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm">
             <option value="">All exams</option>
           </select>
-          <select id="filter-year" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-white text-sm">
+          <select id="filter-year" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] text-sm">
             <option value="">All years</option>
           </select>
           <button id="shuffle-btn" class="btn-secondary text-sm py-2 px-3 magnetic">
@@ -96,8 +96,8 @@
   </main>
 
   <div id="footer-slot"></div>
-  <script src="assets/js/data.js?v=11"></script>
-  <script src="assets/js/main.js?v=11"></script>
+  <script src="assets/js/data.js?v=18"></script>
+  <script src="assets/js/main.js?v=18"></script>
   <script>
     renderNav('questions.html');
     renderFooter();
@@ -145,19 +145,19 @@
     function renderStatus() {
       const el = document.getElementById('status-strip');
       if (PAID) {
-        el.innerHTML = `<div class="p-3 rounded-xl border border-emerald-200 bg-emerald-50 text-sm flex items-center gap-2">
-          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+        el.innerHTML = `<div class="p-3 rounded-xl border border-emerald-800 bg-emerald-900/20 text-sm flex items-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
           <span><strong>Lifetime access active.</strong> ${currentMode ? currentMode.label + ' practice mode' : 'Full question bank unlocked.'}</span></div>`;
       } else if (LOGGED_IN) {
-        el.innerHTML = `<div class="p-3 rounded-xl border border-amber-200 bg-amber-50 text-sm flex items-center gap-2 justify-between">
-          <div class="flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-amber-600"></i>
+        el.innerHTML = `<div class="p-3 rounded-xl border border-amber-800 bg-amber-900/20 text-sm flex items-center gap-2 justify-between">
+          <div class="flex items-center gap-2"><i data-lucide="info" class="w-4 h-4 text-amber-400"></i>
           <span><strong>Free trial:</strong> 3 sample questions shown. Upgrade for the full bank + practice modes.</span></div>
-          <a href="pricing.html" class="font-semibold text-amber-700 underline text-xs whitespace-nowrap">See pricing</a></div>`;
+          <a href="pricing.html" class="font-semibold text-amber-400 underline text-xs whitespace-nowrap">See pricing</a></div>`;
       } else {
-        el.innerHTML = `<div class="p-3 rounded-xl border border-indigo-200 bg-indigo-50 text-sm flex items-center gap-2 justify-between">
-          <div class="flex items-center gap-2"><i data-lucide="user-plus" class="w-4 h-4 text-indigo-600"></i>
+        el.innerHTML = `<div class="p-3 rounded-xl border border-indigo-800 bg-indigo-900/20 text-sm flex items-center gap-2 justify-between">
+          <div class="flex items-center gap-2"><i data-lucide="user-plus" class="w-4 h-4 text-indigo-400"></i>
           <span><strong>Sign in</strong> to track progress, or <a href="guest-mock.html" class="underline font-semibold">try the 30-Q guest mock</a>.</span></div>
-          <a href="login.html?redirect=questions.html" class="font-semibold text-indigo-700 underline text-xs whitespace-nowrap">Sign in</a></div>`;
+          <a href="login.html?redirect=questions.html" class="font-semibold text-indigo-400 underline text-xs whitespace-nowrap">Sign in</a></div>`;
       }
     }
 
@@ -223,8 +223,8 @@
       document.getElementById('current-idx').textContent = currentIdx + 1;
       card.innerHTML = `
         <div class="flex items-center gap-2 mb-4">
-          <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">${q.exam} ${q.year}</span>
-          <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">${q.subject}</span>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-900/30 text-indigo-400 font-semibold">${q.exam} ${q.year}</span>
+          <span class="text-xs px-2.5 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold">${q.subject}</span>
         </div>
         <h2 class="text-lg md:text-xl font-medium leading-relaxed mb-6">${q.stem}</h2>
         <div id="options">
@@ -253,8 +253,8 @@
           });
           const correctLetter = String.fromCharCode(97 + correct);
           document.getElementById('reveal-area').innerHTML = `
-            <div class="p-4 rounded-xl border-2 ${idx === correct ? 'border-emerald-500 bg-emerald-50' : 'border-rose-500 bg-rose-50'}">
-              <div class="font-semibold text-sm mb-2">
+            <div class="p-4 rounded-xl border-2 ${idx === correct ? 'border-emerald-500 bg-emerald-900/20' : 'border-rose-500 bg-rose-900/20'}">
+              <div class="font-semibold text-sm mb-2 ${idx === correct ? 'text-emerald-400' : 'text-rose-400'}">
                 ${idx === correct ? '✓ Correct — answer is option ' + correctLetter + '.' : '✗ Wrong — correct answer is option ' + correctLetter + '.'}
               </div>
               <p class="text-xs text-[var(--text-muted)]">A short explanation note for this question is part of the full question bank.</p>

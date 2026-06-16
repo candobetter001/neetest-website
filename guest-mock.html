@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="assets/css/main.css?v=11" />
+  <link rel="stylesheet" href="assets/css/main.css?v=18" />
 </head>
 <body>
   <div id="nav-slot"></div>
@@ -35,9 +35,9 @@
     </section>
 
     <!-- Test runner -->
-    <section id="runner" class="py-8 hidden" style="background:linear-gradient(180deg,#f8fafc 0%,#ffffff 100%);min-height:100vh">
+    <section id="runner" class="py-8 hidden" style="min-height:100vh">
       <div class="max-w-5xl mx-auto px-4 md:px-6">
-        <div class="flex items-center justify-between mb-6 p-4 rounded-xl bg-white border border-[var(--border)] shadow-sm">
+        <div class="flex items-center justify-between mb-6 p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--primary)">
               <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 font-mono font-bold">
+            <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-900/20 border border-rose-800 text-rose-400 font-mono font-bold">
               <i data-lucide="timer" class="w-4 h-4"></i>
               <span id="timer">30:00</span>
             </div>
@@ -82,11 +82,11 @@
           </div>
 
           <aside class="space-y-4">
-            <div class="p-4 rounded-xl bg-white border border-[var(--border)] shadow-sm">
+            <div class="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
               <h3 class="font-display font-bold text-sm mb-3">Question Palette</h3>
               <div class="q-palette" id="q-palette"></div>
               <div class="mt-4 pt-3 border-t border-[var(--border)] space-y-1.5 text-xs">
-                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-white border border-slate-300"></span>Not answered</div>
+                <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[var(--surface)] border border-slate-600"></span>Not answered</div>
                 <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#d1fae5] border border-[#10b981]"></span>Answered</div>
                 <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#fef3c7] border border-[#f59e0b]"></span>Marked</div>
                 <div class="flex items-center gap-2"><span class="inline-block w-3 h-3 rounded bg-[#4f46e5] border border-[#4f46e5]"></span>Current</div>
@@ -101,12 +101,12 @@
     <section id="results" class="py-12 hidden">
       <div class="max-w-3xl mx-auto px-4 md:px-6">
         <div class="p-8 md:p-10 rounded-3xl border border-[var(--border)] text-center" style="background:linear-gradient(135deg,rgba(79,70,229,0.06),rgba(6,182,212,0.06))">
-          <i data-lucide="trophy" class="w-12 h-12 mx-auto mb-4 text-indigo-600"></i>
+          <i data-lucide="trophy" class="w-12 h-12 mx-auto mb-4 text-indigo-400"></i>
           <h2 class="font-display text-3xl font-bold">Guest mock complete</h2>
           <div class="grid grid-cols-3 gap-4 mt-8">
-            <div><div class="font-display text-4xl font-bold text-indigo-600" id="r-score">--</div><div class="text-xs text-[var(--text-muted)] mt-1">SCORE / 120</div></div>
-            <div><div class="font-display text-4xl font-bold text-emerald-600" id="r-correct">--</div><div class="text-xs text-[var(--text-muted)] mt-1">CORRECT</div></div>
-            <div><div class="font-display text-4xl font-bold text-rose-600" id="r-wrong">--</div><div class="text-xs text-[var(--text-muted)] mt-1">WRONG</div></div>
+            <div><div class="font-display text-4xl font-bold text-indigo-400" id="r-score">--</div><div class="text-xs text-[var(--text-muted)] mt-1">SCORE / 120</div></div>
+            <div><div class="font-display text-4xl font-bold text-emerald-400" id="r-correct">--</div><div class="text-xs text-[var(--text-muted)] mt-1">CORRECT</div></div>
+            <div><div class="font-display text-4xl font-bold text-rose-400" id="r-wrong">--</div><div class="text-xs text-[var(--text-muted)] mt-1">WRONG</div></div>
           </div>
         </div>
 
@@ -134,8 +134,8 @@
   </main>
 
   <div id="footer-slot"></div>
-  <script src="assets/js/data.js?v=11"></script>
-  <script src="assets/js/main.js?v=11"></script>
+  <script src="assets/js/data.js?v=18"></script>
+  <script src="assets/js/main.js?v=18"></script>
   <script>
     renderNav('guest-mock.html');
     renderFooter();
@@ -181,8 +181,8 @@
       const q = picked[idx];
       document.getElementById('cur-num').textContent = idx + 1;
       document.getElementById('q-tags').innerHTML =
-        '<span class="text-xs px-2 py-1 rounded-full bg-indigo-100 text-indigo-700 font-semibold">' + q.exam + ' ' + q.year + '</span>' +
-        '<span class="text-xs px-2 py-1 rounded-full bg-cyan-100 text-cyan-700 font-semibold">' + q.subject + '</span>';
+        '<span class="text-xs px-2 py-1 rounded-full bg-indigo-900/30 text-indigo-400 font-semibold">' + q.exam + ' ' + q.year + '</span>' +
+        '<span class="text-xs px-2 py-1 rounded-full bg-cyan-900/30 text-cyan-400 font-semibold">' + q.subject + '</span>';
       document.getElementById('exam-stem').textContent = q.stem;
       const userAns = answers[q.id];
       document.getElementById('exam-options').innerHTML = q.options.map((opt, i) =>
@@ -222,9 +222,9 @@
         const userText = a === undefined ? '— (not answered)' : String.fromCharCode(65 + a) + ') ' + q.options[a];
         const correctText = String.fromCharCode(65 + q.correctIndex) + ') ' + q.options[q.correctIndex];
         const verdict = got
-          ? '<span class="text-emerald-700 font-semibold">✓ Correct</span>'
-          : (a === undefined ? '<span class="text-slate-600 font-semibold">⚠ Not answered</span>' : '<span class="text-rose-700 font-semibold">✗ Wrong</span>');
-        const border = got ? 'border-emerald-200 bg-emerald-50' : (a === undefined ? 'border-slate-200 bg-slate-50' : 'border-rose-200 bg-rose-50');
+          ? '<span class="text-emerald-400 font-semibold">✓ Correct</span>'
+          : (a === undefined ? '<span class="text-slate-400 font-semibold">⚠ Not answered</span>' : '<span class="text-rose-400 font-semibold">✗ Wrong</span>');
+        const border = got ? 'border-emerald-800 bg-emerald-900/20' : (a === undefined ? 'border-slate-700 bg-slate-900/20' : 'border-rose-800 bg-rose-900/20');
         return '<div class="p-4 rounded-xl border ' + border + '">' +
           '<div class="flex items-center justify-between mb-2 text-xs">' +
             '<span class="font-semibold">Q' + (i + 1) + ' &middot; ' + q.exam + ' ' + q.year + ' &middot; ' + q.subject + '</span>' +
@@ -233,7 +233,7 @@
           '<div class="text-sm mb-3 font-medium">' + q.stem + '</div>' +
           '<div class="text-xs mb-1"><strong>Your answer:</strong> ' + userText + '</div>' +
           (got ? '' : '<div class="text-xs mb-2"><strong>Correct answer:</strong> ' + correctText + '</div>') +
-          '<div class="mt-2 p-2 rounded bg-white text-xs text-[var(--text-muted)] italic">' +
+          '<div class="mt-2 p-2 rounded bg-[var(--surface)] text-xs text-[var(--text-muted)] italic">' +
             'Explanation note: The correct option is ' + String.fromCharCode(65 + q.correctIndex) + '. A detailed written explanation for every question is part of the lifetime-access bundle.' +
           '</div>' +
         '</div>';
